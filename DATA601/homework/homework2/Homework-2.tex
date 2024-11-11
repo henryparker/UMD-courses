@@ -1,0 +1,229 @@
+
+\documentclass[12pt]{article}
+%\documentstyle[12pt]{article}
+%\documentclass{amsart}
+%\usepackage[dvips]{graphicx}
+
+
+\usepackage{amssymb,amsmath,amscd,amsthm}
+%\usepackage{graphicx,psfrag,epsfig,multirow} LINEA ORIGINAL
+\usepackage{graphicx,psfrag,epsfig}
+
+
+\usepackage{graphicx}
+\usepackage[active]{srcltx}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{lemma}[theorem]{Lemma}
+%\newtheorem{remark}[theorem]{Remark}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{axiom}{Axiom}
+\newtheorem{remark}{Remark}
+\newtheorem{exercise}{Exercise}[section]
+
+\newcommand{\thmref}[1]{Theorem~\ref{#1}}
+\newcommand{\propref}[1]{Proposition~\ref{#1}}
+\newcommand{\secref}[1]{\S\ref{#1}}
+\newcommand{\lemref}[1]{Lemma~\ref{#1}}
+\newcommand{\corref}[1]{Corollary~\ref{#1}}
+\newcommand{\remref}[1]{Remark~\ref{#1}}
+
+
+
+\setlength{\topmargin}{0mm}
+\setlength{\oddsidemargin}{0mm}
+\setlength{\textwidth}{160mm}
+\setlength{\textheight}{215mm}
+\font\bbc=msbm10 scaled 1200
+\newcommand{\E}{\mathbf{E}}
+\newcommand{\R}{\mbox {\bbc R}}
+\newcommand{\T}{\mbox {\bbc T}}
+\newcommand{\Z}{\mbox {\bbc Z}}
+\def\stackunder#1#2{\mathrel{\mathop{#2}\limits_{#1}}}
+
+\def\Area{{\rm Area}}
+\def\Const{{\rm Const}}
+\def\Int{{\rm Int}}
+
+\def\eps{{\varepsilon}}
+
+\def\EXP{\mathbb{E}}
+\def\GR{\mathbb{G}}
+\def\PROB{\mathbb{P}}
+\def\TOR{\mathbb{T}}
+
+\def\naturals{\mathbb{N}}
+
+\def\brGamma{{\bar\Gamma}}
+\def\brgamma{{\bar\gamma}}
+\def\brtau{{\bar\tau}}
+\def\brtheta{{\bar\theta}}
+\def\brchi{{\bar\chi}}
+
+\def\bI{{\bf I}}
+
+\def\cE{\mathcal{E}}
+\def\cG{\mathcal{C}}
+\def\cL{\mathcal{L}}
+\def\cU{\mathcal{U}}
+\def\cZ{\mathcal{Z}}
+
+\def\hN{{\hat N}}
+\def\hn{{\hat n}}
+\def\hy{{\hat y}}
+\def\hGamma{{\hat\Gamma}}
+\def\hdelta{{\hat\delta}}
+\def\hsigma{{\hat\sigma}}
+\def\htau{{\hat\tau}}
+\def\heta{{\hat\eta}}
+\def\htheta{{\hat\theta}}
+
+\def\tW{{\tilde W}}
+\def\tM{{\tilde M}}
+\def\tX{{\tilde X}}
+\def\tc{{\tilde c}}
+\def\tp{{\tilde p}}
+\def\tq{{\tilde q}}
+\def\tdelta{{\tilde\delta}}
+\def\teta{{\tilde\eta}}
+\def\txi{{\tilde\xi}}
+\def\tsigma{{\tilde\sigma}}
+\def\ttheta{{\tilde\theta}}
+
+\title{Probability and Statistics Homework 2}
+\author{Hairui Yin}
+\date{}
+
+\begin{document}
+%\title{Exam Problems  -  Stat 400}
+%\author{Winter 2008-2009}
+%\normalsize Department of Mathematics\\[-4pt]
+%\normalsize Princeton University\\[-4pt]
+%\normalsize Princeton, NJ 08544\\[-4pt]
+%\normalsize koralov@math.princeton.edu\\[-4pt]
+%\date{}
+\maketitle
+\noindent {\bf 1.} An elementary school is offering 3 language classes:
+one in Spanish, one in French, and one in German. The
+classes are open to any of the 100 students in the school.
+There are 28 students in the Spanish class, 26 in the French
+class, and 16 in the German class. There are 12 students
+who are in both Spanish and French, 4 who are in both
+Spanish and German, and 6 who are in both French and
+German. In addition, there are 2 students taking all 3
+classes.
+
+(a) If a student is chosen randomly, what is the probability
+that he or she is not in any of the language classes?
+
+(b) If a student is chosen randomly, what is the probability
+that he or she is taking exactly one language class?
+
+(c) If 2 students are chosen randomly, what is the probability that at least 1 is taking a language class?
+\\
+{\bf Answer:}
+\\
+\textbf{(a)} Denote $S$ as set of students in Spanish class, $F$ as set of students in French class, $G$ as set of students in German class.\\
+Given $|S|=28,|F|=26,|G|=16,|S\cap F|=12,|S\cap G|=4, |F\cap G|=6,|S\cap F\cap G|=2$,\\
+The number of students in at least one language class is follows:
+\begin{align*}
+	|S\cup F\cup G| &=|S|+|F|+|G|-|S\cap F|-|S\cap G|-|F\cap G|+|S\cap F\cap G|\\
+	&=28+26+16-12-4-6+2\\
+	&=50
+\end{align*}
+So, there are 50 students taking at least on language class.\\
+Since there are 100 students in total, the number of students not enrolled in any language class is
+\begin{align*}
+	100-|S\cup F\cup G|=100-50=50
+\end{align*}
+Therefore, if a student is chosen randomly, the probability that he/she is not in any of the language class is
+$$
+P(\text{not in any language class})=\frac{\text{Number of students not in any class}}{\text{Total number of students}}=\frac{50}{100}=\frac{1}{2}
+$$
+\textbf{(b)} Finding students taking exactly one language class means finding the number of students taking only Spanish, only French, and only German, then summing them together.\\
+For Spanish only, denoting as $S_{only}$
+\begin{align*}
+	S_{only}&=|S\cap F^C\cap G^C|\\
+	&=|S\cap(F\cup G)^C|\\
+	&=|S| - |S\cap(F\cup G)|\\
+	&=|S|-|(S\cap F)\cup (S\cap G)|\\
+	&=|S|-(|S\cap F|+|S\cap G|-|S\cap F\cap G|)\\
+	&=28-12-4+2\\
+	&=14
+\end{align*}
+Similarly, for French only, denoting as $F_{only}$
+\begin{align*}
+	F_{only}&=|S^C\cap F\cap G^c|\\
+	&=|F|-|S\cap F|-|F\cap G|+|S\cap F\cap G|\\
+	&=26-12-6+2\\
+	&=10
+\end{align*}
+Similarly, for German only, denoting as $G_{only}$
+\begin{align*}
+	G_{only}&=|S^C\cap F^C\cap G|\\
+	&=|G|-|S\cap G|-|F\cap G|+|S\cap F\cap G|\\
+	&=16-4-6+2\\
+	&=8
+\end{align*}
+So, the total number of students taking exactly one language class is
+$$S_{only}+F_{only}+G_{only}=14+10+8=32$$
+Therefore, if a student is chosen randomly, the probability that he/she is taking exactly one language class is
+$$
+P(\text{taking exactly one language class})=\frac{\text{Number of students in exactly one class}}{\text{Total number of students}}=\frac{32}{100}=\frac{8}{25}
+$$
+\textbf{(c)} Recall that 50 in 100 not in any language class. Considering the case that neither of these two students enroll any language class, the probability is thus
+$$P(\text{Neither taking any language class})=\frac{\binom{50}{2}}{\binom{100}{2}}=\frac{49}{198}$$
+Therefore, if 2 students are chosen randomly, the probability that at least 1 is taking a language class is
+\begin{align*}
+	P(\text{at least taking 1 class})&=1-P(\text{Neither taking any language class})\\
+	&=1-\frac{49}{198}\\
+	&=\frac{149}{198}
+\end{align*}
+\newpage
+\noindent
+{\bf 2.} There are eight seats at a rectangular table - three at each of the longer sides and one
+at each of the shorter sides. Six adults and two children sit around the table, with each
+seating configuration equally likely. What is the probability that the two children will
+end up seating next to each other at one of the longer sides of the table?
+\\
+{\bf Answer:}
+\\
+Each longer side has three chairs. And two children are sitting next to each other. On one longer sider, there are 2 pairs of adjacent seats. So, on both longer sides, there are 4 pairs of adjacent seats.\\
+On each adjacent pair, there are $2!$ arrangements for children. After placing children, there are 6 adults remain. So, the number of ways to arrange these 6 adults are $6!$.\\
+Therefore, the probability that the two children will end up seating next to each other at one of the longer sides of the table is
+\begin{align*}
+	P(\text{Children next to each other at longer table})&=\frac{4\times 2!\times 6!}{8!}\\
+	&=\frac{4\times 2}{7\times 8}\\
+	&=\frac{1}{7}
+\end{align*}
+\newpage
+\noindent
+{\bf 3.}  A man must put 8 balls in a box - some white and some black. He will then pull
+out three. How many black balls should he put in the box in order to maximize the
+probability that exactly one of the three that he pulls out is black?
+\\
+{\bf Answer:}
+\\
+Denote the number of black balls $B$, since there are 8 balls, the number of white balls is $8-B$, $B\in\{0,1,...,7,8\}$.\\
+Since pulling out exactly one of three is black, the rest two are white. The probability is as following:
+$$P(\text{Exactly 1 black ball})=\frac{\binom{B}{1}\binom{8-B}{2}}{\binom{8}{3}}$$
+%Maximizing above probability is equal to maximize $\binom{B}{1}\binom{8-B}{2}$.\\
+Notice that if 7 or 8 black balls are put in the box, no way there can be two white balls pulling out. And if 0 black balls is put in, no black balls can be pulled out. So, $B\in\{1,2,3,4,5,6\}$.\\
+Considering each case:
+\begin{itemize}
+	\item[B=1] $P(\text{Exactly 1 black ball})=\frac{7\times 3}{56}=\frac{3}{8}$
+	\item[B=2] $P(\text{Exactly 1 black ball})=\frac{2\times 3\times 5}{56}=\frac{15}{28}$
+	\item[B=3] $P(\text{Exactly 1 black ball})=\frac{3\times 5\times 2}{56}=\frac{15}{28}$
+	\item[B=4] $P(\text{Exactly 1 black ball})=\frac{4\times 2\times 3}{56}=\frac{3}{7}$
+	\item[B=5] $P(\text{Exactly 1 black ball})=\frac{5\times 3}{56}=\frac{15}{56}$
+	\item[B=6] $P(\text{Exactly 1 black ball})=\frac{6\times 1}{56}=\frac{3}{28}$
+\end{itemize}
+After comparison, 2 or 3 black balls should be put to maximize the probability that exactly one of three that pulled out is black.
+%\\
+%\\
+
+\end{document}

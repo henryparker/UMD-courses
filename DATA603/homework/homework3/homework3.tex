@@ -1,0 +1,209 @@
+
+\documentclass[12pt]{article}
+%\documentstyle[12pt]{article}
+%\documentclass{amsart}
+%\usepackage[dvips]{graphicx}
+
+
+\usepackage{amssymb,amsmath,amscd,amsthm}
+%\usepackage{graphicx,psfrag,epsfig,multirow} LINEA ORIGINAL
+\usepackage{graphicx,psfrag,epsfig}
+
+
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage[active]{srcltx}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{lemma}[theorem]{Lemma}
+%\newtheorem{remark}[theorem]{Remark}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{axiom}{Axiom}
+\newtheorem{remark}{Remark}
+\newtheorem{exercise}{Exercise}[section]
+
+\newcommand{\thmref}[1]{Theorem~\ref{#1}}
+\newcommand{\propref}[1]{Proposition~\ref{#1}}
+\newcommand{\secref}[1]{\S\ref{#1}}
+\newcommand{\lemref}[1]{Lemma~\ref{#1}}
+\newcommand{\corref}[1]{Corollary~\ref{#1}}
+\newcommand{\remref}[1]{Remark~\ref{#1}}
+
+
+
+\setlength{\topmargin}{0mm}
+\setlength{\oddsidemargin}{0mm}
+\setlength{\textwidth}{160mm}
+\setlength{\textheight}{215mm}
+\font\bbc=msbm10 scaled 1200
+\newcommand{\E}{\mathbf{E}}
+\newcommand{\R}{\mbox {\bbc R}}
+\newcommand{\T}{\mbox {\bbc T}}
+\newcommand{\Z}{\mbox {\bbc Z}}
+\def\stackunder#1#2{\mathrel{\mathop{#2}\limits_{#1}}}
+
+\def\Area{{\rm Area}}
+\def\Const{{\rm Const}}
+\def\Int{{\rm Int}}
+
+\def\eps{{\varepsilon}}
+
+\def\EXP{\mathbb{E}}
+\def\GR{\mathbb{G}}
+\def\PROB{\mathbb{P}}
+\def\TOR{\mathbb{T}}
+
+\def\naturals{\mathbb{N}}
+
+\def\brGamma{{\bar\Gamma}}
+\def\brgamma{{\bar\gamma}}
+\def\brtau{{\bar\tau}}
+\def\brtheta{{\bar\theta}}
+\def\brchi{{\bar\chi}}
+
+\def\bI{{\bf I}}
+
+\def\cE{\mathcal{E}}
+\def\cG{\mathcal{C}}
+\def\cL{\mathcal{L}}
+\def\cU{\mathcal{U}}
+\def\cZ{\mathcal{Z}}
+
+\def\hN{{\hat N}}
+\def\hn{{\hat n}}
+\def\hy{{\hat y}}
+\def\hGamma{{\hat\Gamma}}
+\def\hdelta{{\hat\delta}}
+\def\hsigma{{\hat\sigma}}
+\def\htau{{\hat\tau}}
+\def\heta{{\hat\eta}}
+\def\htheta{{\hat\theta}}
+
+\def\tW{{\tilde W}}
+\def\tM{{\tilde M}}
+\def\tX{{\tilde X}}
+\def\tc{{\tilde c}}
+\def\tp{{\tilde p}}
+\def\tq{{\tilde q}}
+\def\tdelta{{\tilde\delta}}
+\def\teta{{\tilde\eta}}
+\def\txi{{\tilde\xi}}
+\def\tsigma{{\tilde\sigma}}
+\def\ttheta{{\tilde\theta}}
+
+\title{Machine Learning Homework 3}
+\author{Hairui Yin}
+\date{}
+
+\begin{document}
+%\title{Exam Problems  -  Stat 400}
+%\author{Winter 2008-2009}
+%\normalsize Department of Mathematics\\[-4pt]
+%\normalsize Princeton University\\[-4pt]
+%\normalsize Princeton, NJ 08544\\[-4pt]
+%\normalsize koralov@math.princeton.edu\\[-4pt]
+%\date{}
+\maketitle
+\noindent {\bf 1.} 
+\\
+\textbf{(a)} Given ${max}_{k=1,...,5}x_k=0.6$, the likelihood $p(\mathcal{D}|\theta)$ in $0\leq \theta \leq 1$ is
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.4] {1a.png}
+\end{figure}
+Considering maximize the likelihood $p(\mathcal{D}|\theta)$ given 5 samples,
+\begin{align*}
+	p(\mathcal{D}|\theta)&=\prod_{k=1}^5p(x_i|\theta)\\
+	&=\frac{1}{\theta^5}I(x_1,...,x_n\in[0,\theta])\\
+	&=\frac{1}{\theta^5}I(max(x_1,...,x_5)\leq \theta)\\
+\end{align*}
+where function $I$ is defined when satisfying the condition then it returns $1$, otherwise $0$. What it means is that the function $I$ will return $0$ when one sample falls outside the interval in $[0,\theta]$.\\
+To maximize the above formula, we need to maximize $\frac{1}{\theta^5}$ given $\theta\geq max(x_1,...,x_5)$.\\
+Therefore, $\theta_{ML}={max}_{k=1,...,5}x_k$.
+\newpage
+\noindent \textbf{(b)} Considering likelihood $p(\mathcal{D}|\theta)$ given 5 samples,
+\begin{align*}
+	p(\mathcal{D}|\theta)&=\prod_{k=1}^{5}p(x_k|\theta)\\
+	&=\prod_{k=1}^{5}\theta e^{-\theta x_i}I(x_i>0)\\
+	&=\prod_{k=1}^{5}\theta e^{-\theta x_i},\qquad \text{$x_i>0$}\\
+	&=\theta^5e^{-\theta\sum_{i=1}^5x_i}
+\end{align*}
+To maximize $p(\mathcal{D}|\theta)$, we consider its log-likelihood
+\begin{align*}
+	l(\theta)&=\log{p(\mathcal{D}|\theta)}\\
+	&=5\log{\theta}-\theta\sum_{i=1}^5x_i\\
+\end{align*}
+Since $\sum_{i=1}^5x_i>0$, $5\log{\theta}$ is monotonically increasing, $-\theta\sum_{i=1}^5x_i$ is monotonically decreasing, it's natural to consider its derivative to find the maximum points.
+\begin{align*}
+	l'(\theta)&=\frac{5}{\theta}-\sum_{i=1}^5x_i\\
+\end{align*}
+Let $l'(\theta)=0$, then $\theta=\frac{5}{\sum_{i=1}^5x_i}$. To ensure that the point is the maximum point rather than the minimum point, consider its second derivative
+$l''(\theta)=-5\theta^{-2}<0$, given $\theta=\frac{5}{\sum_{i=1}^5x_i}$.\\
+Therefore, the maximum likelihood estimate $\theta_{ML}=\frac{5}{\sum_{i=1}^5x_i}$.
+\newpage
+\noindent {\bf 2.}
+\\
+\textbf{(a)} The mean vector $m$ (according to Python codes) is
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.4] {2a.png}
+\end{figure}
+\begin{align*}
+	m=[&40.90306666666667,\\
+	&13.373566666666665,\\
+	&20.229533333333336,\\
+	&2.633233333333334,\\
+	&0.6694000000000001,\\
+	&22.864766666666668,\\
+	&3.271]\\
+\end{align*}
+\\
+\noindent \textbf{(b)} The scatter matrix is
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.4] {2b.png}
+\end{figure}
+To find the first two principal components $\mathbf{w}^1$ and $\mathbf{w}^2$, we need to find two eigenvectors with two largest eigenvalues of the scatter matrix. With python code, the largest two eigenvalues are $\lambda_1=126054.97349741 \lambda_2=30444.24702927$ and their corresponding eigenvectors (also $w_1$, $w_2$) are 
+\begin{align*}
+	w_1=v_1 = [&2.76963426e-01,  2.66941457e-01,  2.78933559e-01,  5.54340960e-02,\\
+	&1.11416057e-02, -8.78084364e-01,  6.03287596e-04]\\
+\end{align*}
+\begin{align*}
+	w_2=v_2=[&0.74707368, -0.05573295, -0.65784531, -0.04060421, \\
+	&-0.02381376,0.00681755, -0.06125383]
+\end{align*}
+\\
+\noindent \textbf{(c)} The value of $a_k^l$ is defined as 
+$$a_k^l=(x^k-m)^Tw_l$$
+The first two samples are originally
+$$x^1 = [27.82,21.43,44.87,5.11,1.77,0.77,4.93]$$
+$$x^2 = [28.49,21.26,43.89,5.34,1.79,1.02,4.84]$$
+So the value of $a_1^1,a_1^2,a_2^1,a_2^2$ are
+$$a_1^1=(x^1-m)^Tw^1=24.951747905872786$$
+$$a_1^2=(x^1-m)^Tw^2=-26.811667755251506$$
+$$a_2^1=(x^2-m)^Tw^1=24.611975753342847$$
+$$a_2^2=(x^2-m)^Tw^2=-25.659563399700513$$
+Therefore, the approximations $\tilde{x}^1, \tilde{x}^2$ are
+\begin{align*}
+	\tilde{x}^1&=m+a_1^1w^1+a_1^2w^2\\
+	&=[27.783496937785824,21.528515895614635,44.82734294963899,\\
+	&\qquad5.105077523179664,1.5858891661232533,0.7722370677048186,\\
+	&\qquad4.928370353002659]
+\end{align*}
+\begin{align*}
+	\tilde{x}^2&=m+a_2^1w^1+a_2^2w^2\\
+	&=[28.550099320064316,21.373606450091597,43.97466265199188,\\
+	&\qquad5.039462273317961,1.5546676217611726,1.078440212283421,\\
+	&\qquad4.8575945711637]
+\end{align*}
+The difference (square error) of $x^1$ and $\tilde{x}^1$, $x^2$ and $\tilde{x}^2$ are
+$$E_1=||x^1-\tilde{x}^1||^2=0.04678617$$
+$$E_2=||x^2-\tilde{x}^2||^2=0.17311520$$
+%\\
+%\\
+
+\end{document}

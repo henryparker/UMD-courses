@@ -1,0 +1,190 @@
+\documentclass[UTF8]{article}
+% \usepackage{CTEX}
+\usepackage{newtxtext}
+\usepackage{geometry}
+\usepackage{lipsum} % 该宏包是通过 \lipsum 命令生成一段本文，正式使用时不需要引用该宏包
+\usepackage[dvipsnames,svgnames]{xcolor}
+\usepackage[strict]{changepage} % 提供一个 adjustwidth 环境
+\usepackage{framed} % 实现方框效果
+\usepackage{comment} % 注释
+\usepackage{xcolor} % 颜色
+\usepackage{fancyvrb}
+\usepackage{mdframed} % create a gray frame around the symbol
+\usepackage{listings} % 定义python代码
+\usepackage{tabularx} % 限制长宽的表格
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{enumitem}
+\usepackage{amsthm}
+\lstset{
+	language=Python,
+	basicstyle=\small\ttfamily,
+	keywordstyle=\color{blue},
+	commentstyle=\color{green},
+	stringstyle=\color{red},
+	showstringspaces=false,
+	numbers=left,
+	numberstyle=\tiny,
+	breaklines=true,
+	frame=single,
+	tabsize=2
+}
+
+
+\title{Probability and Statistics Homework 1}
+\author{Hairui Yin}
+\date{}
+
+\geometry{a4paper,centering,scale=0.8}
+% environment derived from framed.sty: see leftbar environment definition
+\definecolor{formalshade}{rgb}{0.95,0.95,1} % 文本框颜色
+\definecolor{greenshade}{rgb}{0.90,0.99,0.91} % 绿色文本框，竖线颜色设为 Green
+\definecolor{redshade}{rgb}{1.00,0.90,0.90}% 红色文本框，竖线颜色设为 LightCoral
+\definecolor{brownshade}{rgb}{0.99,0.97,0.93} % 莫兰迪棕色，竖线颜色设为 BurlyWood
+
+% ------------------******-------------------
+% 注意行末需要把空格注释掉，不然画出来的方框会有空白竖线
+
+\DefineVerbatimEnvironment{BlueVerb}
+	{Verbatim}
+	{formatcom=\color{blue}}
+
+%蓝紫色
+\newenvironment{Purpoe}{%
+	\def\FrameCommand{%
+		\hspace{1pt}%
+		{\color{DarkBlue}\vrule width 2pt}%
+		{\color{formalshade}\vrule width 4pt}%
+		\colorbox{formalshade}%
+	}%
+	\MakeFramed{\advance\hsize-\width\FrameRestore}%
+	\noindent\hspace{-4.55pt}% disable indenting first paragraph
+	\begin{adjustwidth}{}{7pt}%
+		\vspace{2pt}\vspace{2pt}%
+	}
+	{%
+		\vspace{2pt}\end{adjustwidth}\endMakeFramed%
+}
+% ------------------******-------------------
+
+%绿色
+\newenvironment{Green}{%
+	\def\FrameCommand{%
+		\hspace{1pt}%
+		{\color{Green}\vrule width 2pt}%
+		{\color{greenshade}\vrule width 4pt}%
+		\colorbox{greenshade}%
+	}%
+	\MakeFramed{\advance\hsize-\width\FrameRestore}%
+	\noindent\hspace{-4.55pt}% disable indenting first paragraph
+	\begin{adjustwidth}{}{7pt}%
+		\vspace{2pt}\vspace{2pt}%
+	}
+	{%
+		\vspace{2pt}\end{adjustwidth}\endMakeFramed%
+}
+% ------------------******-------------------
+
+%棕色
+\newenvironment{Brown}{%
+	\def\FrameCommand{%
+		\hspace{1pt}%
+		{\color{BurlyWood}\vrule width 2pt}%
+		{\color{brownshade}\vrule width 4pt}%
+		\colorbox{brownshade}%
+	}%
+	\MakeFramed{\advance\hsize-\width\FrameRestore}%
+	\noindent\hspace{-4.55pt}% disable indenting first paragraph
+	\begin{adjustwidth}{}{7pt}%
+		\vspace{2pt}\vspace{2pt}%
+	}
+	{%
+		\vspace{2pt}\end{adjustwidth}\endMakeFramed%
+}
+% ------------------******-------------------
+
+%红色
+\newenvironment{Red}{%
+	\def\FrameCommand{%
+		\hspace{1pt}%
+		{\color{LightCoral}\vrule width 2pt}%
+		{\color{redshade}\vrule width 4pt}%
+		\colorbox{redshade}%
+	}%
+	\MakeFramed{\advance\hsize-\width\FrameRestore}%
+	\noindent\hspace{-4.55pt}% disable indenting first paragraph
+	\begin{adjustwidth}{}{7pt}%
+		\vspace{2pt}\vspace{2pt}%
+	}
+	{%
+		\vspace{2pt}\end{adjustwidth}\endMakeFramed%
+}
+% ------------------******-------------------
+
+\begin{document}
+	\maketitle
+	\section*{Problem-1}
+	Specifically, the sample space is
+	\begin{align*}
+		\Omega = \{&(1,1), (1,2), (1,3), (1,4), (1,5), (1,6),\\
+				   &(2,1), (2,2), (2,3), (2,4), (2,5), (2,6),\\
+				   &(3,1), (3,2), (3,3), (3,4), (3,5), (3,6),\\
+				   &(4,1), (4,2), (4,3), (4,4), (4,5), (4,6),\\
+				   &(5,1), (5,2), (5,3), (5,4), (5,5), (5,6),\\
+				   &(6,1), (6,2), (6,3), (6,4), (6,5), (6,6)\}
+	\end{align*}
+
+	Similarly, E, F, G can be written as:
+	\begin{align*}
+		E=\{&(1,2), (1,4), (1,6), (2,1), (2,3), (2,5), (3,2), (3,4), (3,6),\\
+			&(4,1), (4,3), (4,5), (5,2), (5,4), (5,6), (6,1), (6,3), (6,5)\}\\
+		F=\{&(1,1), (1,2), (1,3), (1,4), (1,5), (1,6), (2,1), (3,1), (4,1), (5,1), (6,1)\}\\
+		G=\{&(1,4), (2,3), (3,2), (4,1))\}
+	\end{align*}
+	
+	With the definition of Union, Intersection and Difference, events are:
+	\begin{align*}
+		E\cap F=\{&(1,2), (1,4), (1,6), (2,1), (4,1), (6,1)\}\\
+		E\cup F=\{&(1,1), (1,2), (1,3), (1,4), (1,5), (1,6), (2,1), (2,3), (2,5),\\
+				  &(3,1), (3,2), (3,4), (3,6), (4,1), (4,3), (4,5), (5,1), (5,2),\\
+				  &(5,4), (5,6), (6,1), (6,3), (6,5)\}\\
+		F\cap G=\{&(1,4), (4,1)\}\\
+		E\setminus F =\{&(2,3), (2,5), (3,2), (3,4), (3,6), (4,3), (4,5), (5,2), (5,4), (5,6), (6,3), (6,5)\}\\
+		E\cap F\cap G = \{&(1,4), (4,1)\}
+	\end{align*}
+	
+	In conclusion, there are
+	\begin{itemize}[itemsep=2pt,topsep=0pt,parsep=0pt]
+		\item \textbf{6} elementary outcomes in $E\cap F$
+		\item \textbf{23} elementary outcomes in $E\cup F$
+		\item \textbf{2} elementary outcomes in $F\cap G$
+		\item \textbf{12} elementary outcomes in $E\setminus F$
+		\item \textbf{2} elementary outcomes in $E\cap F\cap G$
+	\end{itemize}
+
+	\newpage
+	\section*{Problem-2}
+	
+ 		When choosing the first sock, the probability that it's red is $\frac{3}{n}$.\\
+		After a red sock is picked out, the probability that the second sock is red is $\frac{2}{n-1}$.\\
+		Since the probability that both are red is $\frac{1}{2}$, the equation can be listed as
+		\begin{equation*}
+			\frac{3}{n}\times \frac{2}{n-1}=\frac{1}{2}
+		\end{equation*}
+		The value of $n$ is $4$.
+		
+	\section*{Problem-3}
+	\begin{proof}
+		\begin{enumerate}
+			\item According to $\sigma$-algebra property (2), since $A_1,A_2,...\in \mathcal{F}$, then $\Omega\setminus A_1, \Omega\setminus A_2,...\in \mathcal{F}$
+			\item According to $\sigma$-algebra property (3), since $\Omega\setminus A_1, \Omega\setminus A_2,...\in \mathcal{F}$, then $\cup^\infty_{i=1}(\Omega\setminus A_i)\in\mathcal{F}$
+			\item According to DeMorgan's Law $E^C\cup F^C=(E\cap F)^C$, since
+			\begin{equation*}
+				\cup^\infty_{i=1}(\Omega\setminus A_i)=\Omega\setminus(\cap^\infty_{i=1}A_i)
+			\end{equation*}
+			then $\Omega \setminus (\cap^\infty_{i=1}A_i)\in \mathcal{F}$
+			\item According to $\sigma$-algebra property (2), since $\Omega \setminus (\cap^\infty_{i=1}A_i)\in \mathcal{F}$, then $\cap^\infty_{i=1}A_i\in \mathcal{F}$
+		\end{enumerate}
+	\end{proof}
+\end{document}

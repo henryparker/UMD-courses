@@ -1,0 +1,252 @@
+
+\documentclass[12pt]{article}
+%\documentstyle[12pt]{article}
+%\documentclass{amsart}
+%\usepackage[dvips]{graphicx}
+
+
+\usepackage{amssymb,amsmath,amscd,amsthm}
+%\usepackage{graphicx,psfrag,epsfig,multirow} LINEA ORIGINAL
+\usepackage{graphicx,psfrag,epsfig}
+
+
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage[active]{srcltx}
+\usepackage{enumitem}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{lemma}[theorem]{Lemma}
+%\newtheorem{remark}[theorem]{Remark}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{axiom}{Axiom}
+\newtheorem{remark}{Remark}
+\newtheorem{exercise}{Exercise}[section]
+
+\newcommand{\thmref}[1]{Theorem~\ref{#1}}
+\newcommand{\propref}[1]{Proposition~\ref{#1}}
+\newcommand{\secref}[1]{\S\ref{#1}}
+\newcommand{\lemref}[1]{Lemma~\ref{#1}}
+\newcommand{\corref}[1]{Corollary~\ref{#1}}
+\newcommand{\remref}[1]{Remark~\ref{#1}}
+
+
+
+\setlength{\topmargin}{0mm}
+\setlength{\oddsidemargin}{0mm}
+\setlength{\textwidth}{160mm}
+\setlength{\textheight}{215mm}
+\font\bbc=msbm10 scaled 1200
+\newcommand{\E}{\mathbf{E}}
+\newcommand{\R}{\mbox {\bbc R}}
+\newcommand{\T}{\mbox {\bbc T}}
+\newcommand{\Z}{\mbox {\bbc Z}}
+\def\stackunder#1#2{\mathrel{\mathop{#2}\limits_{#1}}}
+
+\def\Area{{\rm Area}}
+\def\Const{{\rm Const}}
+\def\Int{{\rm Int}}
+
+\def\eps{{\varepsilon}}
+
+\def\EXP{\mathbb{E}}
+\def\GR{\mathbb{G}}
+\def\PROB{\mathbb{P}}
+\def\TOR{\mathbb{T}}
+
+\def\naturals{\mathbb{N}}
+
+\def\brGamma{{\bar\Gamma}}
+\def\brgamma{{\bar\gamma}}
+\def\brtau{{\bar\tau}}
+\def\brtheta{{\bar\theta}}
+\def\brchi{{\bar\chi}}
+
+\def\bI{{\bf I}}
+
+\def\cE{\mathcal{E}}
+\def\cG{\mathcal{C}}
+\def\cL{\mathcal{L}}
+\def\cU{\mathcal{U}}
+\def\cZ{\mathcal{Z}}
+
+\def\hN{{\hat N}}
+\def\hn{{\hat n}}
+\def\hy{{\hat y}}
+\def\hGamma{{\hat\Gamma}}
+\def\hdelta{{\hat\delta}}
+\def\hsigma{{\hat\sigma}}
+\def\htau{{\hat\tau}}
+\def\heta{{\hat\eta}}
+\def\htheta{{\hat\theta}}
+
+\def\tW{{\tilde W}}
+\def\tM{{\tilde M}}
+\def\tX{{\tilde X}}
+\def\tc{{\tilde c}}
+\def\tp{{\tilde p}}
+\def\tq{{\tilde q}}
+\def\tdelta{{\tilde\delta}}
+\def\teta{{\tilde\eta}}
+\def\txi{{\tilde\xi}}
+\def\tsigma{{\tilde\sigma}}
+\def\ttheta{{\tilde\theta}}
+
+\title{Probability and Statistics Homework 8}
+\author{Hairui Yin}
+\date{}
+
+\begin{document}
+\maketitle
+\noindent {\bf 1.} Suppose that $X$ is an exponential random variable with parameter $\lambda=1$. Let $Y=[X]$ (i.e., $Y$ is the integer part of $X$).\\
+\indent (a) Write a formula for the probability mass function of $Y$.\\
+\indent (b) Calculate $E(Y)$.\\
+\\
+\textbf{Answer:}\\ 
+\noindent {\bf (a)} The pdf of $X$ is
+$$f(x)=e^{-x},\quad x\geq 0$$
+Since $Y$ is the integer part of $X$, the value of $Y$ is $Y=n$ for $n\leq x\leq n+1, n\in \mathcal{N}$. To find the probability that $Y=n$, we need to compute the probability that $X$ falls in $[n,n+1]$, which is
+\begin{align*}
+	P(Y=n)&=P(n\leq X\leq n+1)\\
+	&=\int_{n}^{n+1}e^{-x}\ dx\\
+	&=(1-e^{-1})e^{-n}
+\end{align*}
+Therefore, the probability mass function of $Y$ is 
+$$P(y=n)=(1-e^{-1})e^{-n},\quad n\in \mathcal{N}$$
+\noindent {\bf (b)} The expectation of $Y$ is given by
+\begin{align*}
+	E[Y]&=\sum_{n=0}^{\infty} n(1-e^{-1})e^{-n}\\
+	&=(1-e^{-1})\sum_{n=0}^{\infty}ne^{-n}
+\end{align*}
+Let $S_n=\sum_{i=0}^{n}ie^{-i}=1\cdot e^{-1}+2\cdot e^{-2}+...+n\cdot e^{-n}$. Subtract $S_n$ and $e^{-1}S_n$, we have
+$$S_n-e^{-1}S_n=e^{-1}+e^{-2}+...+e^{-n}-n\cdot e^{-(n+1)}$$
+Since $e^{-1}+e^{-2}+...+e^{-n}=\frac{e^{-1}(1-e^{-n})}{1-e^{-1}}$, after simplification, $S_n$ is given by
+$$S_n=\frac{e^{-1}(1-e^{-n})}{(1-e^{-1})^2}-\frac{ne^{-(n+1)}}{1-e^{-1}}$$
+When $n$ goes to infinity, we have
+\begin{align*}
+	\sum_{n=0}^{\infty}ne^{-n}&=\lim_{n\rightarrow \infty}S_n\\
+	&=\lim_{n\rightarrow \infty}\frac{e^{-1}(1-e^{-n})}{(1-e^{-1})^2}-\frac{ne^{-(n+1)}}{1-e^{-1}}\\
+	&=\frac{e^{-1}}{(1-e^{-1})^2}
+\end{align*}
+Therefore, the expectation of $Y$ is given by
+\begin{align*}
+	E[Y]&=(1-e^{-1})\sum_{n=0}^{\infty}ne^{-n}\\
+	&=(1-e^{-1})\frac{e^{-1}}{(1-e^{-1})^2}\\
+	&=\frac{e^{-1}}{1-e^{-1}}\\
+	&=\frac{1}{e-1}
+\end{align*}
+\newpage
+\noindent {\bf 2.} In the following problem, you should use the normal approximation to the binomial. Use a calculator, a computer program, or an online resource to evaluate (approximately) the required integrals. The answers will be approximate.\\
+\indent Supposed that a game is played where you win each round with probability equal to 1/4.\\
+\indent (a) If you play 1,000,000 rounds, what is your probability (approximately) to win at least 250,100 rounds?\\
+\indent (b) If you play 1,000,000 rounds, find such $n$ that the probability of winning at least $n$ rounds is around 90 percent?\\
+\indent (c) How many rounds should you play in order to have your chances of winning 24 percent of the rounds equal to 90 percent?\\
+\\
+\textbf{Answer:}\\ 
+\noindent {\bf (a)} Check if approximation works gives by
+$$np(1-p)=1000000\times \frac{1}{4}\times \frac{3}{4}=187500\geq 10$$
+Therefore, the approximate probability to win at least 250100 rounds is
+\begin{align*}
+	P_{Binomial}(S_n\geq 250100)&=P_{Normal}(S_n>250100-0.5)\\
+	&=P(\frac{S_n-np}{\sqrt{np(1-p)}}\geq \frac{250100-0.5-np}{\sqrt{np(1-p)}})\\
+	&=P(\frac{S_n-1000000\times \frac{1}{4}}{\sqrt{1000000\times\frac{1}{4}(1-\frac{1}{4})}}\geq \frac{250100-0.5-1000000\times \frac{1}{4}}{\sqrt{1000000\times\frac{1}{4}(1-\frac{1}{4})}})\\
+	&\approx P(Z\geq 0.22979)\\
+	&=1-P(Z\leq 0.22979)\\
+	&=1-\Phi(0.22979)\\
+	&=0.409
+\end{align*}
+\\
+\noindent {\bf (b)} The probability that at least $n$ rounds is 90 percent is given by
+$$P(Z\geq z)=0.9$$
+From code, the corresponding z-score $z=-1.2816$. Therefore, the formula is given by
+$$\frac{x-0.5-np}{\sqrt{np(1-p)}}=z=-1.2816$$
+The above formula gives result $x=249445.5719$. So, the probability of winning at least 249445 rounds is around 90\%.\\
+\\
+\noindent {\bf (c)} Similar to question (2), the z-score given $P(Z\geq z)=0.9$ is $z=-1.2816$. Let the number of rounds be $N$. Then the formula is given by
+$$\frac{0.24N-0.5-Np}{\sqrt{Np(1-p)}}=-1.2816$$
+Given the value $p=\frac{1}{4}$, after calculation, the value of $N=2978.61$.\\
+Therefore, it should play 2978 rounds to have 90\% chance of winning 24\% of rounds.
+\newpage
+\noindent {\bf 3.} $X$ and $Y$ are independent random variables uniformly distributed over (0,1). Compute the probability that the larger of the two is at least three times as large as the other one.\\
+\\
+\textbf{Answer:}\\
+The probability that the larger of the two is at least three times larger that the other one is given by
+$$P=P(X\geq 3Y)+P(Y\geq 3X)$$
+Since $X,Y$ are symmetric, the probability can be simplified to
+$$P=2P(X\geq 3Y)$$
+Given $X,Y$ are independent uniform R.V., $f(x)=f(y)=1,x\in(0,1),y\in(0,1)$, the probability of $P(X\geq 3Y)$ is thus
+\begin{align*}
+	P(X\geq 3Y)&=\int_0^1\int_0^{\frac{1}{3}x}f(x)f(y)\ dydx\\
+	&=\int_0^1\int_0^{\frac{1}{3}x}1\ dydx\\
+	&=\int_0^1\frac{1}{3}x\ dx\\
+	&=\frac{1}{6}x^2\big|_0^1\\
+	&=\frac{1}{6}
+\end{align*}
+Therefore, the probability that larger is at least three times than the other is
+$$P=2P(X\geq 3Y)=\frac{1}{3}$$
+\newpage
+\noindent {\bf 4.} The random variables $X$ an $Y$ have joint density
+\begin{equation*}
+	p(x,y)=
+	\left\{
+	\begin{aligned}
+		&cxy(1-x) &&\text{if}\ 0<x<1,\ 0<y<1,\\
+		&0&&\text{otherwise},
+	\end{aligned}
+	\right.
+\end{equation*}
+where $c$ is a positive constant.\\
+\indent (a) Find $c$.\\
+\indent (b) Are $X$ and $Y$ independent?\\
+\indent (c) Find E$Y$.\\
+\indent (d) Find Var($X$).\\
+\\
+\textbf{Answer:}\\
+\noindent {\bf (a)} The joint density function must integrate to $1$. So,
+$$\int_0^1\int_0^1cxy(1-x)\ dydx=1$$
+Compute the integral as follows:
+\begin{align*}
+	\int_0^1\int_0^1cxy(1-x)\ dydx&=\frac{1}{2}c\int_0^1x(1-x)\ dx\\
+	&=\frac{1}{2}c(\int_0^1x\ dx-\int_0^1x^2\ dx)\\
+	&=\frac{1}{2}c(\frac{1}{2}-\frac{1}{3})\\
+	&=\frac{1}{12}c=1
+\end{align*}
+Therefore, $c=12$.\\
+\\
+\noindent {\bf (b)} If $p(x,y)=p(x)p(y)$, then $X,Y$ are independent.\\
+Firstly, compute $p(x)$.
+\begin{align*}
+	p(x)&=\int_Yp(x,y)\\
+	&=\int_0^1 12xy(1-x)\ dy\\
+	&=6x(1-x)
+\end{align*}
+Then, compute p(y)
+\begin{align*}
+	p(y)&=\int_Xp(x,y)\\
+	&=\int_0^1 12xy(1-x)\ dx\\
+	&=2y
+\end{align*}
+Since $p(x)p(y)=12xy(1-x)=p(x,y)$, $X,Y$ are independent.\\
+\\
+\noindent {\bf (c)} The expected value of $Y$ is computed from its marginal pdf in question (b)
+\begin{align*}
+	E[Y]&=\int_0^1yf(y)\ dy\\
+	&=\int_0^12y^2\ dy\\
+	&=\frac{2}{3}
+\end{align*}
+\\
+\noindent {\bf (d)} The variance value of $X$ can be computed from its marginal pdf in question (b)
+\begin{align*}
+	Var(X)&=E[X^2]-(E[X])^2\\
+	&=\int_0^1x^26x(1-x)\ dx - (\int_0^1x6x(1-x)\ dx)^2\\
+	&=6(\int_0^1x^3\ dx-\int_0^1x^4\ dx)-36(\int_0^1x^2\ dx-\int_0^1x^3\ dx)^2\\
+	&=6\times \frac{1}{20}-36(\frac{1}{12})^2\\
+	&=\frac{3}{10}-\frac{1}{4}\\
+	&=\frac{1}{20}
+\end{align*}
+\end{document}
+

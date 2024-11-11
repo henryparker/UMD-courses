@@ -1,0 +1,23 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{def} \PYG{n+nf}{gradient\PYGZus{}descent\PYGZus{}backtracking}\PYG{p}{(}\PYG{n}{x0}\PYG{p}{,} \PYG{n}{P}\PYG{p}{,} \PYG{n}{q}\PYG{p}{,} \PYGZbs{}
+  \PYG{n}{alpha\PYGZus{}init}\PYG{o}{=}\PYG{l+m+mf}{0.15}\PYG{p}{,} \PYG{n}{gamma}\PYG{o}{=}\PYG{l+m+mf}{0.7}\PYG{p}{,} \PYG{n}{beta}\PYG{o}{=}\PYG{l+m+mf}{0.8}\PYG{p}{,} \PYG{n}{tol}\PYG{o}{=}\PYG{l+m+mf}{1e\PYGZhy{}6}\PYG{p}{,} \PYG{n}{max\PYGZus{}iter}\PYG{o}{=}\PYG{l+m+mi}{100}\PYG{p}{):}
+	\PYG{n}{xk} \PYG{o}{=} \PYG{n}{x0}
+	\PYG{n}{path} \PYG{o}{=} \PYG{p}{[}\PYG{n}{xk}\PYG{p}{]}  \PYG{c+c1}{\PYGZsh{} To store the sequence of solutions}
+	
+	\PYG{k}{for} \PYG{n}{\PYGZus{}} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n}{max\PYGZus{}iter}\PYG{p}{):}
+		\PYG{n}{grad} \PYG{o}{=} \PYG{n}{grad\PYGZus{}f}\PYG{p}{(}\PYG{n}{xk}\PYG{p}{,} \PYG{n}{P}\PYG{p}{,} \PYG{n}{q}\PYG{p}{)}
+		\PYG{k}{if} \PYG{n}{np}\PYG{o}{.}\PYG{n}{linalg}\PYG{o}{.}\PYG{n}{norm}\PYG{p}{(}\PYG{n}{grad}\PYG{p}{)} \PYG{o}{\PYGZlt{}} \PYG{n}{tol}\PYG{p}{:}
+			\PYG{k}{break}
+	
+		\PYG{c+c1}{\PYGZsh{} Backtracking line search}
+		\PYG{n}{alpha} \PYG{o}{=} \PYG{n}{alpha\PYGZus{}init}
+		\PYG{k}{while} \PYG{n}{f}\PYG{p}{(}\PYG{n}{xk} \PYG{o}{\PYGZhy{}} \PYG{n}{alpha} \PYG{o}{*} \PYG{n}{grad}\PYG{p}{,} \PYG{n}{P}\PYG{p}{,} \PYG{n}{q}\PYG{p}{)} \PYG{o}{\PYGZgt{}} \PYGZbs{}
+			  \PYG{n}{f}\PYG{p}{(}\PYG{n}{xk}\PYG{p}{,} \PYG{n}{P}\PYG{p}{,} \PYG{n}{q}\PYG{p}{)} \PYG{o}{\PYGZhy{}} \PYG{n}{gamma} \PYG{o}{*} \PYG{n}{alpha} \PYG{o}{*} \PYG{n}{np}\PYG{o}{.}\PYG{n}{dot}\PYG{p}{(}\PYG{n}{grad}\PYG{o}{.}\PYG{n}{T}\PYG{p}{,} \PYG{n}{grad}\PYG{p}{):}
+			\PYG{n}{alpha} \PYG{o}{*=} \PYG{n}{beta}
+			
+		\PYG{c+c1}{\PYGZsh{} Update xk}
+		\PYG{n}{xk} \PYG{o}{=} \PYG{n}{xk} \PYG{o}{\PYGZhy{}} \PYG{n}{alpha} \PYG{o}{*} \PYG{n}{grad}
+		\PYG{n}{path}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{xk}\PYG{p}{)}
+	
+	\PYG{k}{return} \PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{(}\PYG{n}{path}\PYG{p}{)}
+\end{Verbatim}

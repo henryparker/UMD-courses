@@ -1,0 +1,346 @@
+
+\documentclass[12pt]{article}
+%\documentstyle[12pt]{article}
+%\documentclass{amsart}
+%\usepackage[dvips]{graphicx}
+
+
+\usepackage{amssymb,amsmath,amscd,amsthm}
+%\usepackage{graphicx,psfrag,epsfig,multirow} LINEA ORIGINAL
+\usepackage{graphicx,psfrag,epsfig}
+
+
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage[active]{srcltx}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{lemma}[theorem]{Lemma}
+%\newtheorem{remark}[theorem]{Remark}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{axiom}{Axiom}
+\newtheorem{remark}{Remark}
+\newtheorem{exercise}{Exercise}[section]
+
+\newcommand{\thmref}[1]{Theorem~\ref{#1}}
+\newcommand{\propref}[1]{Proposition~\ref{#1}}
+\newcommand{\secref}[1]{\S\ref{#1}}
+\newcommand{\lemref}[1]{Lemma~\ref{#1}}
+\newcommand{\corref}[1]{Corollary~\ref{#1}}
+\newcommand{\remref}[1]{Remark~\ref{#1}}
+
+
+
+\setlength{\topmargin}{0mm}
+\setlength{\oddsidemargin}{0mm}
+\setlength{\textwidth}{160mm}
+\setlength{\textheight}{215mm}
+\font\bbc=msbm10 scaled 1200
+\newcommand{\E}{\mathbf{E}}
+\newcommand{\R}{\mbox {\bbc R}}
+\newcommand{\T}{\mbox {\bbc T}}
+\newcommand{\Z}{\mbox {\bbc Z}}
+\def\stackunder#1#2{\mathrel{\mathop{#2}\limits_{#1}}}
+
+\def\Area{{\rm Area}}
+\def\Const{{\rm Const}}
+\def\Int{{\rm Int}}
+
+\def\eps{{\varepsilon}}
+
+\def\EXP{\mathbb{E}}
+\def\GR{\mathbb{G}}
+\def\PROB{\mathbb{P}}
+\def\TOR{\mathbb{T}}
+
+\def\naturals{\mathbb{N}}
+
+\def\brGamma{{\bar\Gamma}}
+\def\brgamma{{\bar\gamma}}
+\def\brtau{{\bar\tau}}
+\def\brtheta{{\bar\theta}}
+\def\brchi{{\bar\chi}}
+
+\def\bI{{\bf I}}
+
+\def\cE{\mathcal{E}}
+\def\cG{\mathcal{C}}
+\def\cL{\mathcal{L}}
+\def\cU{\mathcal{U}}
+\def\cZ{\mathcal{Z}}
+
+\def\hN{{\hat N}}
+\def\hn{{\hat n}}
+\def\hy{{\hat y}}
+\def\hGamma{{\hat\Gamma}}
+\def\hdelta{{\hat\delta}}
+\def\hsigma{{\hat\sigma}}
+\def\htau{{\hat\tau}}
+\def\heta{{\hat\eta}}
+\def\htheta{{\hat\theta}}
+
+\def\tW{{\tilde W}}
+\def\tM{{\tilde M}}
+\def\tX{{\tilde X}}
+\def\tc{{\tilde c}}
+\def\tp{{\tilde p}}
+\def\tq{{\tilde q}}
+\def\tdelta{{\tilde\delta}}
+\def\teta{{\tilde\eta}}
+\def\txi{{\tilde\xi}}
+\def\tsigma{{\tilde\sigma}}
+\def\ttheta{{\tilde\theta}}
+
+\title{Machine Learning Homework 2}
+\author{Hairui Yin}
+\date{}
+
+\begin{document}
+%\title{Exam Problems  -  Stat 400}
+%\author{Winter 2008-2009}
+%\normalsize Department of Mathematics\\[-4pt]
+%\normalsize Princeton University\\[-4pt]
+%\normalsize Princeton, NJ 08544\\[-4pt]
+%\normalsize koralov@math.princeton.edu\\[-4pt]
+%\date{}
+\maketitle
+\noindent {\bf 1.} 
+\\
+\textbf{(a)} When $x>0$, the marginal pdf is 
+\begin{align*}
+	f_X(x)&=\int_0^{+\infty}6e^{-(2x+3y)}dy\\
+	&=6e^{-2x}(-\frac{1}{3})e^{-3y}\big|_0^{+\infty}\\
+	&=6e^{-2x}(\frac{1}{3})\\
+	&=2e^{-2x}
+\end{align*}
+When $x\leq 0$, the marginal pdf is $f_X(x)=0$.\\
+Therefore, the marginal pdf $f_X$ of random variable $X$ is
+\begin{equation*}
+	f_X(x)=\left\{
+	\begin{aligned}
+		&2e^{-2x}\quad &&x>0\\
+		&0\quad &&\text{otherwise.}
+	\end{aligned}
+	\right.
+\end{equation*}
+
+\noindent\textbf{(b)} With the marginal pdf $f_X$, its expectations i
+\begin{align*}
+	\mathbb{E}[X]&=\int_{-\infty}^{+\infty}xf_X(x)dx\\
+	&=\int_{0}^{+\infty}2xe^{-2x}dx\\
+	&=(-\frac{1}{2})2xe^{-2x}\big|_0^{+\infty}+\int_0^{+\infty}e^{-2x}dx\\
+	&=-xe^{-2x}\big|_0^{+\infty}-\frac{1}{2}e^{-2x}\big|_0^{+\infty}\\
+	&=\frac{1}{2}
+\end{align*}
+Therefore, the expected value $\mathbb{E}[X]=\frac{1}{2}$.
+
+\noindent\textbf{(c)} To determine whether $X$ and $Y$ are independent, we need to find if $f_{X,Y}=f_X\times f_Y,\forall x,y$.\\
+The marginal pdf of $Y$ when $y>0$ is
+\begin{align*}
+	f_Y(y)&=\int_0^{+\infty}6e^{-(2x+3y)}dx\\
+	&=3e^{-3y}
+\end{align*}
+\begin{itemize}
+	\item[(1)] $x>0,y>0$
+	\begin{align*}
+		f_X\times f_Y&=2e^{-2x}\times 3e^{-3y}\\
+		&=6e^{-(2x+3y)}=f_{X,Y}
+	\end{align*}
+	\item[(2)] $x>0,y\leq 0$ or $x\leq 0,y>0$ or $x,y\leq 0$
+	\begin{align*}
+		f_X\times f_Y&=0\\
+		&=f_{X,Y}
+	\end{align*}
+\end{itemize}
+Since $f_{X,Y}=f_X\times f_Y$, $X$ and $Y$ are independent.
+
+\newpage
+\noindent {\bf 2.} Denote the event that the tumor is benign $B$ and the tumor is malignant $M$, then $P(B)=0.9,P(M)=0.1$.\\
+Denote the cost as $C_{S_1\rightarrowtail S_2}$, where $S_1,S_2\in \{B, M\}$ (benign or malignant), and $S_1\rightarrow S_2$ means the patient tumor is state $S_1$ but diagnose as $S_2$. Therefore, $C_{B\rightarrow B}=C_{M\rightarrow M}=0,C_{B\rightarrow M}=3,C_{M\rightarrow B}=20$.\\
+Denote the sample growth rate of tumor in the patient as $\mathbf{x}$.\\
+And there are only two result that the doctor can diagnose, denote them as $D_B, D_M$ (Diagnose as Benign, Diagnose as Malignant).\\
+For the given $\mathbf{x}$, we need to find the posterior probabilities $P(B|\mathbf{x})$ and $P(M|\mathbf{x})$,
+\begin{align*}
+	P(B|\mathbf{x})&=\frac{P(\mathbf{x}|B)P(B)}{P(\mathbf{x})}\\
+	&=\frac{p_B(\mathbf{x})P(B)}{P(\mathbf{x})}\\
+	&=\frac{5e^{-5\mathbf{x}}\times 0.9}{P(\mathbf{x})}\\
+	&=\frac{4.5e^{-5\mathbf{x}}}{P(\mathbf{x})}
+\end{align*}
+\begin{align*}
+	P(M|\mathbf{x})&=\frac{P(\mathbf{x}|M)P(M)}{P(\mathbf{x})}\\
+	&=\frac{p_M(\mathbf{x})P(M)}{P(\mathbf{x})}\\
+	&=\frac{2e^{-2\mathbf{x}}\times 0.1}{P(\mathbf{x})}\\
+	&=\frac{0.2e^{-2\mathbf{x}}}{P(\mathbf{x})}
+\end{align*}
+Cosidering the expected cost $R(D_B|\mathbf{x}), R(D_M|\mathbf{x})$,
+\begin{align*}
+	R(D_B|\mathbf{x})&=C_{B\rightarrow B}P(B|\mathbf{x})+C_{M\rightarrow B}P(M|\mathbf{x})\\
+	&=0+20\times \frac{0.2e^{-2\mathbf{x}}}{P(\mathbf{x})}\\
+	&=\frac{4e^{-2\mathbf{x}}}{P(\mathbf{x})}
+\end{align*}
+\begin{align*}
+	R(D_M|\mathbf{x})&=C_{M\rightarrow M}P(M|\mathbf{x})+C_{B\rightarrow M}P(B|\mathbf{x})\\
+	&=0+3\times \frac{4.5e^{-5\mathbf{x}}}{P(\mathbf{x})}\\
+	&=\frac{13.5e^{-5\mathbf{x}}}{P(\mathbf{x})}
+\end{align*}
+Therefore, we can design the Bayes Classifier that can minimize overall risk as diagnosing 
+\begin{equation*}
+	\left\{
+	\begin{aligned}
+		&\text{Benign}:\quad &\text{When}\ R(D_B|\mathbf{x})<R(D_M|\mathbf{x})\\
+		&\text{Malignant}:\quad &\text{When}\ R(D_B|\mathbf{x})\geq R(D_M|\mathbf{x})
+	\end{aligned}
+	\right.
+\end{equation*}
+More specificly, the Bayes Classifier is designed as to diagnose
+\begin{equation*}
+	\left\{
+	\begin{aligned}
+		&\text{Benign}:\quad &\text{When}\ \mathbf{x}<\ln{(\frac{3}{2})}\\
+		&\text{Malignant}:\quad &\text{When}\ \mathbf{x}\geq \ln{(\frac{3}{2})}
+	\end{aligned}
+	\right.
+\end{equation*}
+\newpage
+
+\noindent {\bf 3.}
+\\
+\noindent\textbf{(a)} With information in the question, we know that $P(GL)=0.1,P(NL)=0.9$.\\
+Consider the minimum error-rate classifier, which is given by
+$$g_i(\mathbf{x})=\log{(p(\mathbf{x}|w_i))}+\log{(P(w_i))},\quad i\in\{GL,NL\}\}$$
+we need to find a larger $g_i(\mathbf{x})$ given $\mathbf{x}$ to minimize the probability of error.\\
+Since $\Sigma=\sigma^2I_{2\times2}$, the linear discriminant function is
+\begin{align*}
+	g_{GL}(x)&=\frac{1}{\sigma^2}\mu_{GL}^T\mathbf{X}-\frac{1}{2\sigma^2}||\mu_{GL}||^2+\log{(P(GL))}\\
+	&=\frac{1}{100}
+	\begin{bmatrix}
+		10 & 10
+	\end{bmatrix}
+	\begin{bmatrix}
+		X_1 \\
+		X_2
+	\end{bmatrix}
+	-\frac{1}{2\times 100}\times 200+\log{(\frac{1}{10})}\\
+	&=0.1X_1+0.1X_2-1+\log{(\frac{1}{10})}
+\end{align*}
+\begin{align*}
+	g_{NL}(x)&=\frac{1}{\sigma^2}\mu_{NL}^T\mathbf{X}-\frac{1}{2\sigma^2}||\mu_{NL}||^2+\log{(P(NL))}\\
+	&=\frac{1}{100}
+	\begin{bmatrix}
+		0 & 0
+	\end{bmatrix}
+	\begin{bmatrix}
+		X_1 \\
+		X_2
+	\end{bmatrix}
+	-\frac{1}{2\times 100}\times 0+\log{(\frac{9}{10})}\\
+	&=\log{(\frac{9}{10})}
+\end{align*}
+When there is a gas leak, $g_{GL}(x)>g_{NL}(x)$,
+\begin{equation*}
+	0.1X_1+0.1X_2-1+\log{(\frac{1}{10})}>\log{(\frac{9}{10})}\\
+\end{equation*}
+$$X_1+X_2>10\log{9}+10$$
+Therefore, we decide
+\begin{equation*}
+	\left\{
+	\begin{aligned}
+		&\text{Gas Leak}\qquad &X_1+X_2>\log{9}+10\\
+		&\text{No Gas Leak}\qquad &X_1+X_2\leq \log{9}+10
+	\end{aligned}
+	\right.
+\end{equation*}
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.3] {3a.png}
+\end{figure}
+\noindent \textbf{(b)}
+Similarly to (a), but since $\Sigma=\begin{bmatrix}
+	100 & 50\\
+	50 & 100
+\end{bmatrix}$, the discriminant funciton is different, given by
+$$g_i(\mathbf{x})=(\Sigma^{-1}\mu_i)^T\mathbf{x}-\frac{1}{2}\mu_i^T\Sigma^{-1}\mu_i+\log{(P(w_i))}$$
+Therefore,
+\begin{align*}
+	g_{GL}(x)&=(\begin{bmatrix}
+		100 & 50\\
+		50 & 100
+	\end{bmatrix}^{-1}\begin{bmatrix}
+	10\\
+	10
+	\end{bmatrix})^T\begin{bmatrix}
+	X_1 \\
+	X_2
+	\end{bmatrix}-\frac{1}{2}\begin{bmatrix}
+	10\\
+	10
+	\end{bmatrix}^T\begin{bmatrix}
+	100 & 50\\
+	50 & 100
+	\end{bmatrix}^{-1}\begin{bmatrix}
+	10\\
+	10
+	\end{bmatrix}+\log{\frac{1}{10}}\\
+	&=\begin{bmatrix}
+		\frac{1}{75} & -\frac{1}{150}\\
+		-\frac{1}{150} & \frac{1}{75}
+	\end{bmatrix}\begin{bmatrix}
+		10\\
+		10
+	\end{bmatrix})^T\begin{bmatrix}
+		X_1 \\
+		X_2
+	\end{bmatrix}-\frac{1}{2}\begin{bmatrix}
+		10\\
+		10
+	\end{bmatrix}^T\begin{bmatrix}
+		\frac{1}{75} & -\frac{1}{150}\\
+		-\frac{1}{150} & \frac{1}{75}
+	\end{bmatrix}\begin{bmatrix}
+		10\\
+		10
+	\end{bmatrix}+\log{\frac{1}{10}}\\
+	&=\frac{1}{15}X_1+\frac{1}{15}X_2-\frac{2}{3}+\log{\frac{1}{10}}
+\end{align*}
+\begin{align*}
+	g_{NL}(x)&=(\begin{bmatrix}
+		100 & 50\\
+		50 & 100
+	\end{bmatrix}^{-1}\begin{bmatrix}
+		0\\
+		0
+	\end{bmatrix})^T\begin{bmatrix}
+		X_1 \\
+		X_2
+	\end{bmatrix}-\frac{1}{2}\begin{bmatrix}
+		0\\
+		0
+	\end{bmatrix}^T\begin{bmatrix}
+		100 & 50\\
+		50 & 100
+	\end{bmatrix}^{-1}\begin{bmatrix}
+		0\\
+		0
+	\end{bmatrix}+\log{\frac{9}{10}}\\
+	&=\log{\frac{9}{10}}
+\end{align*}
+When there is a gas leak, $g_{GL}(x)>g_{NL}(x)$,
+$$\frac{1}{15}X_1+\frac{1}{15}X_2-\frac{2}{3}+\log{\frac{1}{10}}>\log{\frac{9}{10}}$$
+$$X_1+X_2>15\log{9}+10$$
+Therefore, the decision region is defined as
+\begin{equation*}
+	\left\{
+	\begin{aligned}
+		&\text{Gas Leak}\qquad &X_1+X_2>15\log{9}+10\\
+		&\text{No Gas Leak}\qquad &X_1+X_2\leq 15\log{9}+10
+	\end{aligned}
+	\right.
+\end{equation*}
+%\\
+%\\
+
+\end{document}

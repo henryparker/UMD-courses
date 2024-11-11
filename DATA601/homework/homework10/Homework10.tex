@@ -1,0 +1,183 @@
+
+\documentclass[12pt]{article}
+%\documentstyle[12pt]{article}
+%\documentclass{amsart}
+%\usepackage[dvips]{graphicx}
+
+
+\usepackage{amssymb,amsmath,amscd,amsthm}
+%\usepackage{graphicx,psfrag,epsfig,multirow} LINEA ORIGINAL
+\usepackage{graphicx,psfrag,epsfig}
+
+
+\usepackage{graphicx}
+\usepackage[active]{srcltx}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{lemma}[theorem]{Lemma}
+%\newtheorem{remark}[theorem]{Remark}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{axiom}{Axiom}
+\newtheorem{remark}{Remark}
+\newtheorem{exercise}{Exercise}[section]
+
+\newcommand{\thmref}[1]{Theorem~\ref{#1}}
+\newcommand{\propref}[1]{Proposition~\ref{#1}}
+\newcommand{\secref}[1]{\S\ref{#1}}
+\newcommand{\lemref}[1]{Lemma~\ref{#1}}
+\newcommand{\corref}[1]{Corollary~\ref{#1}}
+\newcommand{\remref}[1]{Remark~\ref{#1}}
+
+
+
+\setlength{\topmargin}{0mm}
+\setlength{\oddsidemargin}{0mm}
+\setlength{\textwidth}{160mm}
+\setlength{\textheight}{215mm}
+\font\bbc=msbm10 scaled 1200
+\newcommand{\E}{\mathbf{E}}
+\newcommand{\R}{\mbox {\bbc R}}
+\newcommand{\T}{\mbox {\bbc T}}
+\newcommand{\Z}{\mbox {\bbc Z}}
+\def\stackunder#1#2{\mathrel{\mathop{#2}\limits_{#1}}}
+
+\def\Area{{\rm Area}}
+\def\Const{{\rm Const}}
+\def\Int{{\rm Int}}
+
+\def\eps{{\varepsilon}}
+
+\def\EXP{\mathbb{E}}
+\def\GR{\mathbb{G}}
+\def\PROB{\mathbb{P}}
+\def\TOR{\mathbb{T}}
+
+\def\naturals{\mathbb{N}}
+
+\def\brGamma{{\bar\Gamma}}
+\def\brgamma{{\bar\gamma}}
+\def\brtau{{\bar\tau}}
+\def\brtheta{{\bar\theta}}
+\def\brchi{{\bar\chi}}
+
+\def\bI{{\bf I}}
+
+\def\cE{\mathcal{E}}
+\def\cG{\mathcal{C}}
+\def\cL{\mathcal{L}}
+\def\cU{\mathcal{U}}
+\def\cZ{\mathcal{Z}}
+
+\def\hN{{\hat N}}
+\def\hn{{\hat n}}
+\def\hy{{\hat y}}
+\def\hGamma{{\hat\Gamma}}
+\def\hdelta{{\hat\delta}}
+\def\hsigma{{\hat\sigma}}
+\def\htau{{\hat\tau}}
+\def\heta{{\hat\eta}}
+\def\htheta{{\hat\theta}}
+
+\def\tW{{\tilde W}}
+\def\tM{{\tilde M}}
+\def\tX{{\tilde X}}
+\def\tc{{\tilde c}}
+\def\tp{{\tilde p}}
+\def\tq{{\tilde q}}
+\def\tdelta{{\tilde\delta}}
+\def\teta{{\tilde\eta}}
+\def\txi{{\tilde\xi}}
+\def\tsigma{{\tilde\sigma}}
+\def\ttheta{{\tilde\theta}}
+
+\title{Probability and Statistics Homework 10}
+\author{Hairui Yin}
+\date{}
+
+\begin{document}
+\maketitle
+\noindent{\bf 1.} A child gets a weekly allowance (a certain non-negative number of dollars). The amount (in dollars) is random with expectation equal to 6 and variance equal to 6. Let's denote this random variable by $X$. I want to estimate (from above) the chances that the child gets 12 dollars or more on a given week. In other words, I want to find $c$ such that P($X\geq 12$)$\leq c$, with $c$ that is as small as possible.\\
+\indent (a) Use the Markov inequalilty to find $c$ such that P($X\geq 12$)$\leq c$.\\
+\indent (b) Use the Chebyshev inequality for the variance to find $c$ such that P($X\geq 12$)$\leq c$.\\
+\indent (c) Use the one-sided Chebyshev inequality to find $c$ such that P($X\geq 12$)$\leq c$.\\
+\\
+\textbf{Answer:}\\
+\\
+\noindent{\textbf{(a)}} According to Markov's Inequality, since $X$ is a non-negative R.V., $\forall a>0, P(X\geq a)\leq\frac{E[X]}{a}$. Using Markov's Inequality,
+\begin{align*}
+	P(X\geq 12)&\leq\frac{E[X]}{12}\\
+	&=\frac{6}{12}\\
+	&=\frac{1}{2}
+\end{align*}
+Therefore, $c=\frac{1}{2}$ using Markov Inequality.\\
+\\
+\noindent{\textbf{(b)}} According to Chebyshev Inequality, $\forall a>0, P(|X-\mu|\geq a)\leq \frac{\sigma^2}{a^2}$. Using Chebyshev Inequality,
+\begin{align*}
+	P(X\geq 12)&=P(X-6\geq6)\\
+	&\leq P(|X-6|\geq6)\\
+	&\leq\frac{\sigma^2}{6^2}\\
+	&=\frac{6}{6^2}\\
+	&=\frac{1}{6}
+\end{align*}
+Therefore, $c=\frac{1}{6}$ using Chebyshev Inequality.\\
+\\
+\noindent{\textbf{(c)}} According to one-sided Chebyshev Inequality, $\forall a>0, P(X\geq \mu + a)\leq \frac{\sigma^2}{\sigma^2+a^2}$. Using one-sided Chebyshev Inequality,
+\begin{align*}
+	P(X\geq 12)&=P(X\geq 6+6)\\
+	&\leq \frac{6}{6+6^2}\\
+	&=\frac{1}{7}
+\end{align*}
+Therefore, $c=\frac{1}{7}$ using one-sided Chebyshev Inequality.
+\newpage
+\noindent{\bf 2.} If $X_1$, $X_2$, $X_3$, and $X_4$ are (pairwise) uncorrelated random variables, each having mean 0 and variance 1, compute the correlations of\\
+\indent (a) $X_1+X_2$ and $X_2+X_3$;\\
+\indent (b) $X_1+X_2$ and $X_3+X_4$;\\
+\\
+\textbf{Answer:}\\
+\\
+\noindent{\textbf{(a)}} According to the definition of correlation,
+\begin{align*}
+	\rho(X_1+X_2, X_2+X_3)&=\frac{\text{Cov}(X_1+X_2, X_2+X_3)}{\sqrt{\text{Var}(X_1+X_2)\text{Var}(X_2+X_3)}}\\
+\end{align*}
+Since $X_1,X_2,X_3,X_4$ are pairwise uncorrelated with same mean and variance, $\text{Var}(X_1+X_2)=\text{Var}(X_2+X_3)$. Thus the above formula can be written as
+\begin{align*}
+	\rho(X_1+X_2, X_2+X_3)&=\frac{\text{Cov}(X_1+X_2, X_2+X_3)}{\text{Var}(X_1+X_2)}\\
+	&=\frac{\text{Cov}(X_1,X_2)+\text{Cov}(X_1,X_3)+\text{Cov}(X_2,X_2)+\text{Cov}(X_2,X_3)}{\text{Var}(X_1+X_2)}\\
+	&=\frac{\text{Cov}(X_2,X_2)}{\text{Var}(X_1+X_2)}\\
+	&=\frac{\text{Var}X_2}{\text{Var}X_1+2\text{Cov}(X_1,X_2)+\text{Var}X_2}\\
+	&=\frac{1}{1+0+1}\\
+	&=\frac{1}{2}
+\end{align*}
+\\
+\noindent{\textbf{(b)}} Similarly, the correlation can be written as
+\begin{align*}
+	\rho(X_1+X_2,X_3+X_4)&=\frac{\text{Cov}(X_1+X_2, X_3+X_4)}{\sqrt{\text{Var}(X_1+X_2)\text{Var}(X_3+X_4)}}\\
+	&=\frac{\text{Cov}(X_1+X_2, X_2+X_3)}{\text{Var}(X_1+X_2)}\\
+	&=\frac{\text{Cov}(X_1,X_3)+\text{Cov}(X_1,X_4)+\text{Cov}(X_2,X_3)+\text{Cov}(X_2,X_4)}{\text{Var}(X_1+X_2)}\\
+	&=\frac{0}{\text{Var}(X_1+X_2)}\\
+	&=0
+\end{align*}
+\newpage
+\noindent{\bf 3.} A certain component is critical to the operation of an electrical system and must be replaced immediately upon failure. If the mean lifetime of this type of component is 100 hours and its standard deviation is 30 hours, how many of these components must be in stock so that the probability that the system is in continual operation for the next 2000 hours is at least .95 ?\\
+\\
+\textbf{Answer:}\\
+\\
+Assume there are $n$ components in stock, each has a lifetime $X_i,i\in \{1,2,...,n\}$, the total hour that these components can last is $Z=X_1+X_2+...+X_n$. The question is to find a $n$, so that
+$$P(Z\geq 2000)\geq 0.95$$
+Notice that $X_i$ are i.i.d R.V., we can use the central limit theorem. The left part in the above formula can be written as
+\begin{align*}
+	P(Z\geq 2000)&=P(X_1+X_2+...+X_n\geq 2000)\\
+	&=P(X_1+X_2+...+X_n-n\mu\geq 2000-100n)\\
+	&=P(\frac{X_1+X_2+...+X_n-n\mu}{\sigma \sqrt{n}}\geq \frac{2000-100n}{30\sqrt{n}})\\
+	&=1-\Phi(\frac{2000-100n}{30\sqrt{n}})
+\end{align*}
+Given at least 0.95 probability, $1-\Phi(\frac{2000-100n}{30\sqrt{n}})\geq 0.95$, which is
+$$\Phi(\frac{2000-100n}{30\sqrt{n}})\leq 0.05$$
+With $\Phi$ table,
+$$\frac{2000-100n}{30\sqrt{n}}\leq -1.645$$
+This inequality gives $n\geq 23$. Therefore, there must be at least 23 components.
+\end{document}

@@ -1,0 +1,220 @@
+
+\documentclass[12pt]{article}
+%\documentstyle[12pt]{article}
+%\documentclass{amsart}
+%\usepackage[dvips]{graphicx}
+
+
+\usepackage{amssymb,amsmath,amscd,amsthm}
+%\usepackage{graphicx,psfrag,epsfig,multirow} LINEA ORIGINAL
+\usepackage{graphicx,psfrag,epsfig}
+
+
+\usepackage{graphicx}
+\usepackage[active]{srcltx}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{lemma}[theorem]{Lemma}
+%\newtheorem{remark}[theorem]{Remark}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{axiom}{Axiom}
+\newtheorem{remark}{Remark}
+\newtheorem{exercise}{Exercise}[section]
+
+\newcommand{\thmref}[1]{Theorem~\ref{#1}}
+\newcommand{\propref}[1]{Proposition~\ref{#1}}
+\newcommand{\secref}[1]{\S\ref{#1}}
+\newcommand{\lemref}[1]{Lemma~\ref{#1}}
+\newcommand{\corref}[1]{Corollary~\ref{#1}}
+\newcommand{\remref}[1]{Remark~\ref{#1}}
+
+
+
+\setlength{\topmargin}{0mm}
+\setlength{\oddsidemargin}{0mm}
+\setlength{\textwidth}{160mm}
+\setlength{\textheight}{215mm}
+\font\bbc=msbm10 scaled 1200
+\newcommand{\E}{\mathbf{E}}
+\newcommand{\R}{\mbox {\bbc R}}
+\newcommand{\T}{\mbox {\bbc T}}
+\newcommand{\Z}{\mbox {\bbc Z}}
+\def\stackunder#1#2{\mathrel{\mathop{#2}\limits_{#1}}}
+
+\def\Area{{\rm Area}}
+\def\Const{{\rm Const}}
+\def\Int{{\rm Int}}
+
+\def\eps{{\varepsilon}}
+
+\def\EXP{\mathbb{E}}
+\def\GR{\mathbb{G}}
+\def\PROB{\mathbb{P}}
+\def\TOR{\mathbb{T}}
+
+\def\naturals{\mathbb{N}}
+
+\def\brGamma{{\bar\Gamma}}
+\def\brgamma{{\bar\gamma}}
+\def\brtau{{\bar\tau}}
+\def\brtheta{{\bar\theta}}
+\def\brchi{{\bar\chi}}
+
+\def\bI{{\bf I}}
+
+\def\cE{\mathcal{E}}
+\def\cG{\mathcal{C}}
+\def\cL{\mathcal{L}}
+\def\cU{\mathcal{U}}
+\def\cZ{\mathcal{Z}}
+
+\def\hN{{\hat N}}
+\def\hn{{\hat n}}
+\def\hy{{\hat y}}
+\def\hGamma{{\hat\Gamma}}
+\def\hdelta{{\hat\delta}}
+\def\hsigma{{\hat\sigma}}
+\def\htau{{\hat\tau}}
+\def\heta{{\hat\eta}}
+\def\htheta{{\hat\theta}}
+
+\def\tW{{\tilde W}}
+\def\tM{{\tilde M}}
+\def\tX{{\tilde X}}
+\def\tc{{\tilde c}}
+\def\tp{{\tilde p}}
+\def\tq{{\tilde q}}
+\def\tdelta{{\tilde\delta}}
+\def\teta{{\tilde\eta}}
+\def\txi{{\tilde\xi}}
+\def\tsigma{{\tilde\sigma}}
+\def\ttheta{{\tilde\theta}}
+
+\title{Machine Learning Homework 1}
+\author{Hairui Yin}
+\date{}
+
+\begin{document}
+%\title{Exam Problems  -  Stat 400}
+%\author{Winter 2008-2009}
+%\normalsize Department of Mathematics\\[-4pt]
+%\normalsize Princeton University\\[-4pt]
+%\normalsize Princeton, NJ 08544\\[-4pt]
+%\normalsize koralov@math.princeton.edu\\[-4pt]
+%\date{}
+\maketitle
+\noindent {\bf 1.} 
+\\
+\textbf{(a)} Denote $\lambda$ as the eigenvalue of $\mathbf{B}$. Then we have
+\begin{align*}
+	\lambda^2-(2.25+2.75)\lambda+(2.25\times2.75-0.433\times 0.433)=0
+\end{align*}
+The result is $\lambda_1=\frac{5-\frac{2\sqrt{249989}}{10^3}}{2}\approx 2.000011,\lambda_2=\frac{5+\frac{2\sqrt{249989}}{10^3}}{2}\approx 2.999989$, they are the eigenvalues of $\mathbf{B}$.\\
+\\
+\\
+\textbf{(b)}
+Consider $(\mathbf{B}-\lambda \mathbf{I})x=0$, where $x$ is the eigenvectors. Put $\lambda_1=2.000011, \lambda_2=2.999989$ into this equation as following:
+\begin{align*}
+	(\mathbf{B}-\lambda_1\mathbf{I})v_1=0\\
+	(\mathbf{B}-\lambda_2\mathbf{I})v_2=0
+\end{align*}
+Therefore, the result of eigenvectors are
+\begin{align*}
+	v_1&=(-0.86602858,  0.4999945)\\
+	v_2&=(-0.4999945, -0.86602858)
+\end{align*}
+Note that
+\begin{align*}
+	<v_1, v_2>&=-0.86602858\times (-0.4999945)+0.4999945\times(-0.86602858)\\
+	&=0
+\end{align*}
+Since these two eigenvectors have inner product equal to 0, they are orthogonal.
+\\
+\\
+\textbf{(c)}
+\begin{align*}
+	det(\mathbf{B})&=2.25\times 2.75-(-0.433)\times(-0.433)\\
+	&=6.000011
+\end{align*}
+And,
+\begin{align*}
+	\lambda_1\times \lambda_2&=\frac{5-\frac{2\sqrt{249989}}{10^3}}{2}\times \frac{5+\frac{2\sqrt{249989}}{10^3}}{2}\\
+	&=6.000011=det(\mathbf{B})
+\end{align*}
+Therefore, the determinant is equal to the product of the eigenvalues.
+\\
+\\
+\textbf{(d)}
+\begin{align*}
+	Tr(\mathbf{B})&=2.25+2.75\\
+	&=5
+\end{align*}
+And,
+\begin{align*}
+	\lambda_1+\lambda_2&=\frac{5-\frac{2\sqrt{249989}}{10^3}}{2}+\frac{5+\frac{2\sqrt{249989}}{10^3}}{2}\\
+	&=5=Tr(\mathbf{B})
+\end{align*}
+Therefore, the trace of $\mathbf{B}$ is equal to the sum of the eigenvalues.
+
+\newpage
+\noindent {\bf 2.}
+\\
+\textbf{(a)}
+Denote the network is under attack as A, normal operation as N, response fast as Rf, normal as Rn, slow as Rs, then
+\begin{align*}
+	P(A)&=P(A,Rf)+P(A,Rn)+P(A,Rs)\\
+	&=0.05+0.1+0.25\\
+	&=0.4
+\end{align*}
+Therefore, the probability that the network is under attack is 0.4.
+\\
+\\
+\textbf{(b)}
+\begin{align*}
+	P(A,B)&=0.25\\
+	P(A)&=0.25+0.1=0.35\\
+	P(B)&=0.05+0.1+0.25=0.4
+\end{align*}
+Since $P(A)\times P(B)=0.35\times 0.4=0.14\neq P(A,B)$, events A and B are not independent.
+\\
+\\
+\textbf{(c)}
+Given the notation same as question (a), the conditional probability that the response time is slow given that the network is under attack is
+\begin{align*}
+	P(Rs|A)&=\frac{P(Rs,A)}{P(A)}\\
+	&=\frac{0.25}{0.4}\\
+	&=0.625
+\end{align*}
+Therefore, the conditional probability that the response time is slow given that the network is under attack is 0.625.
+\\
+\\
+\textbf{(d)}
+Given the notation same as question (a), the conditional probability that the network is under attack given that the response time is slow is
+\begin{align*}
+	P(A|Rs)&=\frac{P(Rs|A)P(A)}{P(Rs)}\\
+	&=\frac{0.625\times 0.4}{0.35}\\
+	&=\frac{5}{7}
+\end{align*}
+Therefore, the conditional probability that the network is under attack given that the response time is slow is $\frac{5}{7}$.
+
+\newpage
+\noindent {\bf 3.}
+\begin{proof}
+	Denote $\lambda$ as eigenvalues of $\mathbf{A}$, $\mathbf{v}$ as eigenvectors of $\mathbf{A}$, then
+	$$\mathbf{A}\mathbf{v}=\lambda\mathbf{v}$$
+	According to the definition of positive semidefinite matrix, $\forall \mathbf{x}\in R^n, \mathbf{x}^T\mathbf{A}\mathbf{x}\geq 0$. Replacing $\mathbf{x}$ with $\mathbf{v}$, then
+	\begin{align*}
+		\mathbf{x}^T\mathbf{A}\mathbf{x}&=\mathbf{v}^T\mathbf{A}\mathbf{v}\\
+		&=\mathbf{v}^T(\lambda\mathbf{v})\\
+		&=\lambda\mathbf{v}^T\mathbf{v}\\
+		&=\lambda\geq 0
+	\end{align*}
+\end{proof}
+%\\
+%\\
+
+\end{document}

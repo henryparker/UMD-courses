@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+	\PYG{n}{w} \PYG{o}{=} \PYG{n}{svm}\PYG{o}{.}\PYG{n}{coef\PYGZus{}}\PYG{o}{.}\PYG{n}{T}
+	\PYG{n}{b} \PYG{o}{=} \PYG{n}{svm}\PYG{o}{.}\PYG{n}{intercept\PYGZus{}}
+\end{Verbatim}

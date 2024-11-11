@@ -1,0 +1,268 @@
+
+\documentclass[12pt]{article}
+%\documentstyle[12pt]{article}
+%\documentclass{amsart}
+%\usepackage[dvips]{graphicx}
+
+
+\usepackage{amssymb,amsmath,amscd,amsthm}
+%\usepackage{graphicx,psfrag,epsfig,multirow} LINEA ORIGINAL
+\usepackage{graphicx,psfrag,epsfig}
+
+
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage[active]{srcltx}
+\usepackage{enumitem}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{lemma}[theorem]{Lemma}
+%\newtheorem{remark}[theorem]{Remark}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{axiom}{Axiom}
+\newtheorem{remark}{Remark}
+\newtheorem{exercise}{Exercise}[section]
+
+\newcommand{\thmref}[1]{Theorem~\ref{#1}}
+\newcommand{\propref}[1]{Proposition~\ref{#1}}
+\newcommand{\secref}[1]{\S\ref{#1}}
+\newcommand{\lemref}[1]{Lemma~\ref{#1}}
+\newcommand{\corref}[1]{Corollary~\ref{#1}}
+\newcommand{\remref}[1]{Remark~\ref{#1}}
+
+
+
+\setlength{\topmargin}{0mm}
+\setlength{\oddsidemargin}{0mm}
+\setlength{\textwidth}{160mm}
+\setlength{\textheight}{215mm}
+\font\bbc=msbm10 scaled 1200
+\newcommand{\E}{\mathbf{E}}
+\newcommand{\R}{\mbox {\bbc R}}
+\newcommand{\T}{\mbox {\bbc T}}
+\newcommand{\Z}{\mbox {\bbc Z}}
+\def\stackunder#1#2{\mathrel{\mathop{#2}\limits_{#1}}}
+
+\def\Area{{\rm Area}}
+\def\Const{{\rm Const}}
+\def\Int{{\rm Int}}
+
+\def\eps{{\varepsilon}}
+
+\def\EXP{\mathbb{E}}
+\def\GR{\mathbb{G}}
+\def\PROB{\mathbb{P}}
+\def\TOR{\mathbb{T}}
+
+\def\naturals{\mathbb{N}}
+
+\def\brGamma{{\bar\Gamma}}
+\def\brgamma{{\bar\gamma}}
+\def\brtau{{\bar\tau}}
+\def\brtheta{{\bar\theta}}
+\def\brchi{{\bar\chi}}
+
+\def\bI{{\bf I}}
+
+\def\cE{\mathcal{E}}
+\def\cG{\mathcal{C}}
+\def\cL{\mathcal{L}}
+\def\cU{\mathcal{U}}
+\def\cZ{\mathcal{Z}}
+
+\def\hN{{\hat N}}
+\def\hn{{\hat n}}
+\def\hy{{\hat y}}
+\def\hGamma{{\hat\Gamma}}
+\def\hdelta{{\hat\delta}}
+\def\hsigma{{\hat\sigma}}
+\def\htau{{\hat\tau}}
+\def\heta{{\hat\eta}}
+\def\htheta{{\hat\theta}}
+
+\def\tW{{\tilde W}}
+\def\tM{{\tilde M}}
+\def\tX{{\tilde X}}
+\def\tc{{\tilde c}}
+\def\tp{{\tilde p}}
+\def\tq{{\tilde q}}
+\def\tdelta{{\tilde\delta}}
+\def\teta{{\tilde\eta}}
+\def\txi{{\tilde\xi}}
+\def\tsigma{{\tilde\sigma}}
+\def\ttheta{{\tilde\theta}}
+
+\title{Probability and Statistics Homework 7}
+\author{Hairui Yin}
+\date{}
+
+\begin{document}
+\maketitle
+\noindent {\bf 1.} Suppose that a random variable X has the density given by
+\begin{equation*}
+	f(x)=\left\{
+	\begin{aligned}
+		&0, && x\leq 0\\
+		&cx, && x\in(0,2)\\
+		&0, && x\geq 2,
+	\end{aligned}
+	\right.
+\end{equation*}
+where $c$ is a certain constant.
+\begin{itemize}[left=1cm, itemsep=0em]
+	\item[(a)] Find $c$.
+	\item[(b)] Find the cumulative distribution function of $X$.
+	\item[(c)] Find $P(X>1)$.
+	\item[(d)] Find $EX$
+	\item[(e)] Find $Var(X)$.
+	\item[(f)] Find a formula for the density of $Y=e^X$.
+	\item[(g)] Find $Ee^X$.
+\end{itemize}
+\textbf{Answer:}\\ 
+\noindent {\bf (a)} For that $\int_{-\infty}^{\infty}f(x)\ dx=1$, we have
+\begin{align*}
+	\int_{0}^{2}cx\ dx&=\frac{1}{2}cx^2\big|_0^2\\
+	&=2c=1\\
+	\Rightarrow c&=\frac{1}{2}
+\end{align*}
+\noindent {\bf (b)} According to defintion, $F_X(y)=P(-\infty<x\leq y)$.\\
+\begin{itemize}
+	\item[1.] For $y\leq 0$, $$F_X(y)=0$$
+	\item[2.] For $y\in (0,2)$, $$F_X(y)=\int_0^y\frac{1}{2}x\ dx=\frac{1}{4}y^2$$
+	\item[3.] For $y\geq 2$, $$F_X(y)=1$$
+\end{itemize}
+Therefore, the cdf of $X$ is
+\begin{equation*}
+	F_X(y)=\left\{
+	\begin{aligned}
+		&0, && y\leq 0\\
+		&\frac{1}{4}y^2, && y\in(0,2)\\
+		&1, && y\geq 2
+	\end{aligned}
+	\right.
+\end{equation*}
+\noindent {\bf (c)} According to the property of cdf
+\begin{align*}
+	P(X>1)&=1-P(X\leq 1)\\
+	&=1-F_X(y=1)\\
+	&=1-\frac{1}{4}\\
+	&=\frac{3}{4}
+\end{align*}
+\noindent {\bf (d)} According to the definition of expectation
+\begin{align*}
+	EX&=\int_{-\infty}^{\infty}xf(x)\ dx\\
+	&=\int_0^2\frac{1}{2}x^2\ dx\\
+	&=\frac{4}{3}
+\end{align*}
+\noindent {\bf (e)} Since $Var(X)=E(X^2)-(E[X])^2$, and we have $EX$ in (d), we are now calculate $E[X^2]$.
+\begin{align*}
+	E[X^2]&=\int_{-\infty}^{\infty}x^2f(x)\ dx\\
+	&=\int_0^2\frac{1}{2}x^3\ dx\\
+	&=2
+\end{align*}
+Therefore, the Variance of $X$ is
+\begin{align*}
+	Var(x)&=E[X^2]-(E[X])^2\\
+	&=2-(\frac{4}{3})^2\\
+	&=\frac{2}{9}
+\end{align*}
+\noindent {\bf (f)} Considering the cdf of $Y$, for $x\in(0,2)$, $y\in(1, e^2)$
+\begin{align*}
+	F_Y(y)&=P(Y\leq y)=P(e^X\leq y)=P(x\leq \ln{y})\\
+	&=F_X(\ln{y})\\
+\end{align*}
+To find the pdf of $Y$, we do derivate to $F_Y(y)$, which is
+\begin{align*}
+	f(y)&=\frac{d}{dy}F_Y(y)\\
+	&=\frac{d}{dy}F_X(\ln{y})\\
+	&=\frac{1}{2y}\ln{y}\\
+\end{align*}
+Therefore, the pdf of $Y$ is
+\begin{equation*}
+	f(y)=\left\{
+	\begin{aligned}
+		&\frac{1}{2y}\ln{y}, &&y\in(1,e^2)\\
+		&0,&&\text{otherwise}
+	\end{aligned}
+	\right.
+\end{equation*}
+\noindent {\bf (g)} According to the definition of expectation and $Y$,
+\begin{align*}
+	E[e^X]&=E[Y]\\
+	&=\int_{-\infty}^\infty yf(y)\ dy\\
+	&=\int_{1}^{e^2} y\frac{1}{2y}\ln{y}\ dy\\
+	&=\frac{1}{2}\int_{1}^{e^2}\ln{y}\ dy\\
+	&=\frac{1}{2}(y\ln{y}\big|_1^{e^2}-y\big|_1^{e^2})\\
+	&=\frac{1}{2}(e^2+1)
+\end{align*}
+\newpage
+\noindent {\bf 2.} A store-owner buys up to $100$ liters of milk from a wholesaler at the beginning of the day with the price per liter equal to $2-(x/400)$ dollars, where $x$ is the total amount (in liters) that he buys. He then sells it during the day at $3$ dollar per liter. Any unsold milk is wasted. The daily demand (in liters) is random, uniformly distributed on the interval $[0, 100]$. What amount of milk should the store-owener buy to maximize his expected profit?\\
+\textbf{Answer:}\\
+Denote the daily demand as $Y$, $Y\sim \text{Uniform}(0,100)$. Denote the milk that are sold daily is $M$, where
+$$M=\min(x, y)$$
+The daily profit is thus
+$$\text{Profit}=3M-x[2-(x/400)]=3\min(x, y)-x[2-(x/400)]$$
+Firstly, we are going to find the expected profit given $Y\sim \text{Uniform}(0,100)$, where $f(y)=\frac{1}{100}, y\in[0,100]$.\\
+Consider two cases: (1) $y\leq x$, then $M=min(x,y)=y$ (2) $y>x$, then $M=min(x,y)=x$. So, the expected profit is
+\begin{align*}
+	E[\text{Profit}]&=3E[min(x,y)]-x[2-(x/400)]\\
+	&=3(\int_0^x y\frac{1}{100}\ dy + \int_x^{100} x\frac{1}{100}\ dy)-x[2-(x/400)]\\
+	&=3[\frac{1}{200}x^2+\frac{x}{100}(100-x)]-x[2-(x/400)]\\
+	&=x-\frac{5}{400}x^2
+\end{align*}
+where $x\in[0,100]$.
+After than, to find the maximum of expected profit, we set its first derivative to 0
+\begin{align*}
+	\frac{d}{dx}(x-\frac{5}{400}x^2)=0\\
+	\Rightarrow x=40
+\end{align*}
+To check whether $x=40$ is the maximum point, we calculate its second derivative
+\begin{align*}
+	\frac{d^2}{dx^2}(x-\frac{5}{400}x^2)&=-\frac{1}{40}<0
+\end{align*}
+Therefore, $x=40$ is the point to maximize expected profit. The store-owner should buy $40$ liters of milk.
+\newpage
+\noindent {\bf 3.} The density of a random variable $X$ is
+\begin{equation*}
+	f(x)=\left\{
+	\begin{aligned}
+		&a+bx^2, &&0\leq x\leq 1\\
+		&0, &&\text{otherwise}
+	\end{aligned}
+	\right.
+\end{equation*}
+Find $a$ and $b$ if you know that $EX=\frac{5}{8}$.\\
+\textbf{Answer:}\\ 
+According to the definition of expectation, we have $\int_{-\infty}^{\infty}xf(x)\ dx=\frac{5}{8}$. Thus,
+\begin{align*}
+	\int_{0}^{1}x(a+bx^2)\ dx&=\frac{b}{4}x^4\big|_0^1+\frac{a}{2}x^2\big|_0^1\\
+	&=\frac{b}{4}+\frac{a}{2}=\frac{5}{8}
+\end{align*}
+Also, since $\int_{-\infty}^{\infty}f(x)\ dx=1$, we have
+\begin{align*}
+	\int_{0}^{1}a+bx^2\ dx&=ax\big|_0^1+\frac{b}{3}x^3\big|_0^1\\
+	&=a+\frac{b}{3}=1
+\end{align*}
+Combine these two equations we have
+\begin{equation*}
+	\left\{
+	\begin{aligned}
+		&4a+2b=5\\
+		&3a+b=3
+	\end{aligned}
+	\right.
+	\Rightarrow
+	\left\{
+	\begin{aligned}
+		&a=\frac{1}{2}\\
+		&b=\frac{3}{2}
+	\end{aligned}
+	\right.
+\end{equation*}
+Therefore, $a=\frac{1}{2}, b=\frac{3}{2}$.
+\end{document}
+

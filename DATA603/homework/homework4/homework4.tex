@@ -1,0 +1,176 @@
+
+\documentclass[12pt]{article}
+%\documentstyle[12pt]{article}
+%\documentclass{amsart}
+%\usepackage[dvips]{graphicx}
+
+
+\usepackage{amssymb,amsmath,amscd,amsthm}
+%\usepackage{graphicx,psfrag,epsfig,multirow} LINEA ORIGINAL
+\usepackage{graphicx,psfrag,epsfig}
+
+
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage[active]{srcltx}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{lemma}[theorem]{Lemma}
+%\newtheorem{remark}[theorem]{Remark}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{axiom}{Axiom}
+\newtheorem{remark}{Remark}
+\newtheorem{exercise}{Exercise}[section]
+
+\newcommand{\thmref}[1]{Theorem~\ref{#1}}
+\newcommand{\propref}[1]{Proposition~\ref{#1}}
+\newcommand{\secref}[1]{\S\ref{#1}}
+\newcommand{\lemref}[1]{Lemma~\ref{#1}}
+\newcommand{\corref}[1]{Corollary~\ref{#1}}
+\newcommand{\remref}[1]{Remark~\ref{#1}}
+
+
+
+\setlength{\topmargin}{0mm}
+\setlength{\oddsidemargin}{0mm}
+\setlength{\textwidth}{160mm}
+\setlength{\textheight}{215mm}
+\font\bbc=msbm10 scaled 1200
+\newcommand{\E}{\mathbf{E}}
+\newcommand{\R}{\mbox {\bbc R}}
+\newcommand{\T}{\mbox {\bbc T}}
+\newcommand{\Z}{\mbox {\bbc Z}}
+\def\stackunder#1#2{\mathrel{\mathop{#2}\limits_{#1}}}
+
+\def\Area{{\rm Area}}
+\def\Const{{\rm Const}}
+\def\Int{{\rm Int}}
+
+\def\eps{{\varepsilon}}
+
+\def\EXP{\mathbb{E}}
+\def\GR{\mathbb{G}}
+\def\PROB{\mathbb{P}}
+\def\TOR{\mathbb{T}}
+
+\def\naturals{\mathbb{N}}
+
+\def\brGamma{{\bar\Gamma}}
+\def\brgamma{{\bar\gamma}}
+\def\brtau{{\bar\tau}}
+\def\brtheta{{\bar\theta}}
+\def\brchi{{\bar\chi}}
+
+\def\bI{{\bf I}}
+
+\def\cE{\mathcal{E}}
+\def\cG{\mathcal{C}}
+\def\cL{\mathcal{L}}
+\def\cU{\mathcal{U}}
+\def\cZ{\mathcal{Z}}
+
+\def\hN{{\hat N}}
+\def\hn{{\hat n}}
+\def\hy{{\hat y}}
+\def\hGamma{{\hat\Gamma}}
+\def\hdelta{{\hat\delta}}
+\def\hsigma{{\hat\sigma}}
+\def\htau{{\hat\tau}}
+\def\heta{{\hat\eta}}
+\def\htheta{{\hat\theta}}
+
+\def\tW{{\tilde W}}
+\def\tM{{\tilde M}}
+\def\tX{{\tilde X}}
+\def\tc{{\tilde c}}
+\def\tp{{\tilde p}}
+\def\tq{{\tilde q}}
+\def\tdelta{{\tilde\delta}}
+\def\teta{{\tilde\eta}}
+\def\txi{{\tilde\xi}}
+\def\tsigma{{\tilde\sigma}}
+\def\ttheta{{\tilde\theta}}
+
+\title{Machine Learning Homework 4}
+\author{Hairui Yin}
+\date{}
+
+\begin{document}
+%\title{Exam Problems  -  Stat 400}
+%\author{Winter 2008-2009}
+%\normalsize Department of Mathematics\\[-4pt]
+%\normalsize Princeton University\\[-4pt]
+%\normalsize Princeton, NJ 08544\\[-4pt]
+%\normalsize koralov@math.princeton.edu\\[-4pt]
+%\date{}
+\maketitle
+\noindent {\bf 1.} 
+\\
+\textbf{(a)} Consider two different points $x_1,x_2$ in the hyperplane $g(x)=0$, so
+\begin{equation*}
+	\left\{
+	\begin{aligned}
+		w^Tx_1+w_0=0\\
+		w^Tx_2+w_0=0
+	\end{aligned}
+	\right.
+\end{equation*}
+Subtract two equation, then $w^T(x_1-x_2)=0$. It means $w^T$ is the normal vector of that hyperplane.\\
+The distance from a point $x_a$ to the hyperplane means finding a point $x^*$ in the hyperplane ($g(X^*)=0$), where $x^*-x_a$ is parallel to the normal vector of the hyperplane. So,
+$$x^*-x_a=tw,\quad t\in \mathcal{R}$$
+This equation can also be written as
+$$x^*=x_a+tw,\quad t\in \mathcal{R}$$
+Put $x^*$ in to the constraint $g(x)=0$
+$$w^T(x_a+tw)+w_0=0$$
+After simplification, 
+$$t=-\frac{w^Tx_0+b}{||w||^2}$$
+Therefore, minimize $||x-x_a||^2$ subject to the constraint $g(x)=0$,
+\begin{align*}
+	\text{Distance}&=\sqrt{\min(||x-x_a||^2)}\\
+	&=\min{(||x-x_a||)}\\
+	&=||x^*-x_a||\\
+	&=||tw||\\
+	&=|t|\cdot ||w||\\
+	&=\frac{w^Tx_0+b}{||w||^2} \cdot ||w||\\
+	&=\frac{w^Tx_0+b}{||w||}\\
+	&=\frac{g(x_a)}{||w||}
+\end{align*}
+\noindent \textbf{(b)} Since $x_p$ is a projection of $x_a$ onto the hyperplane, $x_p-x_a$ is parallel to the normal vector of the hyperplane. With the inference in question (a), we know that
+$$x_p-x_a=tw,\quad t\in \mathcal{R}$$
+and
+$$t=-\frac{w^Tx_0+b}{||w||^2}$$
+Therefore, put $t$ into the above equation,
+\begin{align*}
+	x_p&=x_a-\frac{w^Tx_0+b}{||w||^2}w\\
+	&=x_a-\frac{g(x_a)}{||w||^2}w\\
+\end{align*}
+\newpage
+\noindent {\bf 2.} 
+\\
+\textbf{(a)} After standardizing data dividing by respective standard deviation, we calculate the mean of two classes with specific features
+$$m_i=\frac{1}{n_i}\sum_{x\in D_i}x_i$$
+Then the within-class scatter matrix is
+$$S_w=S_1+S_2,\quad\text{and}\quad S_i=\sum_{x\in D_i}(x-m_i)(x-m_i)^T$$
+Finally, we can calculate $w$ using
+$$w=S_w^{-1}(m_1-m_2)$$
+The results of the intermediate steps are shown below:
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.65] {Q2a.png}
+\end{figure}
+\noindent \textbf{(b)}The formula of Gini Impurity and Information Gain are
+$$\text{Gini Impurity}=1-\sum_{j=1}^cp_j^2$$
+$$\text{information Gain}(S)=\text{Extropy}(S)-\sum\frac{|S_v|}{|S|}\text{Entropy}(S_v)$$
+The results are shown below:
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.5] {Q2b.png}
+\end{figure}
+%\\
+%\\
+
+\end{document}

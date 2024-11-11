@@ -1,0 +1,293 @@
+
+\documentclass[12pt]{article}
+%\documentstyle[12pt]{article}
+%\documentclass{amsart}
+%\usepackage[dvips]{graphicx}
+
+
+\usepackage{amssymb,amsmath,amscd,amsthm}
+%\usepackage{graphicx,psfrag,epsfig,multirow} LINEA ORIGINAL
+\usepackage{graphicx,psfrag,epsfig}
+
+
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage[active]{srcltx}
+
+\usepackage{minted}
+\usepackage{xcolor}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{lemma}[theorem]{Lemma}
+%\newtheorem{remark}[theorem]{Remark}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{axiom}{Axiom}
+\newtheorem{remark}{Remark}
+\newtheorem{exercise}{Exercise}[section]
+
+\newcommand{\thmref}[1]{Theorem~\ref{#1}}
+\newcommand{\propref}[1]{Proposition~\ref{#1}}
+\newcommand{\secref}[1]{\S\ref{#1}}
+\newcommand{\lemref}[1]{Lemma~\ref{#1}}
+\newcommand{\corref}[1]{Corollary~\ref{#1}}
+\newcommand{\remref}[1]{Remark~\ref{#1}}
+
+
+
+\setlength{\topmargin}{0mm}
+\setlength{\oddsidemargin}{0mm}
+\setlength{\textwidth}{160mm}
+\setlength{\textheight}{215mm}
+\font\bbc=msbm10 scaled 1200
+\newcommand{\E}{\mathbf{E}}
+\newcommand{\R}{\mbox {\bbc R}}
+\newcommand{\T}{\mbox {\bbc T}}
+\newcommand{\Z}{\mbox {\bbc Z}}
+\def\stackunder#1#2{\mathrel{\mathop{#2}\limits_{#1}}}
+
+\def\Area{{\rm Area}}
+\def\Const{{\rm Const}}
+\def\Int{{\rm Int}}
+
+\def\eps{{\varepsilon}}
+
+\def\EXP{\mathbb{E}}
+\def\GR{\mathbb{G}}
+\def\PROB{\mathbb{P}}
+\def\TOR{\mathbb{T}}
+
+\def\naturals{\mathbb{N}}
+
+\def\brGamma{{\bar\Gamma}}
+\def\brgamma{{\bar\gamma}}
+\def\brtau{{\bar\tau}}
+\def\brtheta{{\bar\theta}}
+\def\brchi{{\bar\chi}}
+
+\def\bI{{\bf I}}
+
+\def\cE{\mathcal{E}}
+\def\cG{\mathcal{C}}
+\def\cL{\mathcal{L}}
+\def\cU{\mathcal{U}}
+\def\cZ{\mathcal{Z}}
+
+\def\hN{{\hat N}}
+\def\hn{{\hat n}}
+\def\hy{{\hat y}}
+\def\hGamma{{\hat\Gamma}}
+\def\hdelta{{\hat\delta}}
+\def\hsigma{{\hat\sigma}}
+\def\htau{{\hat\tau}}
+\def\heta{{\hat\eta}}
+\def\htheta{{\hat\theta}}
+
+\def\tW{{\tilde W}}
+\def\tM{{\tilde M}}
+\def\tX{{\tilde X}}
+\def\tc{{\tilde c}}
+\def\tp{{\tilde p}}
+\def\tq{{\tilde q}}
+\def\tdelta{{\tilde\delta}}
+\def\teta{{\tilde\eta}}
+\def\txi{{\tilde\xi}}
+\def\tsigma{{\tilde\sigma}}
+\def\ttheta{{\tilde\theta}}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\newminted{python}{
+	linenos=true,
+	bgcolor=backcolour,
+	fontsize=\footnotesize,
+	numbersep=5pt,
+	frame=single,
+	framesep=2mm
+}
+
+\title{Machine Learning Homework 6}
+\author{Hairui Yin}
+\date{}
+
+\begin{document}
+%\title{Exam Problems  -  Stat 400}
+%\author{Winter 2008-2009}
+%\normalsize Department of Mathematics\\[-4pt]
+%\normalsize Princeton University\\[-4pt]
+%\normalsize Princeton, NJ 08544\\[-4pt]
+%\normalsize koralov@math.princeton.edu\\[-4pt]
+%\date{}
+\maketitle
+\noindent {\bf 1.} 
+\\
+\textbf{(a)} Given the formula $f(x)$
+$$f(x)=\frac{1}{2}x^TPx+q^Tx+\log{(e^{-2x_1}+e^{-x_2})}$$
+The gradient is computed as follows:
+\begin{equation*}
+	\left\{
+	\begin{aligned}
+		&\nabla(\frac{1}{2}x^TPx)=Px\\
+		&\nabla(q^Tx)=q\\
+		&\nabla(\log{(e^{-2x_1}+e^{-x_2})})=\frac{1}{e^{-2x_1}+e^{-x_2}}
+		\begin{bmatrix}
+			-2e^{-2x_1}\\
+			-e^{-x_2}
+		\end{bmatrix}
+	\end{aligned}
+	\right.
+\end{equation*}
+Thus, the gradient $\nabla f(x)$ is
+$$\nabla f(x)=Px+q+\frac{1}{e^{-2x_1}+e^{-x_2}}
+\begin{bmatrix}
+	-2e^{-2x_1}\\
+	-e^{-x_2}
+\end{bmatrix}$$
+The code is as follows:
+\begin{pythoncode}
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.optimize import minimize_scalar
+
+def f(x, P, q):
+	return 0.5 * x.T @ p @ x + q.T @ x + \
+		np.log(np.exp(-2 * x[0]) + np.exp(-x[1]))
+def grad_f(x, P, q):
+	grad_quadratic = P @ x + q
+	exp_terms = np.array([np.exp(-2 * x[0]), np.exp(-x[1])])
+	grad_logarithmic = -np.array([2 * exp_terms[0], exp_terms[1]]) / \
+		np.sum(exp_terms)
+	return grad_quadratic + grad_logarithmic
+\end{pythoncode}
+where we define the function of $f(x)$ and its gradient. Then inplement gradient descent with exact line search, using the minimize\_scalar() function to find exactly the minimum of $\phi(\alpha)$,
+\begin{pythoncode}
+def gradient_descent_exact_line_search(x0, P, q, tol=1e-2, max_iter=100):
+	xk = x0
+	path = [xk]  # To store the sequence of solutions
+
+	for _ in range(max_iter):
+		grad = grad_f(xk, P, q)
+		if np.linalg.norm(grad) < tol:
+			break
+
+	# Exact line search: minimize f(xk - alpha * grad)
+	# Objective function for line search along direction -grad
+	def phi(alpha):
+		return f(xk - alpha * grad, P, q)
+
+	# Approximate exact line search (find alpha that minimizes phi)
+	alpha = minimize_scalar(phi).x
+	
+	# Update xk
+	xk = xk - alpha * grad
+	path.append(xk)
+	
+	return np.array(path)
+\end{pythoncode}
+Then input parameter $P,q$ and initial point $x_0$, we finally have result under stopping condition $||\nabla f(x)||\leq 10^{-2}$ is
+\begin{equation*}
+	\left\{
+	\begin{aligned}
+		&x_1=11.97772588\\
+		&x_2=-8.48475201\\
+		&y*=-24.74991683
+	\end{aligned}
+	\right.
+\end{equation*}
+And the sequence of solutions $x^k$ are ploted as follows:
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.8] {Q1_1.png}
+\end{figure}
+\noindent {\bf (b)} In question (b), we update $\alpha$ by $\alpha *= \beta$ if satisfying the condition that $f(x_k+\alpha\cdot d_k)\leq f(x_k)+\alpha\cdot \gamma(\nabla^T\nabla)$. The inplement gradient descent with backtracking line search is
+\begin{pythoncode}
+def gradient_descent_backtracking(x0, P, q, \
+  alpha_init=0.15, gamma=0.7, beta=0.8, tol=1e-6, max_iter=100):
+	xk = x0
+	path = [xk]  # To store the sequence of solutions
+	
+	for _ in range(max_iter):
+		grad = grad_f(xk, P, q)
+		if np.linalg.norm(grad) < tol:
+			break
+	
+		# Backtracking line search
+		alpha = alpha_init
+		while f(xk - alpha * grad, P, q) > \
+			  f(xk, P, q) - gamma * alpha * np.dot(grad.T, grad):
+			alpha *= beta
+			
+		# Update xk
+		xk = xk - alpha * grad
+		path.append(xk)
+	
+	return np.array(path)
+\end{pythoncode}
+Then input parameter $P,q$ and initial point $x_0$, we finally have result under stopping condition $||\nabla f(x)||\leq 10^{-2}$ is
+\begin{equation*}
+	\left\{
+	\begin{aligned}
+		&x_1=11.61378187\\
+		&x_2=-8.23235066\\
+		&y*=-24.74979329
+	\end{aligned}
+	\right.
+\end{equation*}
+And the sequence of solutions $x^k$ are ploted as follows:
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.8] {Q1_2.png}
+\end{figure}
+\newpage
+\noindent {\bf 2.}
+\\
+\textbf{(a)} Changing the matrix $P$ to 
+$$\begin{bmatrix}
+	5.005&4.995\\
+	4.995&5.005
+\end{bmatrix}$$
+And following the same step in question 1 in exact line search, input parameter $P,q$ and initial point $x_0$, we finally have result under stopping condition $||\nabla f(x)||\leq 10^{-2}$ is
+\begin{equation*}
+	\left\{
+	\begin{aligned}
+		&x_1=249.26288884\\
+		&x_2=-249.36318387\\
+		&y*=-625.02028059
+	\end{aligned}
+	\right.
+\end{equation*}
+And the sequence of solutions $x^k$ are ploted as follows:
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.8] {Q2_1.png}
+\end{figure}
+\textbf{(a)} Changing the matrix $P$ to 
+$$\begin{bmatrix}
+	5.005&4.995\\
+	4.995&5.005
+\end{bmatrix}$$
+And following the same step in question 1 in exact line search, input parameter $P,q$ and initial point $x_0$, we finally have result under stopping condition $||\nabla f(x)||\leq 10^{-2}$ is
+\begin{equation*}
+	\left\{
+	\begin{aligned}
+		&x_1=249.24321348\\
+		&x_2=-249.34321348\\
+		&y*=-625.02000453
+	\end{aligned}
+	\right.
+\end{equation*}
+And the sequence of solutions $x^k$ are ploted as follows:
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.8] {Q2_2.png}
+\end{figure}
+%\\
+%\\
+
+\end{document}

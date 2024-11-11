@@ -1,0 +1,179 @@
+
+\documentclass[12pt]{article}
+%\documentstyle[12pt]{article}
+%\documentclass{amsart}
+%\usepackage[dvips]{graphicx}
+
+
+\usepackage{amssymb,amsmath,amscd,amsthm}
+%\usepackage{graphicx,psfrag,epsfig,multirow} LINEA ORIGINAL
+\usepackage{graphicx,psfrag,epsfig}
+
+
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage[active]{srcltx}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{lemma}[theorem]{Lemma}
+%\newtheorem{remark}[theorem]{Remark}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{axiom}{Axiom}
+\newtheorem{remark}{Remark}
+\newtheorem{exercise}{Exercise}[section]
+
+\newcommand{\thmref}[1]{Theorem~\ref{#1}}
+\newcommand{\propref}[1]{Proposition~\ref{#1}}
+\newcommand{\secref}[1]{\S\ref{#1}}
+\newcommand{\lemref}[1]{Lemma~\ref{#1}}
+\newcommand{\corref}[1]{Corollary~\ref{#1}}
+\newcommand{\remref}[1]{Remark~\ref{#1}}
+
+
+
+\setlength{\topmargin}{0mm}
+\setlength{\oddsidemargin}{0mm}
+\setlength{\textwidth}{160mm}
+\setlength{\textheight}{215mm}
+\font\bbc=msbm10 scaled 1200
+\newcommand{\E}{\mathbf{E}}
+\newcommand{\R}{\mbox {\bbc R}}
+\newcommand{\T}{\mbox {\bbc T}}
+\newcommand{\Z}{\mbox {\bbc Z}}
+\def\stackunder#1#2{\mathrel{\mathop{#2}\limits_{#1}}}
+
+\def\Area{{\rm Area}}
+\def\Const{{\rm Const}}
+\def\Int{{\rm Int}}
+
+\def\eps{{\varepsilon}}
+
+\def\EXP{\mathbb{E}}
+\def\GR{\mathbb{G}}
+\def\PROB{\mathbb{P}}
+\def\TOR{\mathbb{T}}
+
+\def\naturals{\mathbb{N}}
+
+\def\brGamma{{\bar\Gamma}}
+\def\brgamma{{\bar\gamma}}
+\def\brtau{{\bar\tau}}
+\def\brtheta{{\bar\theta}}
+\def\brchi{{\bar\chi}}
+
+\def\bI{{\bf I}}
+
+\def\cE{\mathcal{E}}
+\def\cG{\mathcal{C}}
+\def\cL{\mathcal{L}}
+\def\cU{\mathcal{U}}
+\def\cZ{\mathcal{Z}}
+
+\def\hN{{\hat N}}
+\def\hn{{\hat n}}
+\def\hy{{\hat y}}
+\def\hGamma{{\hat\Gamma}}
+\def\hdelta{{\hat\delta}}
+\def\hsigma{{\hat\sigma}}
+\def\htau{{\hat\tau}}
+\def\heta{{\hat\eta}}
+\def\htheta{{\hat\theta}}
+
+\def\tW{{\tilde W}}
+\def\tM{{\tilde M}}
+\def\tX{{\tilde X}}
+\def\tc{{\tilde c}}
+\def\tp{{\tilde p}}
+\def\tq{{\tilde q}}
+\def\tdelta{{\tilde\delta}}
+\def\teta{{\tilde\eta}}
+\def\txi{{\tilde\xi}}
+\def\tsigma{{\tilde\sigma}}
+\def\ttheta{{\tilde\theta}}
+
+\title{Probability and Statistics Homework 6}
+\author{Hairui Yin}
+\date{}
+
+\begin{document}
+\maketitle
+\noindent {\bf 1.} Suppose that a biased coin that lands on heads with probability $p$ is flipped $10$ times. Given that a total of $6$ heads results, find the conditional probability that the first $3$ outcomes are $H,T,T$ (meaning that the first flip results in heads, the second in tails, and the third in tails).
+\\
+\textbf{Answer:} Define $A$ as the event that total $6$ heads in $10$ times, $B$ as the event that the first $3$ outcomes are $H, T, T$. We want to find out the conditional probability $P(B|A)$.\\
+The probability of $A$ follows a binomial distribution, which is
+$$P(A)=C_{10}^6p^6(1-p)^4$$
+The event $A$ given $B$ means given the first three flip are $H, T, T$, the rest $7$ times have $5$ head, which is also a binomial distribution, with probability
+$$P(A|B)=C_7^5p^5(1-p)^2$$
+The event $B$ itself has probability
+$$P(B)=p(1-p)^2$$
+With Bayes Rule,
+\begin{align*}
+	P(B|A)&=\frac{P(A|B)P(B)}{P(A)}\\
+	&=\frac{C_7^5p^5(1-p)^2p(1-p)^2}{C_{10}^6p^6(1-p)^4}\\
+	&=\frac{C_7^5}{C_{10}^6}\\
+	&=\frac{1}{10}
+\end{align*}
+Therefore, given a total of $6$ heads, the conditional probability that the first $3$ outcomes are $H, T, T$ is $\frac{1}{10}$.
+\newpage
+\noindent {\bf 2.} Each cereal box comes with a coupon inside. There are $5$ types of coupons, and each type is equally likely to be included in a box (independently of other boxes). A person buying these boxes needs to collect at least one coupon of each type in order to get a prize. (This way, a person may need to buy more than $5$ boxes in order to get the prize since getting multiple coupons of the same type doesn’t advance him on the way to getting the prize). How many boxes will he need to buy, on average, in order to get the prize?
+
+(Hint: consider the random variables $X_1, ..., X_5$, where $X_1 = 1$ is the number of boxes
+needed to get the first coupon, $X_2$ is the number of additional boxes needed to get a
+coupon of a type different from the first one, $X_3$ is the number of additional boxes needed to get a coupon of a type different from the first two types he already got, etc.)
+\\
+\textbf{Answer:}\\
+Define the random variables $X_1, ..., X_5$ as in Hint. Obviously, $E[X_1]=1$.\\
+Consider $X_2$, now only one type is collected, four types not collected. The probability that the next box is a new type is $\frac{4}{5}$, and probability that the next box is a collected type is $\frac{1}{5}$. This follows a Negative Binomial Distribution
+\begin{align*}
+	P(X_2=n)&=
+	\begin{pmatrix}
+		n-1\\1-1
+	\end{pmatrix}
+	(\frac{4}{5})^1(\frac{1}{5})^{n-1}\\
+	&=\frac{4}{5}(\frac{1}{5})^{n-1}
+\end{align*}
+The expectation of Negative Binomial Distribution is $\frac{r}{p}$, so
+$$E[X_2]=\frac{5}{4}$$
+Similarly, $X_3, X_4, X_5$ also follow Negative Binomial Distributions with coefficient respectively $r_3=r_4=r_5=1, p_3=\frac{3}{5},p_4=\frac{2}{5},p_5=\frac{1}{5}$. So,
+\begin{equation*}
+	\left\{
+	\begin{aligned}
+		E[X_3]&=\frac{5}{3}\\
+		E[X_4]&=\frac{5}{2}\\
+		E[X_5]&=5
+	\end{aligned}
+	\right.
+\end{equation*}
+The overall expectation is the sum of expectation of $X_1,...,X_5$. Therefore, the number of boxes that the person can get the prize is
+\begin{align*}
+	E&=E(X_1)+E(X_2)+E(X_3)+E(X_4)+E(X_5)\\
+	&=1+\frac{5}{4}+\frac{5}{3}+\frac{5}{2}+5\\
+	&=\frac{137}{12}
+\end{align*}
+\newpage
+\noindent {\bf 3.} Suppose that, in a certain desert, the probability of having at least one rainy day in a given year is 1/2. Calculate (approximately) the probability that it rains exactly three times in the next 250 days?
+
+(Hint: you need to realize that the number of rainy days in a given year is approximated
+well by a Poisson random variable.)
+\\
+\textbf{Answer:}\\
+With the given hint, we assume the number of rainy days in a given year follows a Poisson Distribution. Denote the number as $X$, the distribution follows:
+$$P(X=k)=\frac{e^{-\lambda}\lambda^k}{k!}$$
+Now we know $P(X\geq 1)=\frac{1}{2}$, which means $P(X=0)=1-P(X\geq 1)=\frac{1}{2}$. Put this number in the above formula, we have
+$$P(X=0)=\frac{e^{-\lambda}\lambda^0}{0!}=\frac{1}{2}$$
+After calculation, we get $\lambda=\ln{(2)}$, which means there are on average $\ln{(2)}$ rainy days in a year.\\
+Next, we nned to find the average number of rainy days in 250 days, which is
+$$\lambda_{250}=\lambda\times\frac{250}{365}=\frac{50\ln{(2)}}{73}$$
+Denote the number of rainy days in 250 days as $Y$. Then
+$$P(Y=k)=\frac{e^{-\lambda_{250}}(\lambda_{250})^k}{k!}$$
+For $k=3$
+\begin{align*}
+	P(Y=3)&=\frac{e^{-\lambda_{250}}(\lambda_{250})^3}{3!}\\
+	&\approx 0.01109\\
+\end{align*}
+Therefore, the probability that it rains exactly three times in the next 250 days is $0.01109$.
+\end{document}

@@ -1,0 +1,248 @@
+
+\documentclass[12pt]{article}
+%\documentstyle[12pt]{article}
+%\documentclass{amsart}
+%\usepackage[dvips]{graphicx}
+
+
+\usepackage{amssymb,amsmath,amscd,amsthm}
+%\usepackage{graphicx,psfrag,epsfig,multirow} LINEA ORIGINAL
+\usepackage{graphicx,psfrag,epsfig}
+
+
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage[active]{srcltx}
+
+\usepackage{minted}
+\usepackage{xcolor}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{lemma}[theorem]{Lemma}
+%\newtheorem{remark}[theorem]{Remark}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{axiom}{Axiom}
+\newtheorem{remark}{Remark}
+\newtheorem{exercise}{Exercise}[section]
+
+\newcommand{\thmref}[1]{Theorem~\ref{#1}}
+\newcommand{\propref}[1]{Proposition~\ref{#1}}
+\newcommand{\secref}[1]{\S\ref{#1}}
+\newcommand{\lemref}[1]{Lemma~\ref{#1}}
+\newcommand{\corref}[1]{Corollary~\ref{#1}}
+\newcommand{\remref}[1]{Remark~\ref{#1}}
+
+
+
+\setlength{\topmargin}{0mm}
+\setlength{\oddsidemargin}{0mm}
+\setlength{\textwidth}{160mm}
+\setlength{\textheight}{215mm}
+\font\bbc=msbm10 scaled 1200
+\newcommand{\E}{\mathbf{E}}
+\newcommand{\R}{\mbox {\bbc R}}
+\newcommand{\T}{\mbox {\bbc T}}
+\newcommand{\Z}{\mbox {\bbc Z}}
+\def\stackunder#1#2{\mathrel{\mathop{#2}\limits_{#1}}}
+
+\def\Area{{\rm Area}}
+\def\Const{{\rm Const}}
+\def\Int{{\rm Int}}
+
+\def\eps{{\varepsilon}}
+
+\def\EXP{\mathbb{E}}
+\def\GR{\mathbb{G}}
+\def\PROB{\mathbb{P}}
+\def\TOR{\mathbb{T}}
+
+\def\naturals{\mathbb{N}}
+
+\def\brGamma{{\bar\Gamma}}
+\def\brgamma{{\bar\gamma}}
+\def\brtau{{\bar\tau}}
+\def\brtheta{{\bar\theta}}
+\def\brchi{{\bar\chi}}
+
+\def\bI{{\bf I}}
+
+\def\cE{\mathcal{E}}
+\def\cG{\mathcal{C}}
+\def\cL{\mathcal{L}}
+\def\cU{\mathcal{U}}
+\def\cZ{\mathcal{Z}}
+
+\def\hN{{\hat N}}
+\def\hn{{\hat n}}
+\def\hy{{\hat y}}
+\def\hGamma{{\hat\Gamma}}
+\def\hdelta{{\hat\delta}}
+\def\hsigma{{\hat\sigma}}
+\def\htau{{\hat\tau}}
+\def\heta{{\hat\eta}}
+\def\htheta{{\hat\theta}}
+
+\def\tW{{\tilde W}}
+\def\tM{{\tilde M}}
+\def\tX{{\tilde X}}
+\def\tc{{\tilde c}}
+\def\tp{{\tilde p}}
+\def\tq{{\tilde q}}
+\def\tdelta{{\tilde\delta}}
+\def\teta{{\tilde\eta}}
+\def\txi{{\tilde\xi}}
+\def\tsigma{{\tilde\sigma}}
+\def\ttheta{{\tilde\theta}}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\newminted{python}{
+	linenos=true,
+	bgcolor=backcolour,
+	fontsize=\footnotesize,
+	numbersep=5pt,
+	frame=single,
+	framesep=2mm
+}
+
+\title{Machine Learning Homework 7}
+\author{Hairui Yin}
+\date{}
+
+\begin{document}
+
+%\date{}
+\maketitle
+\noindent {\bf 1.} 
+\\
+Given input $x_1,x_2$, the hidden units is given by
+\begin{equation*}
+	\left\{
+	\begin{aligned}
+		a_1^{(2)}&=g(20x_1+20x_2-30)\\
+		a_2^{(2)}&=g(-20x_1-20x_2+10)
+	\end{aligned}
+	\right.
+\end{equation*}
+where $g$ is the sigmoid activation functions. And the final output $h_\theta(x)$ is given by
+$$h_\theta(x)=g(20a_1^{(2)}+20a_2^{(2)}-10)$$
+To verify the neural network, we input all possible $x_1, x_2$:
+\begin{enumerate}
+	\item[1.] $x_1=0,x_2=0$\\
+		 \begin{equation*}
+		 	\left\{
+		 	\begin{aligned}
+		 		a_1^{(2)}&=g(0+0-30)=9.357622968839299\times 10^{-14}\\
+		 		a_2^{(2)}&=g(0-0+10)=0.9999546021312976
+		 	\end{aligned}
+		 	\right.
+		 \end{equation*}
+		 \begin{align*}
+		 	h_\theta(x)&=g(20a_1^{(2)}+20a_2^{(2)}-10)\\
+		 	&=0.9999545608951235\\
+		 	&\approx 1
+		 \end{align*}
+		 
+	\item[2.] $x_1=0,x_2=1$\\
+		 \begin{equation*}
+		 	\left\{
+		 	\begin{aligned}
+		 		a_1^{(2)}&=g(0+20-30)=4.5397868702434395\times10^{-5}\\
+		 		a_2^{(2)}&=g(0-20+10)=4.5397868702434395\times10^{-5}
+		 	\end{aligned}
+		 	\right.
+		 \end{equation*}
+		 \begin{align*}
+		 	h_\theta(x)&=g(20a_1^{(2)}+20a_2^{(2)}-10)\\
+		 	&=4.548037850511231\times 10^{-5}\\
+		 	&\approx 0
+		 \end{align*}
+		 
+	\item[3.] $x_1=1,x_2=0$\\
+	\begin{equation*}
+		\left\{
+		\begin{aligned}
+			a_1^{(2)}&=g(20+0-30)=4.5397868702434395\times10^{-5}\\
+			a_2^{(2)}&=g(-20-0+10)=4.5397868702434395\times10^{-5}
+		\end{aligned}
+		\right.
+	\end{equation*}
+	\begin{align*}
+		h_\theta(x)&=g(20a_1^{(2)}+20a_2^{(2)}-10)\\
+		&=4.548037850511231\times 10^{-5}\\
+		&\approx 0
+	\end{align*}
+	
+	\item[4.] $x_1=1,x_2=1$\\
+	\begin{equation*}
+		\left\{
+		\begin{aligned}
+			a_1^{(2)}&=g(20+20-30)=0.9999546021312976\\
+			a_2^{(2)}&=g(-20-20+10)=9.357622968839299\times 10^{-14}
+		\end{aligned}
+		\right.
+	\end{equation*}
+	\begin{align*}
+		h_\theta(x)&=g(20a_1^{(2)}+20a_2^{(2)}-10)\\
+		&=0.9999545608951235\\
+		&\approx 1
+	\end{align*}
+\end{enumerate}
+Therefore, the neural network is correct.
+\newpage
+\noindent {\bf 2.} \\
+\\
+\noindent {\bf (a)} The zero-padding matrix is as following, and we do convolution in it with kernel
+\[
+\text{zero-padding: } 
+\begin{bmatrix}
+	0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+	0 & 1 & 0 & 1 & 0 & 1 & 0 & 0 \\
+	0 & 0 & 1 & 1 & 0 & 1 & 1 & 0 \\
+	0 & 1 & 0 & 1 & 1 & 0 & 1 & 0 \\
+	0 & 1 & 0 & 1 & 1 & 1 & 0 & 0 \\
+	0 & 0 & 1 & 1 & 0 & 1 & 1 & 0 \\
+	0 & 1 & 0 & 1 & 0 & 1 & 0 & 0 \\
+	0 & 0 & 0 & 0 & 0 & 0 & 0 & 0
+\end{bmatrix}
+\quad
+\text{Kernel: }
+\begin{bmatrix}
+	2 & 1 & 2 \\
+	0 & 2 & 0 \\
+	1 & 2 & 1 \\
+\end{bmatrix}
+\]
+The result is
+\[
+\text{Output: } 
+\begin{bmatrix}
+	3 & 3 & 5 & 2 & 5 & 3\\
+	3 & 8 & 5 & 6 & 5 & 5\\
+	6 & 5 & 8 & 8 & 8 & 4\\
+	4 & 7 & 6 & 8 & 6 & 5\\
+	3 & 8 & 7 & 7 & 7 & 5\\
+	4 & 3 & 5 & 4 & 5 & 3\\
+\end{bmatrix}
+\]
+\\
+\noindent {\bf (b)} With $2\times 2$ max-pooling layer with stride $2$ after the result of (a), the result is
+\[
+\text{Output: } 
+\begin{bmatrix}
+	8 & 6 & 5 \\
+	7 & 8 & 8 \\
+	8 & 7 & 7 \\
+\end{bmatrix}
+\]
+%\\
+%\\
+
+\end{document}

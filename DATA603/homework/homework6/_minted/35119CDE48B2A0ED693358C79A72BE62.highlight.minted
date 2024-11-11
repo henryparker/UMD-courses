@@ -1,0 +1,24 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{k}{def} \PYG{n+nf}{gradient\PYGZus{}descent\PYGZus{}exact\PYGZus{}line\PYGZus{}search}\PYG{p}{(}\PYG{n}{x0}\PYG{p}{,} \PYG{n}{P}\PYG{p}{,} \PYG{n}{q}\PYG{p}{,} \PYG{n}{tol}\PYG{o}{=}\PYG{l+m+mf}{1e\PYGZhy{}2}\PYG{p}{,} \PYG{n}{max\PYGZus{}iter}\PYG{o}{=}\PYG{l+m+mi}{100}\PYG{p}{)}\PYG{p}{:}
+	\PYG{n}{xk} \PYG{o}{=} \PYG{n}{x0}
+	\PYG{n}{path} \PYG{o}{=} \PYG{p}{[}\PYG{n}{xk}\PYG{p}{]}  \PYG{c+c1}{\PYGZsh{} To store the sequence of solutions}
+
+	\PYG{k}{for} \PYG{n}{\PYGZus{}} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n}{max\PYGZus{}iter}\PYG{p}{)}\PYG{p}{:}
+		\PYG{n}{grad} \PYG{o}{=} \PYG{n}{grad\PYGZus{}f}\PYG{p}{(}\PYG{n}{xk}\PYG{p}{,} \PYG{n}{P}\PYG{p}{,} \PYG{n}{q}\PYG{p}{)}
+		\PYG{k}{if} \PYG{n}{np}\PYG{o}{.}\PYG{n}{linalg}\PYG{o}{.}\PYG{n}{norm}\PYG{p}{(}\PYG{n}{grad}\PYG{p}{)} \PYG{o}{\PYGZlt{}} \PYG{n}{tol}\PYG{p}{:}
+			\PYG{k}{break}
+
+	\PYG{c+c1}{\PYGZsh{} Exact line search: minimize f(xk \PYGZhy{} alpha * grad)}
+	\PYG{c+c1}{\PYGZsh{} Objective function for line search along direction \PYGZhy{}grad}
+	\PYG{k}{def} \PYG{n+nf}{phi}\PYG{p}{(}\PYG{n}{alpha}\PYG{p}{)}\PYG{p}{:}
+		\PYG{k}{return} \PYG{n}{f}\PYG{p}{(}\PYG{n}{xk} \PYG{o}{\PYGZhy{}} \PYG{n}{alpha} \PYG{o}{*} \PYG{n}{grad}\PYG{p}{,} \PYG{n}{P}\PYG{p}{,} \PYG{n}{q}\PYG{p}{)}
+
+	\PYG{c+c1}{\PYGZsh{} Approximate exact line search (find alpha that minimizes phi)}
+	\PYG{n}{alpha} \PYG{o}{=} \PYG{n}{minimize\PYGZus{}scalar}\PYG{p}{(}\PYG{n}{phi}\PYG{p}{)}\PYG{o}{.}\PYG{n}{x}
+	
+	\PYG{c+c1}{\PYGZsh{} Update xk}
+	\PYG{n}{xk} \PYG{o}{=} \PYG{n}{xk} \PYG{o}{\PYGZhy{}} \PYG{n}{alpha} \PYG{o}{*} \PYG{n}{grad}
+	\PYG{n}{path}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{xk}\PYG{p}{)}
+	
+	\PYG{k}{return} \PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{(}\PYG{n}{path}\PYG{p}{)}
+\end{MintedVerbatim}

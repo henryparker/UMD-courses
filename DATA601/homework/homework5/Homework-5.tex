@@ -1,0 +1,229 @@
+
+\documentclass[12pt]{article}
+%\documentstyle[12pt]{article}
+%\documentclass{amsart}
+%\usepackage[dvips]{graphicx}
+
+
+\usepackage{amssymb,amsmath,amscd,amsthm}
+%\usepackage{graphicx,psfrag,epsfig,multirow} LINEA ORIGINAL
+\usepackage{graphicx,psfrag,epsfig}
+
+
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage[active]{srcltx}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{lemma}[theorem]{Lemma}
+%\newtheorem{remark}[theorem]{Remark}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{axiom}{Axiom}
+\newtheorem{remark}{Remark}
+\newtheorem{exercise}{Exercise}[section]
+
+\newcommand{\thmref}[1]{Theorem~\ref{#1}}
+\newcommand{\propref}[1]{Proposition~\ref{#1}}
+\newcommand{\secref}[1]{\S\ref{#1}}
+\newcommand{\lemref}[1]{Lemma~\ref{#1}}
+\newcommand{\corref}[1]{Corollary~\ref{#1}}
+\newcommand{\remref}[1]{Remark~\ref{#1}}
+
+
+
+\setlength{\topmargin}{0mm}
+\setlength{\oddsidemargin}{0mm}
+\setlength{\textwidth}{160mm}
+\setlength{\textheight}{215mm}
+\font\bbc=msbm10 scaled 1200
+\newcommand{\E}{\mathbf{E}}
+\newcommand{\R}{\mbox {\bbc R}}
+\newcommand{\T}{\mbox {\bbc T}}
+\newcommand{\Z}{\mbox {\bbc Z}}
+\def\stackunder#1#2{\mathrel{\mathop{#2}\limits_{#1}}}
+
+\def\Area{{\rm Area}}
+\def\Const{{\rm Const}}
+\def\Int{{\rm Int}}
+
+\def\eps{{\varepsilon}}
+
+\def\EXP{\mathbb{E}}
+\def\GR{\mathbb{G}}
+\def\PROB{\mathbb{P}}
+\def\TOR{\mathbb{T}}
+
+\def\naturals{\mathbb{N}}
+
+\def\brGamma{{\bar\Gamma}}
+\def\brgamma{{\bar\gamma}}
+\def\brtau{{\bar\tau}}
+\def\brtheta{{\bar\theta}}
+\def\brchi{{\bar\chi}}
+
+\def\bI{{\bf I}}
+
+\def\cE{\mathcal{E}}
+\def\cG{\mathcal{C}}
+\def\cL{\mathcal{L}}
+\def\cU{\mathcal{U}}
+\def\cZ{\mathcal{Z}}
+
+\def\hN{{\hat N}}
+\def\hn{{\hat n}}
+\def\hy{{\hat y}}
+\def\hGamma{{\hat\Gamma}}
+\def\hdelta{{\hat\delta}}
+\def\hsigma{{\hat\sigma}}
+\def\htau{{\hat\tau}}
+\def\heta{{\hat\eta}}
+\def\htheta{{\hat\theta}}
+
+\def\tW{{\tilde W}}
+\def\tM{{\tilde M}}
+\def\tX{{\tilde X}}
+\def\tc{{\tilde c}}
+\def\tp{{\tilde p}}
+\def\tq{{\tilde q}}
+\def\tdelta{{\tilde\delta}}
+\def\teta{{\tilde\eta}}
+\def\txi{{\tilde\xi}}
+\def\tsigma{{\tilde\sigma}}
+\def\ttheta{{\tilde\theta}}
+
+\title{Probability and Statistics Homework 5}
+\author{Hairui Yin}
+\date{}
+
+\begin{document}
+\maketitle
+\noindent {\bf 1.} Let $S = \{1,2,3,4,5,6\}$ and $\mathrm{P}(\{n\}) = 1/6$ for $n \in S$. Consider the random variable $X$ defined as $X(n) = \frac{1}{2} (n-3)(n-5)$. 
+Draw the graph of the probability mass function of $X$, draw the graph of the cumulative distribution function of $X$,
+ and calculate $\mathrm{E} X$ and ${\rm Var}(X)$. 
+\\
+\textbf{Answer:}
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.6] {q1pmf.jpg}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.6] {q1cdf.jpg}
+\end{figure}
+\begin{align*}
+	EX&=\sum_{X}Xp(X)\\
+	&=-\frac{1}{2}\times\frac{1}{6}+0\times\frac{2}{6}+\frac{3}{2}\times\frac{2}{6}+4\times\frac{1}{6}\\
+	&=\frac{13}{12}
+\end{align*}
+\begin{align*}
+	Var(X)&=E(X^2)-E(X)^2\\
+	&=\sum_XX^2p(X)-(\frac{13}{12})^2\\
+	&=((\frac{1}{2})^2\times\frac{1}{6}+(\frac{3}{2})^2\times\frac{2}{6}+4^2\times\frac{1}{6})-(\frac{13}{12})^2\\
+	&=\frac{83}{24}-\frac{169}{144}\\
+	&=\frac{329}{144}
+\end{align*}
+\newpage
+{\bf 2.} A man invented a fair 3-sided die and wrote the numbers 1, 2, and 3 on the sides. This die is rolled once. You'll get the amount of money equal to $(n/3)^2$ if
+the number $n$ is showing. What is the expected amount that you'll get? 
+
+ On a different occasion, a usual 6-sided die is rolled. You'll get 
+$(n/6)^2$ dollars if $n$ is showing. What is the expected amount that you'll get in this case? 
+
+Then, a fair 1000-sided die was invented with numbers
+1,...,1000 written on the sides. The die is rolled once. You'll get $(n/1000)^2$ if $n$ is showing. Can you calculate (not just write a sum, but calculate approximately (a small error
+is allowed in this case)) what
+the expected amount is?
+\\
+\textbf{Answer}
+\\
+For a fair 3-sided die, the expected amount is
+\begin{align*}
+	E_3&=\sum_{i=1}^3(\frac{i}{3})^2\frac{1}{3}\\
+	&=\frac{14}{27}
+\end{align*}
+For a fair 6-sided die, the expected amount is
+\begin{align*}
+	E_6&=\sum_{i=1}^6(\frac{i}{6})^2\frac{1}{6}\\
+	&=\frac{91}{216}
+\end{align*}
+For a fair 1000-sided die, the expected amount is
+\begin{align*}
+	E_{1000}&=\sum_{i=1}^{1000}(\frac{i}{1000})^2\frac{1}{1000}\\
+\end{align*}
+Consider given a large $n$, sum $\sum_{i=1}^{1000}(\frac{i}{1000})^2$ resembles a Riemann sum of integral of $(\frac{x}{1000})^2$ over interval $[0,1000]$, the above formula can be written as
+\begin{align*}
+	E_{1000}&\approx \frac{1}{1000}\int_{0}^{1000}(\frac{x}{1000})^2dx\\
+	&=\frac{1}{1000}\times (\frac{1}{1000})^2\times\frac{1}{3}\times 1000^3\\
+	&=\frac{1}{3}
+\end{align*}
+\newpage
+{\bf 3.} (a) A coin that when flipped comes up heads with probability $p$ is flipped until either heads or tails has occurred twice. Find the expected number of flips.
+
+(b) Solve a similar problem, but now the coin is flipped until either two heads or two tails happen in a row. Find the expected number of flips. 
+\\
+\textbf{Answer}
+\\
+\noindent {\bf (a)} If first two flips are the same (both heads or tails), then there are only two flips. If first two flips are different, since after the third flip either heads or tails must have occured twice, there are three flips.\\
+The probability that first two flips are same is $2p^2-2p+1$, and the probability that first two flips are different is $2p-2p^2$. Therefore, the expected number of flips is
+\begin{align*}
+	E_f&=(2p^2-2p+1)\times 2+(2p-2p^2)\times3\\
+	&=-2p^2+2p+2
+\end{align*}
+\noindent {\bf (b)} Denote the expected number of flips to end this game given last coin is head $E_H$, the expected number of flips to end this game given last coin is tail $E_T$.\\
+Consider the case that last coin is head. It succeeds in the next flip with probability $p$. If next flip fails (which is tail), the expected number of futher flips is $E_T$ (which is a total $1+E_T$). So, we can construct the formula
+$$E_H=p\times 1+(1-p)(E_T+1)$$
+Similarly, we have
+$$E_T=(1-p)\times 1+p(E_H+1)$$
+With above two formula, the relation between $E_H,E_T$ and $p$ is
+\begin{equation*}
+	\left\{
+	\begin{aligned}
+		&E_H=\frac{2-p}{1-p+p^2}\\
+		&E_T=\frac{p+1}{1-p+p^2}
+	\end{aligned}
+	\right.
+\end{equation*}
+Therefore, the expected number of flips is
+\begin{align*}
+	E&=1+pE_H+(1-p)E_T\\
+	&=1+p\times\frac{2-p}{1-p+p^2}+(1-p)\frac{p+1}{1-p+p^2}\\
+	&=\frac{-p^2+p+2}{p^2-p+1}
+\end{align*}
+\newpage
+{\bf 4.} Eight people sit at a round table. Three of these people are children. All seating
+configurations are equally likely. You get paid a dollar for each pair of children that sit
+next to each other (i.e., you can get paid up to 2 dollars (you get paid 2 dollars if three children sit in a row, as there
+are two pairs of children sitting next to each other in this case)). Find the expectation
+of the amount of money that you'll get paid.
+\\
+\textbf{Answer}
+\\ 
+Since the table is round, we can let one adult sit in a seat to get rid of rotation.\\
+There are $C_7^3=35$ ways to distribute 3 children into 7 seats (consider children are same to get rid of permutation).\\
+Consider the case three children sitting together. The problem converts to find the place where three children can sit next to the rest four adults. There are five space near adults for three children to sit. So there are $5$ seat arrangement. This costs 2 dollars.\\
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.4] {q41.png}
+\end{figure}
+\noindent
+Consider the case two children sitting together and one seperate from them. The problem converts to find two places next to the rest four adults. There are $C_5^2\times2=20$ sitting arrangment can let two children sit together and one seperate from them. This cost 1 dollar.\\
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.4] {q42.png}
+\end{figure}
+\noindent
+Consider the case three children sitting seperately. There are $C_5^3=10$ sitting arrangment can let three children sit seperately.\\
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.4] {q43.png}
+\end{figure}
+Therefore, the expectation of the amount of money to pay is
+\begin{align*}
+	E&=\frac{5}{35}\times 2+\frac{20}{35}\times 1+\frac{10}{35}\times 0\\
+	&=\frac{6}{7}
+\end{align*}
+\end{document}

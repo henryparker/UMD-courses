@@ -1,0 +1,235 @@
+
+\documentclass[12pt]{article}
+%\documentstyle[12pt]{article}
+%\documentclass{amsart}
+%\usepackage[dvips]{graphicx}
+
+
+\usepackage{amssymb,amsmath,amscd,amsthm}
+%\usepackage{graphicx,psfrag,epsfig,multirow} LINEA ORIGINAL
+\usepackage{graphicx,psfrag,epsfig}
+
+
+\usepackage{graphicx}
+\usepackage[active]{srcltx}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{lemma}[theorem]{Lemma}
+%\newtheorem{remark}[theorem]{Remark}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{axiom}{Axiom}
+\newtheorem{remark}{Remark}
+\newtheorem{exercise}{Exercise}[section]
+
+\newcommand{\thmref}[1]{Theorem~\ref{#1}}
+\newcommand{\propref}[1]{Proposition~\ref{#1}}
+\newcommand{\secref}[1]{\S\ref{#1}}
+\newcommand{\lemref}[1]{Lemma~\ref{#1}}
+\newcommand{\corref}[1]{Corollary~\ref{#1}}
+\newcommand{\remref}[1]{Remark~\ref{#1}}
+
+
+
+\setlength{\topmargin}{0mm}
+\setlength{\oddsidemargin}{0mm}
+\setlength{\textwidth}{160mm}
+\setlength{\textheight}{215mm}
+\font\bbc=msbm10 scaled 1200
+\newcommand{\E}{\mathbf{E}}
+\newcommand{\R}{\mbox {\bbc R}}
+\newcommand{\T}{\mbox {\bbc T}}
+\newcommand{\Z}{\mbox {\bbc Z}}
+\def\stackunder#1#2{\mathrel{\mathop{#2}\limits_{#1}}}
+
+\def\Area{{\rm Area}}
+\def\Const{{\rm Const}}
+\def\Int{{\rm Int}}
+
+\def\eps{{\varepsilon}}
+
+\def\EXP{\mathbb{E}}
+\def\GR{\mathbb{G}}
+\def\PROB{\mathbb{P}}
+\def\TOR{\mathbb{T}}
+
+\def\naturals{\mathbb{N}}
+
+\def\brGamma{{\bar\Gamma}}
+\def\brgamma{{\bar\gamma}}
+\def\brtau{{\bar\tau}}
+\def\brtheta{{\bar\theta}}
+\def\brchi{{\bar\chi}}
+
+\def\bI{{\bf I}}
+
+\def\cE{\mathcal{E}}
+\def\cG{\mathcal{C}}
+\def\cL{\mathcal{L}}
+\def\cU{\mathcal{U}}
+\def\cZ{\mathcal{Z}}
+
+\def\hN{{\hat N}}
+\def\hn{{\hat n}}
+\def\hy{{\hat y}}
+\def\hGamma{{\hat\Gamma}}
+\def\hdelta{{\hat\delta}}
+\def\hsigma{{\hat\sigma}}
+\def\htau{{\hat\tau}}
+\def\heta{{\hat\eta}}
+\def\htheta{{\hat\theta}}
+
+\def\tW{{\tilde W}}
+\def\tM{{\tilde M}}
+\def\tX{{\tilde X}}
+\def\tc{{\tilde c}}
+\def\tp{{\tilde p}}
+\def\tq{{\tilde q}}
+\def\tdelta{{\tilde\delta}}
+\def\teta{{\tilde\eta}}
+\def\txi{{\tilde\xi}}
+\def\tsigma{{\tilde\sigma}}
+\def\ttheta{{\tilde\theta}}
+
+\title{Probability and Statistics Homework 4}
+\author{Hairui Yin}
+\date{}
+
+\begin{document}
+\maketitle
+\noindent {\bf 1.}  Let $S = \{1,2,3,4,5,6\}$ and let $\mathrm{P}$ be such that $\mathrm{P}(\{n\}) = 1/6$ for each $n \in S$. 
+Give an example of two independent events $A, B \subseteq S$ such that $\mathrm{P}(A) \neq 0$, $\mathrm{P}(A) \neq 1$, $\mathrm{P}(B) \neq 0$,
+$\mathrm{P}(B) \neq 1$.
+\\
+\textbf{Answer:}
+\\
+To define two independent events $A,B\subseteq S$ that are neither whole set or empty set, they can be designed as follows:
+\begin{equation*}
+	\left\{
+	\begin{aligned}
+		A&=\{1,2\}\\
+		B&=\{2,3,4\}
+	\end{aligned}
+	\right.
+\end{equation*}
+Therefore, $P(A\cap B)=P(\{2\})=\frac{1}{6}=\frac{1}{3}\times\frac{1}{2}=P(A)P(B)$.
+\newpage
+{\bf 2.} There are two boxes. The first box contains $4$ balls, numbered from $1$ to $4$. The
+second box contains $5$ red balls and $8$ blue balls. Bill selects a ball from the first box and then he selects, from the second box,
+a number of balls equal to the number on the ball selected from the first box.
+
+(a) What is the probability that Bill selects only red balls from the second box?
+
+(b) What is the probability that Bill selected ball number $2$ from the first box, given that he selected only red balls from the second box?
+%A game between two players, A and B, is played until one of them wins a total of 5 rounds. 
+%If, however, the game is tied at 4-4, it will continue 
+%until one of the players is ahead by two rounds. The results in all the rounds are independent, and player A (who is better) wins each %round with probability 60 percent. What is the probability that player A wins the game?
+\\
+\textbf{Answer}
+\\
+\noindent {\bf (a)}
+Since Bill selects a ball from the first box and the nubmer can be 1 to 4, denote the number be $X\in\{1,2,3,4\}$.\\
+Suppose the number is $x$, denote the event of selecting all red balls $R$, then the probability of $R$ is
+$$P(R|x)=\frac{C_5^x}{C_{13}^x}$$
+Therefore, the probability that Bill selects only red balls from the second box is
+\begin{align*}
+	P(R)&=\sum_{i=1}^{4}P(R\cap (X=i))\\
+	&=\sum_{i=1}^{4}P(R|X=i)P(X=i)\\
+	&=\frac{1}{4}\sum_{i=1}^{4}\frac{C_5^i}{C_{13}^i}\\
+	&=\frac{119}{858}
+\end{align*}
+\\
+\noindent {\bf (b)} According to Bayes Rule, the probability in the question can be written as
+\begin{align*}
+	P(X=2|R)&=\frac{P(R|X=2)P(X=2)}{P(R)}\\
+	&=\frac{\frac{5}{13}\times \frac{4}{12}\times \frac{1}{4}}{\frac{119}{858}}\\
+	&=\frac{55}{238}
+\end{align*}
+Therefore, the probability that Bill selected ball number 2 from the first box given only red balls from the second box is $\frac{55}{238}$.
+\newpage
+
+{\bf 3.} Let $S = \{(a, b),~~a,b \in \{1,2,3,4,5,6\} \}$ be the space used to model two consecutive rolls
+of a die. Assume that all the outcomes in $S$ are equally likely, i.e., $\mathrm{P}(\{(a,b)\}) = 1/36$. 
+Consider two random variables defined on $S$:
+\[
+X((a, b)) = a - 2,
+\]
+\[
+Y((a, b)) = |b - a|.
+\]
+(a)
+How many distinct values does each of the random variables $X, Y, X+Y, XY$ take? 
+\\
+(b) How many distinct values
+does the random vector $(X, Y)$ take?
+\\
+(c) Evaluate $\mathrm{P}(X+Y \leq 3)$. 
+\\
+\textbf{Answer:}
+\\
+\noindent {\bf (a)}\\
+\begin{equation*}
+	\left\{
+	\begin{aligned}
+		&X\in \{-1,0,1,2,3,4\}\\
+		&Y\in \{0,1,2,3,4,5\}\\
+		&X+Y\in \{-1,0,1,2,3,4,5,6,7,8,9\}\\
+		&XY\in \{-5,-4,-3,-2,-1,0,1,2,3,4,6,8,9,12,16,20\}
+	\end{aligned}
+	\right.
+\end{equation*}
+Therefore, there are
+\begin{itemize}
+	\item[\textbf{6}] distinct values in $X$
+	\item[\textbf{6}] distinct values in $Y$
+	\item[\textbf{11}] distinct values in $X+Y$
+	\item[\textbf{16}] distinct values in $XY$
+\end{itemize}
+\noindent {\bf (b)}\\
+\begin{center}
+	\begin{tabular}{|c|c|} \hline
+		$X$ & $Y$ \\ \hline
+		$-1$ & $0,1,2,3,4,5$\\ \hline
+		$0$ & $0,1,2,3,4$\\ \hline
+		$1$ & $0,1,2,3$\\ \hline
+		$2$ & $0,1,2,3$\\ \hline
+		$3$ & $0,1,2,3,4$\\ \hline
+		$4$ & $0,1,2,3,4,5$\\ \hline
+	\end{tabular}\\
+\end{center}
+Therefore, there are $30$ distinct values the random vector $(X,Y)$ take.
+\newpage
+\noindent {\bf (c)} List value of $X+Y$ with different $a$ and $b$\\
+\begin{center}
+	\begin{tabular}{|c|c|c|} \hline
+		$a$ & $X$ & $X+Y$\\ \hline
+		$1$ &$-1$ & $-1,0,1,2,3,4$\\ \hline
+		$2$ &$0$ & $1,0,1,2,3,4$\\ \hline
+		$3$ &$1$ & $3,2,1,2,3,4$\\ \hline
+		$4$ &$2$ & $5,4,3,2,3,4$\\ \hline
+		$5$ &$3$ & $7,6,5,4,3,4$\\ \hline
+		$6$ &$4$ & $9,8,7,6,5,4$\\ \hline
+	\end{tabular}\\
+\end{center}
+There are $19$ in $36$ values that are less or equal to $3$.\\
+Therefore, the probability that $X+Y\leq 3$ is
+$$P(X+Y\leq 3)=\frac{19}{36}$$
+\newpage
+\noindent {\bf 4.} Two people, {\bf A} and {\bf B}, are playing a game of chance. The player {\bf A} wins each round with probability 60 percent,
+{\bf B} with probability 40 percent. The winner of each round gets a point. The game stops when one of the players is 2 points ahead of the other. 
+What is the probability that {\bf A} will win the game?
+
+Solve this problem in two different ways. (a) By applying the formula we derived when we considered the Gambler's Ruin Problem. (b) You can calculate the probabilities that the game ends after 2 rounds, 4 rounds, 6 rounds, etc. directly
+and then add these probabilities.
+
+Note that the latter approach will not work if the rules are modified to where the winner needs to be ahead by, say, 3 points rather than 2.
+\\
+\textbf{Answer:}
+\\
+According to the formula in Gambler's Ruin Problem, we give $k=2, T=4, p=0.6,q=0.4$, then
+$$P_k=\frac{1-(\frac{0.4}{0.6})^2}{1-(\frac{0.4}{0.6})^4}=\frac{9}{13}$$
+Therefore, the probability that {\bf A} will win is $\frac{9}{13}$.
+\end{document}

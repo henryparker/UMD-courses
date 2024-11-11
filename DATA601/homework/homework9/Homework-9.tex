@@ -1,0 +1,175 @@
+
+\documentclass[12pt]{article}
+%\documentstyle[12pt]{article}
+%\documentclass{amsart}
+%\usepackage[dvips]{graphicx}
+
+
+\usepackage{amssymb,amsmath,amscd,amsthm}
+%\usepackage{graphicx,psfrag,epsfig,multirow} LINEA ORIGINAL
+\usepackage{graphicx,psfrag,epsfig}
+
+
+\usepackage{graphicx}
+\usepackage[active]{srcltx}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{lemma}[theorem]{Lemma}
+%\newtheorem{remark}[theorem]{Remark}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{axiom}{Axiom}
+\newtheorem{remark}{Remark}
+\newtheorem{exercise}{Exercise}[section]
+
+\newcommand{\thmref}[1]{Theorem~\ref{#1}}
+\newcommand{\propref}[1]{Proposition~\ref{#1}}
+\newcommand{\secref}[1]{\S\ref{#1}}
+\newcommand{\lemref}[1]{Lemma~\ref{#1}}
+\newcommand{\corref}[1]{Corollary~\ref{#1}}
+\newcommand{\remref}[1]{Remark~\ref{#1}}
+
+
+
+\setlength{\topmargin}{0mm}
+\setlength{\oddsidemargin}{0mm}
+\setlength{\textwidth}{160mm}
+\setlength{\textheight}{215mm}
+\font\bbc=msbm10 scaled 1200
+\newcommand{\E}{\mathbf{E}}
+\newcommand{\R}{\mbox {\bbc R}}
+\newcommand{\T}{\mbox {\bbc T}}
+\newcommand{\Z}{\mbox {\bbc Z}}
+\def\stackunder#1#2{\mathrel{\mathop{#2}\limits_{#1}}}
+
+\def\Area{{\rm Area}}
+\def\Const{{\rm Const}}
+\def\Int{{\rm Int}}
+
+\def\eps{{\varepsilon}}
+
+\def\EXP{\mathbb{E}}
+\def\GR{\mathbb{G}}
+\def\PROB{\mathbb{P}}
+\def\TOR{\mathbb{T}}
+
+\def\naturals{\mathbb{N}}
+
+\def\brGamma{{\bar\Gamma}}
+\def\brgamma{{\bar\gamma}}
+\def\brtau{{\bar\tau}}
+\def\brtheta{{\bar\theta}}
+\def\brchi{{\bar\chi}}
+
+\def\bI{{\bf I}}
+
+\def\cE{\mathcal{E}}
+\def\cG{\mathcal{C}}
+\def\cL{\mathcal{L}}
+\def\cU{\mathcal{U}}
+\def\cZ{\mathcal{Z}}
+
+\def\hN{{\hat N}}
+\def\hn{{\hat n}}
+\def\hy{{\hat y}}
+\def\hGamma{{\hat\Gamma}}
+\def\hdelta{{\hat\delta}}
+\def\hsigma{{\hat\sigma}}
+\def\htau{{\hat\tau}}
+\def\heta{{\hat\eta}}
+\def\htheta{{\hat\theta}}
+
+\def\tW{{\tilde W}}
+\def\tM{{\tilde M}}
+\def\tX{{\tilde X}}
+\def\tc{{\tilde c}}
+\def\tp{{\tilde p}}
+\def\tq{{\tilde q}}
+\def\tdelta{{\tilde\delta}}
+\def\teta{{\tilde\eta}}
+\def\txi{{\tilde\xi}}
+\def\tsigma{{\tilde\sigma}}
+\def\ttheta{{\tilde\theta}}
+
+\title{Probability and Statistics Homework 9}
+\author{Hairui Yin}
+\date{}
+
+\begin{document}
+\maketitle
+\noindent{\bf 1.} Suppose that there are two identically-looking batteries in a box. The first one should last for a time that is
+exponentially distributed with parameter $\lambda_1 = 1$ (in months). The second one should last for a time that is
+exponentially distributed with parameter $\lambda_2 = 2$. A battery has been picked randomly and is still working after two months. 
+Given this information, what is the probability that the first battery was picked?
+\\
+\\
+\textbf{Answer:}\\
+Denote the event that the first battery is picked to be $A_1$, the second one is picked to be $A_2$, the battery works longer than 2 months to be $L$. The problem is to find the probability that the first battery was picked given its working after two months, which is $$P(A_1|L)$$
+According to Bayes Rule, the formula can be rewritten as
+\begin{align*}
+	P(A_1|L)&=\frac{P(A_1\cap L)}{P(L)}\\
+	&=\frac{P(L|A_1)P(A_1)}{P(L|A_1)P(A_1)+P(L|A_2)P(A_2)}\\
+	&=\frac{P(T>2|\lambda_1=1)\frac{1}{2}}{P(T>2|\lambda_1=1)\frac{1}{2}+P(T>2|\lambda_2=2)\frac{1}{2}}\\
+\end{align*}
+Given the cdf of exponential distribution is $F(x)=1-e^{-\lambda x}$, the above formula is given be
+\begin{align*}
+	P(A_1|L)&=\frac{e^{-2}}{e^{-2}+e^{-4}}\\
+	&=\frac{e^2}{1+e^2}
+\end{align*}
+Therefore, the probability that the first battery was picked given it's still working after two months is $\frac{e^2}{1+e^2}$.
+\newpage
+\noindent{\bf 2.}  Suppose that ${\rm Var}(X) = 3$, ${\rm Var}(Y) = 4$, and ${\rm Cov}(X, Y) = 1$. 
+
+(a) Find ${\rm Cov}(2X -Y, X + 3Y)$.
+
+(b) Find $\rho(2X -Y, X + 3Y)$ (the correlation between $2X -Y$ and $X + 3Y$).
+\\
+\\
+\textbf{Answer:}\\
+\\
+\noindent {\bf (a)} With the property of Covirance calculation, we have
+\begin{align*}
+	Cov(2X-Y,X+3Y)&=Cov(2X-Y,X)+Cov(2X-Y,3Y)\\
+	&=2Cov(X,X)-Cov(X,Y)+6Cov(X,Y)-3Cov(Y)\\
+	&=2Var(X)+5Cov(X,Y)-3Var(Y)\\
+	&=2\times 3 + 5\times 1-3\times 4\\
+	&=-1
+\end{align*}
+\\
+\noindent {\bf (b)} According to the definition of correlation $\rho$,
+\begin{align*}
+	\rho(2X-Y,X+3Y)&=\frac{Cov(2X-Y,X+3Y)}{\sqrt{Var(2X-Y)}\sqrt{Var(X+3Y)}}\\
+	&=\frac{Cov(2X-Y,X+3Y)}{\sqrt{4Var(X)-4Cov(X,Y)+Var(Y)}\sqrt{Var(X)+6Cov(X,Y)+9Var(Y)}}\\
+	&=\frac{-1}{\sqrt{4\times 3-4\times 1+4}\sqrt{3+6\times 1+9\times 4}}\\
+	&=-\frac{\sqrt{15}}{90}
+\end{align*}
+\newpage
+\noindent{\bf 3.} Suppose that $X$ and $Y$ are independent random variables. Both are exponential with parameter 1. Find the density of the random
+variable $X+Y$.
+\\
+\\
+\textbf{Answer:}\\
+Given two independent random variable $X,Y$, the pdf of $X+Y$ is the convolution
+$$f_{X+Y}(a)=\int_{-\infty}^{\infty}f_X(a-y)f_Y(y)\ dy$$
+the density of the random variable $Z=X+Y$ is
+\begin{align*}
+	f_{Z}(z)&=\int_0^zf_X(z-y)f_Y(y)\ dy\\
+	&=\int_0^ze^{-(z-y)}e^{-y}\ dy\\
+	&=e^{-z}\int_0^z\ dy\\
+	&=ze^{-z}
+\end{align*}
+Therefore, the pdf of $Z$ is given by
+\begin{equation*}
+	f_Z(z)=\left\{
+	\begin{aligned}
+		&ze^{-z},&&z\geq 0\\
+		&0,&&z<0
+	\end{aligned}
+	\right.
+\end{equation*}
+\\
+
+\end{document}

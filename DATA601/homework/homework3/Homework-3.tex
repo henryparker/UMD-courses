@@ -1,0 +1,213 @@
+
+\documentclass[12pt]{article}
+%\documentstyle[12pt]{article}
+%\documentclass{amsart}
+%\usepackage[dvips]{graphicx}
+
+
+\usepackage{amssymb,amsmath,amscd,amsthm}
+%\usepackage{graphicx,psfrag,epsfig,multirow} LINEA ORIGINAL
+\usepackage{graphicx,psfrag,epsfig}
+
+
+\usepackage{graphicx}
+\usepackage[active]{srcltx}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{lemma}[theorem]{Lemma}
+%\newtheorem{remark}[theorem]{Remark}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{axiom}{Axiom}
+\newtheorem{remark}{Remark}
+\newtheorem{exercise}{Exercise}[section]
+
+\newcommand{\thmref}[1]{Theorem~\ref{#1}}
+\newcommand{\propref}[1]{Proposition~\ref{#1}}
+\newcommand{\secref}[1]{\S\ref{#1}}
+\newcommand{\lemref}[1]{Lemma~\ref{#1}}
+\newcommand{\corref}[1]{Corollary~\ref{#1}}
+\newcommand{\remref}[1]{Remark~\ref{#1}}
+
+
+
+\setlength{\topmargin}{0mm}
+\setlength{\oddsidemargin}{0mm}
+\setlength{\textwidth}{160mm}
+\setlength{\textheight}{215mm}
+\font\bbc=msbm10 scaled 1200
+\newcommand{\E}{\mathbf{E}}
+\newcommand{\R}{\mbox {\bbc R}}
+\newcommand{\T}{\mbox {\bbc T}}
+\newcommand{\Z}{\mbox {\bbc Z}}
+\def\stackunder#1#2{\mathrel{\mathop{#2}\limits_{#1}}}
+
+\def\Area{{\rm Area}}
+\def\Const{{\rm Const}}
+\def\Int{{\rm Int}}
+
+\def\eps{{\varepsilon}}
+
+\def\EXP{\mathbb{E}}
+\def\GR{\mathbb{G}}
+\def\PROB{\mathbb{P}}
+\def\TOR{\mathbb{T}}
+
+\def\naturals{\mathbb{N}}
+
+\def\brGamma{{\bar\Gamma}}
+\def\brgamma{{\bar\gamma}}
+\def\brtau{{\bar\tau}}
+\def\brtheta{{\bar\theta}}
+\def\brchi{{\bar\chi}}
+
+\def\bI{{\bf I}}
+
+\def\cE{\mathcal{E}}
+\def\cG{\mathcal{C}}
+\def\cL{\mathcal{L}}
+\def\cU{\mathcal{U}}
+\def\cZ{\mathcal{Z}}
+
+\def\hN{{\hat N}}
+\def\hn{{\hat n}}
+\def\hy{{\hat y}}
+\def\hGamma{{\hat\Gamma}}
+\def\hdelta{{\hat\delta}}
+\def\hsigma{{\hat\sigma}}
+\def\htau{{\hat\tau}}
+\def\heta{{\hat\eta}}
+\def\htheta{{\hat\theta}}
+
+\def\tW{{\tilde W}}
+\def\tM{{\tilde M}}
+\def\tX{{\tilde X}}
+\def\tc{{\tilde c}}
+\def\tp{{\tilde p}}
+\def\tq{{\tilde q}}
+\def\tdelta{{\tilde\delta}}
+\def\teta{{\tilde\eta}}
+\def\txi{{\tilde\xi}}
+\def\tsigma{{\tilde\sigma}}
+\def\ttheta{{\tilde\theta}}
+
+\title{Probability and Statistics Homework 3}
+\author{Hairui Yin}
+\date{}
+
+\begin{document}
+%\title{Exam Problems  -  Stat 400}
+%\author{Winter 2008-2009}
+%\normalsize Department of Mathematics\\[-4pt]
+%\normalsize Princeton University\\[-4pt]
+%\normalsize Princeton, NJ 08544\\[-4pt]
+%\normalsize koralov@math.princeton.edu\\[-4pt]
+%\date{}
+%\maketitle
+%{\bf $~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~$Third Homework}
+%\\
+%$~$
+%\\
+\maketitle
+\noindent {\bf 1.}  Six people forming three couples sit around a round table (with all the seating configurations equally likely).
+What is the probability that, for every couple, the two people forming the couple sit next to each other? (Such a seating arrangement would be convenient if they order three large dishes, each to be shared by one couple.)
+\\
+{\bf Answer:}
+\\
+Given the seat number as $d_1,d_2,...,d_6$ in order, where $(d_1,d_2), (d_2,d_3),...,(d_6,d_1)$ are next to each other.\\
+Firstly, there are generally 2 ways to divide three groups of couples. Sit in $(d_1,d_2),(d_3,d_4),(d_5,d_6)$, or in $(d_6, d_1),(d_2,d_3),(d_4,d_5)$.
+Secondly, to assign three couples into these two ways, each way has $3!$ assignment.\\
+Finally, since there are two people in each couple group, each couple group has 2 ways to sit.Since there are three couples, it's $2^3$ ways.\\
+Denote that the total arrangement number is $N$, then
+$$N=2\times 3!\times 2^3=96$$
+The probability that this arrangement happens is
+\begin{align*}
+	P&=\frac{N}{6!}\\
+	&=\frac{96}{720}\\
+	&=\frac{2}{15}
+\end{align*}
+
+
+\newpage
+\noindent {\bf 2.} Two dice are rolled. 
+
+(a) What is the conditional probability of at least one die showing a 5, given that the sum is larger than 7?
+
+(b) What is the conditional probability of the sum to be larger than 7, given that at least one of the dice is showing a 5?
+\\
+{\bf Answer:}
+\\
+\textbf{(a)} Given the sum is larger than 7, the cases are $$(2,6),\textbf{(3,5)},(3,6),(4,4),\textbf{(4,5)},(4,6),\textbf{(5,3)},\textbf{(5,4)},\textbf{(5,5)},\textbf{(5,6)},(6,2),(6,3),(6,4),\textbf{(6,5)},(6,6)$$
+Altogether there are 15 cases, in which 7 of them have at least one die showing a 5.
+Therefore, the conditional probability of at least one die showing a 5, given that the sum is larger than 7 is
+$$P=\frac{7}{15}$$\\
+\textbf{(b)} Denote the event that the sum to be larger than 7 is A, the event that at least one of the dice showing a 5 is B. Given the answer of (a), $P(B|A)=\frac{7}{15}$.\\
+Consider the probability that the sum is larger than 7, the probability is
+$$P(A)=\frac{15}{6\times 6}=\frac{5}{12}$$
+Consider the probability that at least one of the dice is showing a 5, it happens when the first die is 5 or the second die is 5, so there are 11 cases. The probability that at least one of the die showing a 5 is thus
+$$P(B)=\frac{11}{6\times 6}=\frac{11}{36}$$
+According to Bayes's Theorm, the conditional probability of the sum to be larger than 7 given at least one of the dice is a 5 is
+\begin{align*}
+	P(A|B)&=\frac{P(B|A)P(A)}{P(B)}\\
+	&=\frac{\frac{7}{15}\times \frac{5}{12}}{\frac{11}{36}}\\
+	&=\frac{7}{11}
+\end{align*}
+\newpage
+\noindent {\bf 3.} Suppose that an ordinary deck of 52 cards is shuffled
+and the cards are then turned over one at a time until the
+first ace appears. Given that the first ace is the 20th card
+to appear, what is the conditional probability that the card
+following it is the
+
+(a) ace of spades?
+
+(b) two of clubs?
+\\
+{\bf Answer:}
+\\
+\textbf{(a)} Since there are no ace between 1st and 19th card, so after 19th card is droped out, there are 4 aces left. Denote A as event that 20th is ace given 1-19th card is not ace and B as event that 21th is ace of spades, the answer to this quesiton is $P(B|A)$, we can find $P(A\cap B)$ and $P(A)$ to find $P(B|A)$.\\
+Considering $P(A\cap B)$, the 20th card is ace but is not spades, and the 21th card should be ace spades, so
+$$P(A\cap B)=\frac{3}{(52-19)\times(52-20)}$$
+Considering $P(A)$, then
+$$P(A)=\frac{4}{52-19}$$
+Therefore, the probability that 21th card is ace of spades given the first ace is the 20th card is
+\begin{align*}
+	P(B|A)&=\frac{P(A\cap B)}{P(A)}\\
+	&=\frac{\frac{3}{(52-19)\times(52-20)}}{\frac{4}{52-19}}\\
+	&=\frac{3}{128}
+\end{align*}
+\\
+\textbf{(b)} Denote event C as the 21th card is two of clubs, event D as 20th card is the first ace. In order to figure out $P(C|D)$, we need to find $P(C\cap D)$ and $P(D)$.\\
+Considering $P(C\cap D)$, the 1-19th card is neither ace or two of clubs, then 20th can be any ace, 21th must be two of clubs. So,
+$$P(C\cap D)=\frac{P_{47}^{19}\times 4}{P_{52}^{21}}$$
+
+Considering $P(D)$, the 1-19th cards must not be ace and 20th card is any ace, then
+$$P(D)=\frac{P_{48}^{19}\times 4}{P_{52}^{20}}$$
+Therefore, the probability that 21th card is two of clubs given the first ace is the 20th card is
+\begin{align*}
+	P(C|D)&=\frac{P(C\cap D)}{P(D)}\\
+	&=\frac{\frac{P_{47}^{19}\times 4}{P_{52}^{21}}}{\frac{P_{48}^{19}\times 4}{P_{52}^{20}}}\\
+	&=\frac{29}{1536}
+\end{align*}
+\newpage
+\noindent {\bf 4.} There are three coins in a wallet. The first one is a regular coin - it lands tails
+up with probability 50 percent, if tossed. The second is defective - it lands tails up with
+probability 60 percent. The third one always lands tails up. A random coin was taken
+out of the wallet and tossed. It landed tails up. Given this information, what is the
+probability that this was the first coin?
+\\
+{\bf Answer:}
+\\
+Denote event A as coin taken out is the first coin, B as the second coin, C as the third coin, D as the coin tails up.\\
+The probability that given the coin tails up, it is the first coin is
+\begin{align*}
+	P(A|D)&=\frac{P(A\cap D)}{P(D)}\\
+	&=\frac{P(D|A)P(A)}{P(D|A)P(A)+P(D|B)P(B)+P(D|C)P(C)}\\
+	&=\frac{\frac{1}{2}\times \frac{1}{3}}{\frac{1}{2}\times \frac{1}{3}+\frac{3}{5}\times\frac{1}{3}+\frac{1}{3}}\\
+	&=\frac{5}{21}
+\end{align*}
+Therefore, the probability that it is the first coin given tails up is $\frac{5}{21}$.
+\end{document}
