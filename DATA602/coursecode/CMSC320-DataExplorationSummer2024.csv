@@ -1,0 +1,34 @@
+﻿Timestamp,Score,Name,Age,Start_Date,Major,Favorite_Color,Favorite_Hobby,Favorite_Sports,Favorite_Movies,Favorite_Series,Career_Interest,Friend_Quality_Preference,Similar_Interest_Preference,Color_Similarity_Importance,Movie_Similarity_Importance,Series_Similarity_Importance,Hobby_Similarity_Importance,Career_Interest_Similarity_Importance,Social_Activities_Frequency,Social_Gathering_Preference,Outgoing_or_Introverted
+6/3/2024 16:22:46,0,Jank Boteko,5,8/26/21,Computer science,Blue,sleeping,videogames,godfather,the office,Web Developer,Kindness,Agree,1,3,3,4,2,Weekly,Small Group,Introverted
+6/3/2024 16:28:35,0,Dave,20,8/26/22,Computer science,Red,gaming,badminton,spiderman,my hero academia,Data Scientist,Loyalty,Agree,1,1,1,2,1,Weekly,Small Group,In Middle Kinda
+6/3/2024 16:31:44,0,William,19,8/29/22,Computer science,Black,music,basketball,spiderman,suits,Software Developer,Shared interests,Strongly agree,5,2,2,3,4,Weekly,Small Group,Outgoing
+6/3/2024 16:42:15,0,Danny,20,8/29/22,Others,Black,gaming,football,a silent voice,one piece,Software Engineering,Shared interests,Agree,1,3,3,4,3,Weekly,Moderate,In Middle Kinda
+6/3/2024 16:49:25,1,Aditya,19,8/29/23,Computer science,White,reading,soccer,the dark knight,march comes in like a lion,Researcher,Sense of humor,Agree,1,1,2,4,4,Weekly,Moderate,In Middle Kinda
+6/3/2024 17:06:17,0,Kayla,21,8/30/21,Computer science,Red,cleaning,basketball,back to the future,saved by the bell,Nothing - just chill life,Loyalty,Agree,1,2,2,3,2,Weekly,Moderate,In Middle Kinda
+6/3/2024 17:15:22,2,Shrawan Gopal,20,6/3/24,Computer science,Black,reading,"boxing, tennis, basketball","joker, goodfellas",peaky blinders,Software Engineering,Loyalty,Agree,1,1,1,1,2,Monthly,Small Group,Introverted
+6/3/2024 17:27:24,0,Junaid,20,8/15/22,Computer science,Blue,sports,basketball,good fellas,better call saul,Entrepreneur,Loyalty,Agree,1,2,2,3,3,Weekly,Small Group,Introverted
+6/3/2024 17:43:32,0,Mikasa,20,8/30/21,Computer science,Blue,sleeping,videogames,jurassic park,none,Software Engineering,Empathy,Agree,1,1,2,3,3,Weekly,Moderate,In Middle Kinda
+6/3/2024 18:03:32,0,Muhammad,20,1/1/23,Computer science,Blue,pickleball ,pickleball ,johnwick,the blacklist ,Software Engineering,Loyalty,Strongly agree,1,1,1,4,4,Weekly,Moderate,Outgoing
+6/3/2024 18:32:20,1,Jon,23,1/20/20,Others,Green,gaming,soccer,john wick,lord of the rings,Researcher,Loyalty,Agree,1,2,3,1,2,Weekly,Small Group,Introverted
+6/3/2024 18:32:48,2,James,21,8/28/21,Statistics,Blue,sports,pickleball,terminator,breaking bad,Data Scientist,Kindness,Agree,1,1,1,4,1,Weekly,Small Group,In Middle Kinda
+6/3/2024 18:32:54,0,Sexy lady,25,9/1/22,Computer science,Pink,cooking,badminton,pursuit of happyness,ancient aliens,Software Developer,Kindness,Agree,3,4,4,5,4,Monthly,Small Group,Introverted
+6/3/2024 18:34:03,3,Oscar,23,8/30/21,Computer science,Blue,anime,swimming,kung fu panda,friends,Software Engineering,Kindness,Agree,1,1,1,1,1,Weekly,Small Group,In Middle Kinda
+6/3/2024 19:14:00,4,Cletus,20,8/26/22,Computer science,Green,photography,cricket,the name of the rose,seinfeld,Researcher,Sense of humor,Strongly agree,1,2,2,4,2,Daily,Moderate,In Middle Kinda
+6/3/2024 20:31:01,0,feynman,106,9/1/22,Physics,Others,drums,safecracking,oppenheimer (2023),unsure,Researcher,Sense of humor,Disagree,1,1,1,1,1,Daily,Moderate,Outgoing
+6/3/2024 21:08:47,0,Sze,20,8/26/22,Computer science,Green,working,videogames,infinity war,the good doctor,Analyst,Loyalty,Agree,1,1,1,3,2,Daily,Moderate,In Middle Kinda
+6/3/2024 21:19:55,0,Jemil,22,8/28/23,Computer science,Green,lifting,swimming,gladiator,money heist,Software Engineering,Loyalty,Agree,1,1,1,3,1,Monthly,Small Group,Introverted
+6/3/2024 21:21:03,1,Raghav,18,8/29/23,Computer science,Orange,traveling,basketball,mission impossible,manifest,Software Engineering,Loyalty,Agree,1,2,2,4,3,Weekly,Moderate,Outgoing
+6/3/2024 21:36:04,0,Eric Bennett,20,8/26/22,Computer science,Yellow,Hiking,Soccer,Interstellar,The Office,Data Scientist,Sense of humor,Neutral,1,1,2,1,1,Daily,Small Group,In Middle Kinda
+6/3/2024 21:43:43,0,Vincent,20,8/26/22,Computer science,White,traveling,icehockey,avengers,game of thrones,Software Developer,Empathy,Agree,1,1,2,1,3,Weekly,Moderate,In Middle Kinda
+6/3/2024 21:58:31,2,Matin,22,8/24/21,Computer science,Blue,music,soccer,spiderman,the witcher,Data Scientist,Loyalty,Strongly agree,1,1,2,3,2,Weekly,Moderate,Outgoing
+6/3/2024 22:00:26,3,Nguyen,21,9/30/21,Computer science,Blue,sleeping,volleyball,age of adeline,shameless,Software Engineering,Shared interests,Agree,1,1,1,4,3,Weekly,Small Group,Introverted
+6/3/2024 22:06:58,0,Alex,24,1/20/21,Computer science,Red,reading,videogames,guardians of the galaxy,shield,Software Developer,Empathy,Agree,1,3,3,4,4,Weekly,Small Group,Introverted
+6/3/2024 22:31:50,4,Ihemriorochi Amanze,21,8/26/21,Computer science,Green,talking,basketball,city of god,snowfall,Traveller,Shared interests,Agree,1,1,1,1,1,Weekly,Moderate,Outgoing
+6/3/2024 22:38:29,0,Daniel Deutsch,20,8/31/22,Computer science,Blue,golf,basketball,home alone,the sopranos,Others,Sense of humor,Agree,1,1,1,1,1,Daily,Moderate,In Middle Kinda
+6/3/2024 23:17:10,0,Hudeenee,20,8/29/22,Computer science,Blue,eating,soccer,portrait of a lady on fire,avatar the last airbender,Software Engineering,Loyalty,Strongly agree,1,2,2,3,1,Weekly,Small Group,Outgoing
+6/4/2024 0:16:56,0,Patel,20,8/26/22,Computer science,Red,sleeping,basketball,spiderman,how i met your mother,Software Engineering,Shared interests,Strongly agree,1,1,1,2,2,Daily,Moderate,In Middle Kinda
+6/4/2024 0:30:47,0,Shiven,20,8/29/22,Computer science,Red,videogames,football,kingsman,naruto,Software Engineering,Shared interests,Agree,1,1,1,3,2,Daily,Small Group,In Middle Kinda
+6/4/2024 1:11:51,3,Joshua Kuhn,22,8/20/20,Others,Blue,gaming,volleyball,arrival,haunting of hill house ,Data Scientist,Shared interests,Strongly agree,1,1,1,2,1,Weekly,Moderate,In Middle Kinda
+6/4/2024 7:26:01,0,Sujithkumar,19,8/27/22,Computer science,Blue,Walking,Cricket,Spiderman,Ninjago,Software Engineering,Kindness,Agree,1,1,1,2,2,Daily,Small Group,In Middle Kinda
+6/4/2024 8:54:34,4,Bond,18,8/28/23,Computer science,Orange,traveling,dancing,mission impossible,white collar,Software Engineering,Sense of humor,Agree,1,1,1,3,2,Weekly,Small Group,Outgoing
+6/4/2024 9:56:44,0,David,20,8/28/22,Computer science,Red,Baking,Soccer,spiderman ,friends,Others,Empathy,Agree,1,1,1,1,1,Daily,Small Group,Introverted
