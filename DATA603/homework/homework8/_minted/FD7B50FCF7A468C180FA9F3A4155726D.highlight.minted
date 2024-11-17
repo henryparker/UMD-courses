@@ -1,0 +1,16 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{n}{theta1}\PYG{p}{,} \PYG{n}{theta2} \PYG{o}{=} \PYG{n}{initialize\PYGZus{}parameter}\PYG{p}{(}\PYG{l+m+mi}{2}\PYG{p}{,} \PYG{l+m+mi}{2}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{)}
+\PYG{n}{x}\PYG{p}{,} \PYG{n}{y} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{(}\PYG{p}{[}\PYG{l+m+mi}{2}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{]}\PYG{p}{)}\PYG{p}{,} \PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{(}\PYG{p}{[}\PYG{l+m+mi}{3}\PYG{p}{]}\PYG{p}{)}
+\PYG{n}{learning\PYGZus{}rate} \PYG{o}{=} \PYG{l+m+mf}{0.05}
+
+\PYG{n}{iterations} \PYG{o}{=} \PYG{p}{[}\PYG{p}{]}
+\PYG{n}{loss} \PYG{o}{=} \PYG{p}{[}\PYG{p}{]}
+\PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{l+m+mi}{50}\PYG{p}{)}\PYG{p}{:}
+	\PYG{n}{z2}\PYG{p}{,} \PYG{n}{a2}\PYG{p}{,} \PYG{n}{z3} \PYG{o}{=} \PYG{n}{forward}\PYG{p}{(}\PYG{n}{x}\PYG{p}{,} \PYG{n}{theta1}\PYG{p}{,} \PYG{n}{theta2}\PYG{p}{)}
+	\PYG{n}{dtheta1}\PYG{p}{,} \PYG{n}{dtheta2} \PYG{o}{=} \PYG{n}{backward}\PYG{p}{(}\PYG{n}{x}\PYG{p}{,} \PYG{n}{y}\PYG{p}{,} \PYG{n}{z2}\PYG{p}{,} \PYG{n}{a2}\PYG{p}{,} \PYG{n}{z3}\PYG{p}{,} \PYG{n}{theta1}\PYG{p}{,} \PYG{n}{theta2}\PYG{p}{)}
+	\PYG{n}{theta1} \PYG{o}{\PYGZhy{}}\PYG{o}{=} \PYG{n}{learning\PYGZus{}rate} \PYG{o}{*} \PYG{n}{dtheta1}
+	\PYG{n}{theta2} \PYG{o}{\PYGZhy{}}\PYG{o}{=} \PYG{n}{learning\PYGZus{}rate} \PYG{o}{*} \PYG{n}{dtheta2}
+	\PYG{c+c1}{\PYGZsh{} loss record}
+	\PYG{n}{iterations}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{i}\PYG{p}{)}
+	\PYG{n}{loss}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{p}{(}\PYG{n}{y}\PYG{o}{\PYGZhy{}}\PYG{n}{z3}\PYG{p}{)}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{2}\PYG{p}{)}
+\end{MintedVerbatim}
