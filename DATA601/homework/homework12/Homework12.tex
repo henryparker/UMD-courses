@@ -1,0 +1,230 @@
+
+\documentclass[12pt]{article}
+%\documentstyle[12pt]{article}
+%\documentclass{amsart}
+%\usepackage[dvips]{graphicx}
+
+
+\usepackage{amssymb,amsmath,amscd,amsthm}
+%\usepackage{graphicx,psfrag,epsfig,multirow} LINEA ORIGINAL
+\usepackage{graphicx,psfrag,epsfig}
+
+
+\usepackage{graphicx}
+\usepackage[active]{srcltx}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{lemma}[theorem]{Lemma}
+%\newtheorem{remark}[theorem]{Remark}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{axiom}{Axiom}
+\newtheorem{remark}{Remark}
+\newtheorem{exercise}{Exercise}[section]
+
+\newcommand{\thmref}[1]{Theorem~\ref{#1}}
+\newcommand{\propref}[1]{Proposition~\ref{#1}}
+\newcommand{\secref}[1]{\S\ref{#1}}
+\newcommand{\lemref}[1]{Lemma~\ref{#1}}
+\newcommand{\corref}[1]{Corollary~\ref{#1}}
+\newcommand{\remref}[1]{Remark~\ref{#1}}
+
+
+
+\setlength{\topmargin}{0mm}
+\setlength{\oddsidemargin}{0mm}
+\setlength{\textwidth}{160mm}
+\setlength{\textheight}{215mm}
+\font\bbc=msbm10 scaled 1200
+\newcommand{\E}{\mathbf{E}}
+\newcommand{\R}{\mbox {\bbc R}}
+\newcommand{\T}{\mbox {\bbc T}}
+\newcommand{\Z}{\mbox {\bbc Z}}
+\def\stackunder#1#2{\mathrel{\mathop{#2}\limits_{#1}}}
+
+\def\Area{{\rm Area}}
+\def\Const{{\rm Const}}
+\def\Int{{\rm Int}}
+
+\def\eps{{\varepsilon}}
+
+\def\EXP{\mathbb{E}}
+\def\GR{\mathbb{G}}
+\def\PROB{\mathbb{P}}
+\def\TOR{\mathbb{T}}
+
+\def\naturals{\mathbb{N}}
+
+\def\brGamma{{\bar\Gamma}}
+\def\brgamma{{\bar\gamma}}
+\def\brtau{{\bar\tau}}
+\def\brtheta{{\bar\theta}}
+\def\brchi{{\bar\chi}}
+
+\def\bI{{\bf I}}
+
+\def\cE{\mathcal{E}}
+\def\cG{\mathcal{C}}
+\def\cL{\mathcal{L}}
+\def\cU{\mathcal{U}}
+\def\cZ{\mathcal{Z}}
+
+\def\hN{{\hat N}}
+\def\hn{{\hat n}}
+\def\hy{{\hat y}}
+\def\hGamma{{\hat\Gamma}}
+\def\hdelta{{\hat\delta}}
+\def\hsigma{{\hat\sigma}}
+\def\htau{{\hat\tau}}
+\def\heta{{\hat\eta}}
+\def\htheta{{\hat\theta}}
+
+\def\tW{{\tilde W}}
+\def\tM{{\tilde M}}
+\def\tX{{\tilde X}}
+\def\tc{{\tilde c}}
+\def\tp{{\tilde p}}
+\def\tq{{\tilde q}}
+\def\tdelta{{\tilde\delta}}
+\def\teta{{\tilde\eta}}
+\def\txi{{\tilde\xi}}
+\def\tsigma{{\tilde\sigma}}
+\def\ttheta{{\tilde\theta}}
+
+\title{Probability and Statistics Homework 12}
+\author{Hairui Yin}
+\date{}
+
+\begin{document}
+\maketitle
+\noindent{\bf 1.} Consider the four corners of a square connected by the sides. Each of the corners is also connected to the center. A frog starts at the center and jumps once per minute. What happens at each jump depends only on the location where the frog is sitting at the moment. It jumps to each site connected to the one where it is now with equal probability. That is, from the center, it can jump to each of the corners with equal probabilities. From a corner, it can jump to two of the neighboring corners (with probability 1/3 each) or to the center (with probablity 1/3). Estimate, approximately, the probability that the frog will be in the center after 1000 jumps. Estimate, approximately, the proportion of time it will spend in the center during the first 1000 minutes.\\
+\\
+{\bf Answer:}\\ 
+Let the Center be M, the four corners are respectively A, B, C, D (clockwise order). Then the transition matrix is
+\begin{table}[h!]
+	\centering
+	\begin{tabular}{c|ccccc}
+		& A & B & M & C & D \\
+		\hline
+		A & 0 & 1/3 & 1/3 & 0 & 1/3\\
+		B & 1/3 & 0 & 1/3 & 1/3 & 0\\
+		M & 1/4 & 1/4 & 0 & 1/4 & 1/4 \\
+		C & 0 & 1/3 & 1/3 & 0 & 1/3\\
+		D & 1/3 & 0 & 1/3 & 1/3 & 0\\
+	\end{tabular}
+\end{table}\\
+The start state is
+$$O=\begin{bmatrix}
+	0 & 0 & 1 & 0 & 0
+\end{bmatrix}$$
+\\
+{\bf (a)}\\
+To find the probability that the frog will be in the center, we need to find
+$$
+\begin{aligned}
+	\text{P after 1000 jumps}&=O\times T^{1000}\\
+	&=\begin{bmatrix}
+		0 & 0 & 1 & 0 & 0
+	\end{bmatrix} \times
+	\begin{bmatrix}
+		0 & 1/3 & 1/3 & 0 & 1/3\\
+		1/3 & 0 & 1/3 & 1/3 & 0\\
+		1/4 & 1/4 & 0 & 1/4 & 1/4 \\
+		0 & 1/3 & 1/3 & 0 & 1/3\\
+		1/3 & 0 & 1/3 & 1/3 & 0\\
+	\end{bmatrix}^{1000}\\
+	&=\begin{bmatrix}
+		3/16 & 3/16 & 1/4 & 3/16 & 3/16
+	\end{bmatrix}
+\end{aligned}
+$$
+Therefore, the probability that the frog will be in the center after 1000 jumps (starting at center) is $\frac{1}{4}$.\\
+\\
+{\bf (b)}\\
+To find the proportion of time it will spend in the center during the first 1000 minutes. According to Ergodic Theorem, since this Markov Chain is Ergodic, the fraction of time the Markov Chain spends in each state approximates the stationary probability of that state, regardless of starting point. As a result, we need to find $\vec{\pi}$, s.t. $$\vec{\pi}P=\vec{\pi}$$
+which is
+$$\begin{bmatrix}
+	\pi_A & \pi_B & \pi_M & \pi_C & \pi_D
+\end{bmatrix}\begin{bmatrix}
+0 & 1/3 & 1/3 & 0 & 1/3\\
+1/3 & 0 & 1/3 & 1/3 & 0\\
+1/4 & 1/4 & 0 & 1/4 & 1/4 \\
+0 & 1/3 & 1/3 & 0 & 1/3\\
+1/3 & 0 & 1/3 & 1/3 & 0\\
+\end{bmatrix}=\begin{bmatrix}
+\pi_A & \pi_B & \pi_M & \pi_C & \pi_D
+\end{bmatrix}$$
+And we can get $$\pi_M=\frac{1}{4}$$
+Therefore, the proportion of time it will spend in the center during the first 1000 minutes is $\frac{1}{4}$.
+\newpage
+\noindent{\bf 2.} Estimate, approximately, the probability of the event that the frog will be in a corner after 1000 minutes and will use the following 4 jumps to complete one rotation around the perimeter.\\
+\\
+{\bf Answer:}\\ We can devide the problem into two parts: the frog be in a corner after 1000 minutes, and the following 4 jumps completing one rotation.\\
+From Question 1, we know that the probability that the frog is in a corner after 1000 minutes is
+$$P_1=4\times \frac{3}{16}=\frac{3}{4}$$
+There are two directions that the frog can complete one rotation. For each rotation, the frog has $\frac{1}{3}$ probability to go to the right step. Therefore, the probability that the frog can compelete one rotation in 4 jumps is
+$$P_2=2\times (\frac{1}{3})^4=\frac{2}{81}$$
+Therefore, the overall probability is
+\begin{align*}
+	P&=P_1\times P_2\\
+	&=\frac{3}{4}\times \frac{2}{81}\\
+	&=\frac{3}{162}
+\end{align*}
+\newpage
+\noindent{\bf 3.} A die is rolled repeatedly and each result is recorded (to form a sequence of numbers, each number between 1 and 6). Calculate the probability that 4 immediately followed by a 5 will be recorded before 6 immediately followed by a 6.\\
+\\
+{\bf Answer:}\\
+The answer is obvious, for that the case 45 recorded before 66 and 66 recorded before 45 are symmetric. Therefore, both probabilities are 50\%.\\
+However, to make it more mathmatic, I am going to explain it through Markov Chain. Consider the following three states
+$$
+\left\{
+\begin{aligned}
+	&S_{45}: &&\text{roll 45 has occurred}\\
+	&S_{66}: &&\text{roll 66 has occurred}\\
+	&S_0: &&\text{Neither state } S_{45} \text{ and state } S_{66}
+\end{aligned}
+\right.$$
+Then the transition matrix is
+\begin{table}[h!]
+	\centering
+	\begin{tabular}{c|ccc}
+		& $S_{45}$ & $S_{66}$ & $S_{0}$\\
+		\hline
+		$S_{45}$ & 1 & 0 & 0 \\
+		$S_{66}$ & 0 & 1 & 0 \\
+		$S_{0}$ & 1/36 & 1/36 & 17/18 \\
+	\end{tabular}
+\end{table}\\
+The initial state is $S_0$, thus the state probability distribution after $n$ steps is
+\begin{align*}
+	lim_{n\rightarrow \infty}P(n)&=lim_{n\rightarrow \infty}\begin{bmatrix}
+		0 & 0 & 1
+	\end{bmatrix}\begin{bmatrix}
+		1 & 0 & 0 \\
+		0 & 1 & 0 \\
+		1/36 & 1/36 & 17/18 \\
+	\end{bmatrix}^n\\
+	&\approx lim_{n\rightarrow \infty}\begin{bmatrix}
+		0 & 0 & 1
+	\end{bmatrix}\begin{bmatrix}
+	0 & \sqrt{5}/2 & 0 \\
+	0 & 0 & \sqrt{5}/2 \\
+	1 & \sqrt{5}/5 & \sqrt{5}/5 \\
+	\end{bmatrix}\begin{bmatrix}
+	17/18 & 0 & 0 \\
+	0 & 1 & 0 \\
+	0 & 0 & 1 \\
+	\end{bmatrix}^n\begin{bmatrix}
+	0 & \sqrt{5}/2 & 0 \\
+	0 & 0 & \sqrt{5}/2 \\
+	1 & \sqrt{5}/5 & \sqrt{5}/5 \\
+	\end{bmatrix}^{-1}\\
+	&=\begin{bmatrix}
+		0.5 & 0.5 & 0
+	\end{bmatrix}
+\end{align*}
+Therefore, the probability that 4 immediately followed by a 5 will be recorded before 6 immediately followed by a 6 is 50\%.
+\end{document}
