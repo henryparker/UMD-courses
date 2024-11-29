@@ -1,0 +1,211 @@
+
+\documentclass[12pt]{article}
+%\documentstyle[12pt]{article}
+%\documentclass{amsart}
+%\usepackage[dvips]{graphicx}
+
+
+\usepackage{amssymb,amsmath,amscd,amsthm}
+%\usepackage{graphicx,psfrag,epsfig,multirow} LINEA ORIGINAL
+\usepackage{graphicx,psfrag,epsfig}
+
+
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage[active]{srcltx}
+
+\usepackage{minted}
+\usepackage{xcolor}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{lemma}[theorem]{Lemma}
+%\newtheorem{remark}[theorem]{Remark}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{axiom}{Axiom}
+\newtheorem{remark}{Remark}
+\newtheorem{exercise}{Exercise}[section]
+
+\newcommand{\thmref}[1]{Theorem~\ref{#1}}
+\newcommand{\propref}[1]{Proposition~\ref{#1}}
+\newcommand{\secref}[1]{\S\ref{#1}}
+\newcommand{\lemref}[1]{Lemma~\ref{#1}}
+\newcommand{\corref}[1]{Corollary~\ref{#1}}
+\newcommand{\remref}[1]{Remark~\ref{#1}}
+
+
+
+\setlength{\topmargin}{0mm}
+\setlength{\oddsidemargin}{0mm}
+\setlength{\textwidth}{160mm}
+\setlength{\textheight}{215mm}
+\font\bbc=msbm10 scaled 1200
+\newcommand{\E}{\mathbf{E}}
+\newcommand{\R}{\mbox {\bbc R}}
+\newcommand{\T}{\mbox {\bbc T}}
+\newcommand{\Z}{\mbox {\bbc Z}}
+\def\stackunder#1#2{\mathrel{\mathop{#2}\limits_{#1}}}
+
+\def\Area{{\rm Area}}
+\def\Const{{\rm Const}}
+\def\Int{{\rm Int}}
+
+\def\eps{{\varepsilon}}
+
+\def\EXP{\mathbb{E}}
+\def\GR{\mathbb{G}}
+\def\PROB{\mathbb{P}}
+\def\TOR{\mathbb{T}}
+
+\def\naturals{\mathbb{N}}
+
+\def\brGamma{{\bar\Gamma}}
+\def\brgamma{{\bar\gamma}}
+\def\brtau{{\bar\tau}}
+\def\brtheta{{\bar\theta}}
+\def\brchi{{\bar\chi}}
+
+\def\bI{{\bf I}}
+
+\def\cE{\mathcal{E}}
+\def\cG{\mathcal{C}}
+\def\cL{\mathcal{L}}
+\def\cU{\mathcal{U}}
+\def\cZ{\mathcal{Z}}
+
+\def\hN{{\hat N}}
+\def\hn{{\hat n}}
+\def\hy{{\hat y}}
+\def\hGamma{{\hat\Gamma}}
+\def\hdelta{{\hat\delta}}
+\def\hsigma{{\hat\sigma}}
+\def\htau{{\hat\tau}}
+\def\heta{{\hat\eta}}
+\def\htheta{{\hat\theta}}
+
+\def\tW{{\tilde W}}
+\def\tM{{\tilde M}}
+\def\tX{{\tilde X}}
+\def\tc{{\tilde c}}
+\def\tp{{\tilde p}}
+\def\tq{{\tilde q}}
+\def\tdelta{{\tilde\delta}}
+\def\teta{{\tilde\eta}}
+\def\txi{{\tilde\xi}}
+\def\tsigma{{\tilde\sigma}}
+\def\ttheta{{\tilde\theta}}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\newminted{python}{
+	linenos=true,
+	bgcolor=backcolour,
+	fontsize=\footnotesize,
+	numbersep=5pt,
+	frame=single,
+	framesep=2mm
+}
+
+\title{Machine Learning Homework 8}
+\author{Hairui Yin}
+\date{}
+
+\begin{document}
+\maketitle
+\noindent {\bf 1.}\\
+\\
+\textbf{(a)} After import useful libraries, let the first 150 samples be used for training and rest 50 for testing. Using bootstrap method, we construct the 50 training datasets from as follow:
+\begin{pythoncode}
+import pandas as pd
+from sklearn.utils import resample
+
+df = pd.read_csv('moonDataset.csv')
+train_data = df.iloc[:150, :]
+test_data = df.iloc[150:, :]
+
+X_train = train_data.iloc[:, :-1].values
+y_train = train_data.iloc[:, -1].values
+X_test = test_data.iloc[:, :-1].values
+y_test = test_data.iloc[:, -1].values
+
+bootstrap_datasets = []
+for i in range(50):
+	X_bootstrap, y_bootstrap = resample(X_train, y_train, n_samples=150, random_state=i)
+	bootstrap_datasets.append((X_bootstrap, y_bootstrap))
+\end{pythoncode}
+\textbf{(b)} We use MLPClassifier in sklearn lib to construct our network. For each training datasets, we train the model and predict data in test set. Each error rate is recorded and shown in histogram.
+\begin{pythoncode}
+from sklearn.neural_network import MLPClassifier
+import matplotlib.pyplot as plt
+from sklearn.metrics import accuracy_score
+\end{pythoncode}
+\newpage
+\begin{pythoncode}
+error_rates = []
+for i in range(50):
+	# Train a feedforward network
+	model = MLPClassifier(hidden_layer_sizes=(10,), max_iter=10000, random_state=i)
+	model.fit(bootstrap_datasets[i][0], bootstrap_datasets[i][1])
+	
+	# Compute error rate on test dataset
+	y_pred = model.predict(X_test)
+	error_rate = 1 - accuracy_score(y_test, y_pred)
+	error_rates.append(error_rate)
+# plot error rate in Histogram
+plt.hist(error_rates, bins=10, edgecolor='k', alpha=0.7)
+plt.title('Histogram of Error Rates')
+plt.xlabel('Error Rate')
+plt.ylabel('Frequency')
+plt.show()
+\end{pythoncode}
+The figure shows below
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.8] {q1.png}
+\end{figure}
+\newpage
+\textbf{(c)} In this problem, we use decision tree as our classifier. After the code in (a) and (b), we use BaggingClassifier in scikit lib. Then we construct the new binary classifier using bagging with different ensemble size as follows:
+\begin{pythoncode}
+from sklearn.ensemble import BaggingClassifier
+from sklearn.tree import DecisionTreeClassifier
+
+ensemble_sizes = [5, 10, 15, 20]
+error_rates_bagging = []
+for m in ensemble_sizes:
+	# Bagging classifier with a decision tree as the base estimator
+	bagging_model = BaggingClassifier(
+	estimator=DecisionTreeClassifier(),
+	n_estimators=m,
+	random_state=42
+	)
+	bagging_model.fit(X_train, y_train)
+	
+	# Predict on test data
+	y_pred = bagging_model.predict(X_test)
+	
+	# Calculate error rate
+	error_rate = 1 - accuracy_score(y_test, y_pred)
+	error_rates_bagging.append(error_rate)
+# Plot
+plt.bar(ensemble_sizes, error_rates_bagging, width=3, edgecolor='k', alpha=0.7)
+plt.title('Error Rate vs Ensemble Size (Bagging)')
+plt.xlabel('Ensemble Size (m)')
+plt.ylabel('Error Rate')
+plt.xticks(ensemble_sizes)
+plt.grid(axis='y', linestyle='--', alpha=0.7)
+plt.show()
+\end{pythoncode}
+The figure shows below
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.8] {q1c.png}
+\end{figure}
+%\\
+
+\end{document}
