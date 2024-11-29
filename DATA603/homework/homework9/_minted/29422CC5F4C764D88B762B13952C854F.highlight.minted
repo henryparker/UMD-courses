@@ -1,0 +1,30 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{from} \PYG{n+nn}{sklearn}\PYG{n+nn}{.}\PYG{n+nn}{ensemble} \PYG{k+kn}{import} \PYG{n}{BaggingClassifier}
+\PYG{k+kn}{from} \PYG{n+nn}{sklearn}\PYG{n+nn}{.}\PYG{n+nn}{tree} \PYG{k+kn}{import} \PYG{n}{DecisionTreeClassifier}
+
+\PYG{n}{ensemble\PYGZus{}sizes} \PYG{o}{=} \PYG{p}{[}\PYG{l+m+mi}{5}\PYG{p}{,} \PYG{l+m+mi}{10}\PYG{p}{,} \PYG{l+m+mi}{15}\PYG{p}{,} \PYG{l+m+mi}{20}\PYG{p}{]}
+\PYG{n}{error\PYGZus{}rates\PYGZus{}bagging} \PYG{o}{=} \PYG{p}{[}\PYG{p}{]}
+\PYG{k}{for} \PYG{n}{m} \PYG{o+ow}{in} \PYG{n}{ensemble\PYGZus{}sizes}\PYG{p}{:}
+	\PYG{c+c1}{\PYGZsh{} Bagging classifier with a decision tree as the base estimator}
+	\PYG{n}{bagging\PYGZus{}model} \PYG{o}{=} \PYG{n}{BaggingClassifier}\PYG{p}{(}
+	\PYG{n}{estimator}\PYG{o}{=}\PYG{n}{DecisionTreeClassifier}\PYG{p}{(}\PYG{p}{)}\PYG{p}{,}
+	\PYG{n}{n\PYGZus{}estimators}\PYG{o}{=}\PYG{n}{m}\PYG{p}{,}
+	\PYG{n}{random\PYGZus{}state}\PYG{o}{=}\PYG{l+m+mi}{42}
+	\PYG{p}{)}
+	\PYG{n}{bagging\PYGZus{}model}\PYG{o}{.}\PYG{n}{fit}\PYG{p}{(}\PYG{n}{X\PYGZus{}train}\PYG{p}{,} \PYG{n}{y\PYGZus{}train}\PYG{p}{)}
+	
+	\PYG{c+c1}{\PYGZsh{} Predict on test data}
+	\PYG{n}{y\PYGZus{}pred} \PYG{o}{=} \PYG{n}{bagging\PYGZus{}model}\PYG{o}{.}\PYG{n}{predict}\PYG{p}{(}\PYG{n}{X\PYGZus{}test}\PYG{p}{)}
+	
+	\PYG{c+c1}{\PYGZsh{} Calculate error rate}
+	\PYG{n}{error\PYGZus{}rate} \PYG{o}{=} \PYG{l+m+mi}{1} \PYG{o}{\PYGZhy{}} \PYG{n}{accuracy\PYGZus{}score}\PYG{p}{(}\PYG{n}{y\PYGZus{}test}\PYG{p}{,} \PYG{n}{y\PYGZus{}pred}\PYG{p}{)}
+	\PYG{n}{error\PYGZus{}rates\PYGZus{}bagging}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{error\PYGZus{}rate}\PYG{p}{)}
+\PYG{c+c1}{\PYGZsh{} Plot}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{bar}\PYG{p}{(}\PYG{n}{ensemble\PYGZus{}sizes}\PYG{p}{,} \PYG{n}{error\PYGZus{}rates\PYGZus{}bagging}\PYG{p}{,} \PYG{n}{width}\PYG{o}{=}\PYG{l+m+mi}{3}\PYG{p}{,} \PYG{n}{edgecolor}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{k}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{n}{alpha}\PYG{o}{=}\PYG{l+m+mf}{0.7}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{title}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{Error Rate vs Ensemble Size (Bagging)}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{xlabel}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{Ensemble Size (m)}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{ylabel}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{Error Rate}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{xticks}\PYG{p}{(}\PYG{n}{ensemble\PYGZus{}sizes}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{grid}\PYG{p}{(}\PYG{n}{axis}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{y}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{n}{linestyle}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{\PYGZhy{}\PYGZhy{}}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{n}{alpha}\PYG{o}{=}\PYG{l+m+mf}{0.7}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{show}\PYG{p}{(}\PYG{p}{)}
+\end{MintedVerbatim}
