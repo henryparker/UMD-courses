@@ -1,0 +1,62 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{import} \PYG{n+nn}{torch}
+\PYG{k+kn}{import} \PYG{n+nn}{torch}\PYG{n+nn}{.}\PYG{n+nn}{nn} \PYG{k}{as} \PYG{n+nn}{nn}
+\PYG{k+kn}{import} \PYG{n+nn}{torch}\PYG{n+nn}{.}\PYG{n+nn}{optim} \PYG{k}{as} \PYG{n+nn}{optim}
+\PYG{k+kn}{import} \PYG{n+nn}{pandas} \PYG{k}{as} \PYG{n+nn}{pd}
+\PYG{k+kn}{import} \PYG{n+nn}{matplotlib}\PYG{n+nn}{.}\PYG{n+nn}{pyplot} \PYG{k}{as} \PYG{n+nn}{plt}
+\PYG{k+kn}{from} \PYG{n+nn}{sklearn}\PYG{n+nn}{.}\PYG{n+nn}{preprocessing} \PYG{k+kn}{import} \PYG{n}{StandardScaler}
+
+\PYG{n}{device} \PYG{o}{=} \PYG{n}{torch}\PYG{o}{.}\PYG{n}{device}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{cuda}\PYG{l+s+s2}{\PYGZdq{}} \PYG{k}{if} \PYG{n}{torch}\PYG{o}{.}\PYG{n}{cuda}\PYG{o}{.}\PYG{n}{is\PYGZus{}available}\PYG{p}{(}\PYG{p}{)} \PYG{k}{else} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{cpu}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+\PYG{k}{def} \PYG{n+nf}{seed\PYGZus{}torch}\PYG{p}{(}\PYG{n}{seed}\PYG{p}{)}\PYG{p}{:}
+	\PYG{n}{torch}\PYG{o}{.}\PYG{n}{manual\PYGZus{}seed}\PYG{p}{(}\PYG{n}{seed}\PYG{p}{)}
+	\PYG{n}{torch}\PYG{o}{.}\PYG{n}{cuda}\PYG{o}{.}\PYG{n}{manual\PYGZus{}seed}\PYG{p}{(}\PYG{n}{seed}\PYG{p}{)}
+	\PYG{n}{torch}\PYG{o}{.}\PYG{n}{cuda}\PYG{o}{.}\PYG{n}{manual\PYGZus{}seed\PYGZus{}all}\PYG{p}{(}\PYG{n}{seed}\PYG{p}{)}
+	\PYG{n}{torch}\PYG{o}{.}\PYG{n}{backends}\PYG{o}{.}\PYG{n}{cudnn}\PYG{o}{.}\PYG{n}{deterministic} \PYG{o}{=} \PYG{k+kc}{True}
+	\PYG{n}{torch}\PYG{o}{.}\PYG{n}{backends}\PYG{o}{.}\PYG{n}{cudnn}\PYG{o}{.}\PYG{n}{benchmark} \PYG{o}{=} \PYG{k+kc}{False}
+\PYG{n}{seed\PYGZus{}torch}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{)}
+
+\PYG{k}{class} \PYG{n+nc}{Autoencoder}\PYG{p}{(}\PYG{n}{nn}\PYG{o}{.}\PYG{n}{Module}\PYG{p}{)}\PYG{p}{:}
+	\PYG{k}{def} \PYG{n+nf+fm}{\PYGZus{}\PYGZus{}init\PYGZus{}\PYGZus{}}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{input\PYGZus{}dim}\PYG{p}{,} \PYG{n}{code\PYGZus{}dim}\PYG{p}{,} \PYG{n}{activation}\PYG{o}{=}\PYG{k+kc}{None}\PYG{p}{)}\PYG{p}{:}
+		\PYG{n+nb}{super}\PYG{p}{(}\PYG{n}{Autoencoder}\PYG{p}{,} \PYG{n+nb+bp}{self}\PYG{p}{)}\PYG{o}{.}\PYG{n+nf+fm}{\PYGZus{}\PYGZus{}init\PYGZus{}\PYGZus{}}\PYG{p}{(}\PYG{p}{)}
+		\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{encoder} \PYG{o}{=} \PYG{n}{nn}\PYG{o}{.}\PYG{n}{Linear}\PYG{p}{(}\PYG{n}{input\PYGZus{}dim}\PYG{p}{,} \PYG{n}{code\PYGZus{}dim}\PYG{p}{,} \PYG{n}{dtype}\PYG{o}{=}\PYG{n}{torch}\PYG{o}{.}\PYG{n}{float64}\PYG{p}{)}
+		\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{decoder} \PYG{o}{=} \PYG{n}{nn}\PYG{o}{.}\PYG{n}{Linear}\PYG{p}{(}\PYG{n}{code\PYGZus{}dim}\PYG{p}{,} \PYG{n}{input\PYGZus{}dim}\PYG{p}{,} \PYG{n}{dtype}\PYG{o}{=}\PYG{n}{torch}\PYG{o}{.}\PYG{n}{float64}\PYG{p}{)}
+		\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{activation} \PYG{o}{=} \PYG{n}{activation}
+	\PYG{k}{def} \PYG{n+nf}{forward}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{x}\PYG{p}{)}\PYG{p}{:}
+		\PYG{k}{if} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{activation}\PYG{p}{:}
+			\PYG{n}{encoded} \PYG{o}{=} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{activation}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{encoder}\PYG{p}{(}\PYG{n}{x}\PYG{p}{)}\PYG{p}{)}
+			\PYG{n}{decoded} \PYG{o}{=} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{decoder}\PYG{p}{(}\PYG{n}{encoded}\PYG{p}{)}
+		\PYG{k}{else}\PYG{p}{:}
+			\PYG{n}{encoded} \PYG{o}{=} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{encoder}\PYG{p}{(}\PYG{n}{x}\PYG{p}{)}
+			\PYG{n}{decoded} \PYG{o}{=} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{decoder}\PYG{p}{(}\PYG{n}{encoded}\PYG{p}{)}
+		\PYG{k}{return} \PYG{n}{decoded}
+
+\PYG{k}{def} \PYG{n+nf}{train\PYGZus{}autoencoder}\PYG{p}{(}\PYG{n}{model}\PYG{p}{,} \PYG{n}{data}\PYG{p}{,} \PYG{n}{epochs}\PYG{o}{=}\PYG{l+m+mi}{1000}\PYG{p}{,} \PYG{n}{learning\PYGZus{}rate}\PYG{o}{=}\PYG{l+m+mf}{0.01}\PYG{p}{)}\PYG{p}{:}
+	\PYG{n}{criterion} \PYG{o}{=} \PYG{n}{nn}\PYG{o}{.}\PYG{n}{MSELoss}\PYG{p}{(}\PYG{p}{)}
+	\PYG{n}{optimizer} \PYG{o}{=} \PYG{n}{optim}\PYG{o}{.}\PYG{n}{Adam}\PYG{p}{(}\PYG{n}{model}\PYG{o}{.}\PYG{n}{parameters}\PYG{p}{(}\PYG{p}{)}\PYG{p}{,} \PYG{n}{lr}\PYG{o}{=}\PYG{n}{learning\PYGZus{}rate}\PYG{p}{)}
+	\PYG{k}{for} \PYG{n}{epoch} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n}{epochs}\PYG{p}{)}\PYG{p}{:}
+		\PYG{n}{optimizer}\PYG{o}{.}\PYG{n}{zero\PYGZus{}grad}\PYG{p}{(}\PYG{p}{)}
+		\PYG{n}{reconstructed} \PYG{o}{=} \PYG{n}{model}\PYG{p}{(}\PYG{n}{data}\PYG{p}{)}
+		\PYG{n}{loss} \PYG{o}{=} \PYG{n}{criterion}\PYG{p}{(}\PYG{n}{reconstructed}\PYG{p}{,} \PYG{n}{data}\PYG{p}{)}
+		\PYG{n}{loss}\PYG{o}{.}\PYG{n}{backward}\PYG{p}{(}\PYG{p}{)}
+		\PYG{n}{optimizer}\PYG{o}{.}\PYG{n}{step}\PYG{p}{(}\PYG{p}{)}
+	\PYG{k}{return} \PYG{n}{model}\PYG{p}{,} \PYG{n}{loss}\PYG{o}{.}\PYG{n}{item}\PYG{p}{(}\PYG{p}{)}
+		
+\PYG{c+c1}{\PYGZsh{} Main}
+\PYG{n}{data} \PYG{o}{=} \PYG{n}{pd}\PYG{o}{.}\PYG{n}{read\PYGZus{}csv}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{Pizza.csv}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{features} \PYG{o}{=} \PYG{n}{data}\PYG{o}{.}\PYG{n}{iloc}\PYG{p}{[}\PYG{p}{:}\PYG{p}{,} \PYG{l+m+mi}{2}\PYG{p}{:}\PYG{l+m+mi}{9}\PYG{p}{]}\PYG{o}{.}\PYG{n}{values}
+\PYG{n}{scalar} \PYG{o}{=} \PYG{n}{StandardScaler}\PYG{p}{(}\PYG{p}{)}
+\PYG{n}{features} \PYG{o}{=} \PYG{n}{scalar}\PYG{o}{.}\PYG{n}{fit\PYGZus{}transform}\PYG{p}{(}\PYG{n}{features}\PYG{p}{)}
+\PYG{n}{X} \PYG{o}{=} \PYG{n}{torch}\PYG{o}{.}\PYG{n}{tensor}\PYG{p}{(}\PYG{n}{features}\PYG{p}{,} \PYG{n}{dtype}\PYG{o}{=}\PYG{n}{torch}\PYG{o}{.}\PYG{n}{float64}\PYG{p}{)}\PYG{o}{.}\PYG{n}{to}\PYG{p}{(}\PYG{n}{device}\PYG{p}{)}
+\PYG{n}{input\PYGZus{}dims}\PYG{p}{,} \PYG{n}{hid\PYGZus{}dims} \PYG{o}{=} \PYG{n}{X}\PYG{o}{.}\PYG{n}{shape}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{]}\PYG{p}{,} \PYG{n+nb}{range}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{7}\PYG{p}{)}
+\PYG{c+c1}{\PYGZsh{} Linear}
+\PYG{n}{linear\PYGZus{}mse} \PYG{o}{=} \PYG{p}{[}\PYG{p}{]}
+\PYG{k}{for} \PYG{n}{d} \PYG{o+ow}{in} \PYG{n}{hid\PYGZus{}dims}\PYG{p}{:}
+	\PYG{n}{model} \PYG{o}{=} \PYG{n}{Autoencoder}\PYG{p}{(}\PYG{n}{input\PYGZus{}dims}\PYG{p}{,} \PYG{n}{d}\PYG{p}{)}\PYG{o}{.}\PYG{n}{to}\PYG{p}{(}\PYG{n}{device}\PYG{p}{)}
+	\PYG{n}{trained\PYGZus{}model}\PYG{p}{,} \PYG{n}{mse} \PYG{o}{=} \PYG{n}{train\PYGZus{}autoencoder}\PYG{p}{(}\PYG{n}{model}\PYG{p}{,} \PYG{n}{X}\PYG{p}{)}
+	\PYG{n}{pred\PYGZus{}y} \PYG{o}{=} \PYG{n}{trained\PYGZus{}model}\PYG{p}{(}\PYG{n}{X}\PYG{p}{)}
+	\PYG{n}{mse} \PYG{o}{=} \PYG{n}{torch}\PYG{o}{.}\PYG{n}{mean}\PYG{p}{(}\PYG{p}{(}\PYG{n}{X} \PYG{o}{\PYGZhy{}} \PYG{n}{pred\PYGZus{}y}\PYG{p}{)} \PYG{o}{*}\PYG{o}{*} \PYG{l+m+mi}{2}\PYG{p}{)}\PYG{o}{.}\PYG{n}{item}\PYG{p}{(}\PYG{p}{)}
+	\PYG{n}{linear\PYGZus{}mse}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{mse}\PYG{p}{)}
+	
+\PYG{c+c1}{\PYGZsh{} Result}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{n}{linear\PYGZus{}acc}\PYG{p}{)}
+\end{MintedVerbatim}

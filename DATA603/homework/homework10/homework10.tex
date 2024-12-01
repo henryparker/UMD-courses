@@ -112,7 +112,7 @@
 	framesep=2mm
 }
 
-\title{Machine Learning Homework 8}
+\title{Machine Learning Homework 10}
 \author{Hairui Yin}
 \date{}
 
@@ -120,92 +120,126 @@
 \maketitle
 \noindent {\bf 1.}\\
 \\
-\textbf{(a)} After import useful libraries, let the first 150 samples be used for training and rest 50 for testing. Using bootstrap method, we construct the 50 training datasets from as follow:
+\textbf{(a)} We construct a simple autoencoder with a linear encoder and decoder as an inherit from Autoencoder from torch.nn.module. The data is standized using StandardScaler in sklearn. The model is trained with learning rate of 0.01, optimizer as Adam, loss function as MSE. And seed is fixed. As the code shows below:
 \begin{pythoncode}
+import torch
+import torch.nn as nn
+import torch.optim as optim
 import pandas as pd
-from sklearn.utils import resample
-
-df = pd.read_csv('moonDataset.csv')
-train_data = df.iloc[:150, :]
-test_data = df.iloc[150:, :]
-
-X_train = train_data.iloc[:, :-1].values
-y_train = train_data.iloc[:, -1].values
-X_test = test_data.iloc[:, :-1].values
-y_test = test_data.iloc[:, -1].values
-
-bootstrap_datasets = []
-for i in range(50):
-	X_bootstrap, y_bootstrap = resample(X_train, y_train, n_samples=150, random_state=i)
-	bootstrap_datasets.append((X_bootstrap, y_bootstrap))
-\end{pythoncode}
-\textbf{(b)} We use MLPClassifier in sklearn lib to construct our network. For each training datasets, we train the model and predict data in test set. Each error rate is recorded and shown in histogram.
-\begin{pythoncode}
-from sklearn.neural_network import MLPClassifier
 import matplotlib.pyplot as plt
-from sklearn.metrics import accuracy_score
-\end{pythoncode}
-\newpage
-\begin{pythoncode}
-error_rates = []
-for i in range(50):
-	# Train a feedforward network
-	model = MLPClassifier(hidden_layer_sizes=(10,), max_iter=10000, random_state=i)
-	model.fit(bootstrap_datasets[i][0], bootstrap_datasets[i][1])
+from sklearn.preprocessing import StandardScaler
+
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+def seed_torch(seed):
+	torch.manual_seed(seed)
+	torch.cuda.manual_seed(seed)
+	torch.cuda.manual_seed_all(seed)
+	torch.backends.cudnn.deterministic = True
+	torch.backends.cudnn.benchmark = False
+seed_torch(1)
+
+class Autoencoder(nn.Module):
+	def __init__(self, input_dim, code_dim, activation=None):
+		super(Autoencoder, self).__init__()
+		self.encoder = nn.Linear(input_dim, code_dim, dtype=torch.float64)
+		self.decoder = nn.Linear(code_dim, input_dim, dtype=torch.float64)
+		self.activation = activation
+	def forward(self, x):
+		if self.activation:
+			encoded = self.activation(self.encoder(x))
+			decoded = self.decoder(encoded)
+		else:
+			encoded = self.encoder(x)
+			decoded = self.decoder(encoded)
+		return decoded
+
+def train_autoencoder(model, data, epochs=1000, learning_rate=0.01):
+	criterion = nn.MSELoss()
+	optimizer = optim.Adam(model.parameters(), lr=learning_rate)
+	for epoch in range(epochs):
+		optimizer.zero_grad()
+		reconstructed = model(data)
+		loss = criterion(reconstructed, data)
+		loss.backward()
+		optimizer.step()
+	return model, loss.item()
+		
+# Main
+data = pd.read_csv('Pizza.csv')
+features = data.iloc[:, 2:9].values
+scalar = StandardScaler()
+features = scalar.fit_transform(features)
+X = torch.tensor(features, dtype=torch.float64).to(device)
+input_dims, hid_dims = X.shape[1], range(1, 7)
+# Linear
+linear_mse = []
+for d in hid_dims:
+	model = Autoencoder(input_dims, d).to(device)
+	trained_model, mse = train_autoencoder(model, X)
+	pred_y = trained_model(X)
+	mse = torch.mean((X - pred_y) ** 2).item()
+	linear_mse.append(mse)
 	
-	# Compute error rate on test dataset
-	y_pred = model.predict(X_test)
-	error_rate = 1 - accuracy_score(y_test, y_pred)
-	error_rates.append(error_rate)
-# plot error rate in Histogram
-plt.hist(error_rates, bins=10, edgecolor='k', alpha=0.7)
-plt.title('Histogram of Error Rates')
-plt.xlabel('Error Rate')
-plt.ylabel('Frequency')
+# Result
+print(linear_acc)
+\end{pythoncode}
+
+MSE given by each hidden dimensions is
+\begin{table}[h!]
+	\begin{center}
+		\caption{MSE and hidden size}
+		\begin{tabular}{|c|c|c|c|c|c|c|}
+			\hline
+			h & 1 & 2 & 3 & 4 & 5 & 6\\
+			\hline
+			MSE & 0.4040 & 0.0768 & 0.0176 & 0.0040 & 0.0001 & 0.00006\\
+			\hline
+		\end{tabular}
+	\end{center}
+\end{table}
+\newpage
+\noindent \textbf{(b)} We add ReLU activation function before the hidden layer, and retrain the model. The code follows is:
+\begin{pythoncode}
+relu_mse = []
+for d in hid_dims:
+	relu_model = Autoencoder(input_dims, d, activation=nn.ReLU()).to(device)
+	relu_model, mse = train_autoencoder(relu_model, X)
+	reconstructed = relu_model(X)
+	mse = torch.mean((X - reconstructed) ** 2).item()
+	relu_mse.append(mse)
+	
+# Result
+print(relu_mse)
+\end{pythoncode}
+Then we plot the MSE as a function of h (both linear and non-linear):
+\begin{pythoncode}
+plt.plot(hid_dims, linear_mse, label='Linear Autoencoder')
+plt.plot(hid_dims, relu_mse, label='ReLU Autoencoder')
+plt.xlabel('Code Dimension (h)')
+plt.ylabel('Mean Squared Error (MSE)')
+plt.title('MSE vs Code Dimension')
+plt.legend()
 plt.show()
 \end{pythoncode}
-The figure shows below
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.8] {q1.png}
 \end{figure}
 \newpage
-\textbf{(c)} In this problem, we use decision tree as our classifier. After the code in (a) and (b), we use BaggingClassifier in scikit lib. Then we construct the new binary classifier using bagging with different ensemble size as follows:
+\noindent {\bf 2.}\\
+The optimal autoencoder in \textbf{q1} has hidden layer dimension $h=6$. Let the encoder weight matrix be $W$, decoder weight matrix be $V$, encoder bias be $W_b$ and decoder bias be $V_b$, we can get these item using code below:
 \begin{pythoncode}
-from sklearn.ensemble import BaggingClassifier
-from sklearn.tree import DecisionTreeClassifier
-
-ensemble_sizes = [5, 10, 15, 20]
-error_rates_bagging = []
-for m in ensemble_sizes:
-	# Bagging classifier with a decision tree as the base estimator
-	bagging_model = BaggingClassifier(
-	estimator=DecisionTreeClassifier(),
-	n_estimators=m,
-	random_state=42
-	)
-	bagging_model.fit(X_train, y_train)
-	
-	# Predict on test data
-	y_pred = bagging_model.predict(X_test)
-	
-	# Calculate error rate
-	error_rate = 1 - accuracy_score(y_test, y_pred)
-	error_rates_bagging.append(error_rate)
-# Plot
-plt.bar(ensemble_sizes, error_rates_bagging, width=3, edgecolor='k', alpha=0.7)
-plt.title('Error Rate vs Ensemble Size (Bagging)')
-plt.xlabel('Ensemble Size (m)')
-plt.ylabel('Error Rate')
-plt.xticks(ensemble_sizes)
-plt.grid(axis='y', linestyle='--', alpha=0.7)
-plt.show()
+W, V = trained_model.encoder.weight.data, trained_model.decoder.weight.data
+Wb, Vb = trained_model.encoder.bias, trained_model.decoder.bias
+W, V, Wb, Vb
 \end{pythoncode}
-The figure shows below
+And output is:
 \begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.8] {q1c.png}
+	\includegraphics[scale=0.6] {q2.png}
 \end{figure}
+Consider shape of W is $[6,7]$, shape of Wb is $[6]$, shape of V is $[7, 6]$, shape of $V_b$ is $[7]$, and singular values of $X$ has shape $[7]$. The MSE value given input $x$ is calculated through:
+$$MSE=V(Wx+W_b)+V_b$$
 %\\
 
 \end{document}

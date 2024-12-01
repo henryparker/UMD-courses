@@ -1,0 +1,12 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{n}{relu\PYGZus{}mse} \PYG{o}{=} \PYG{p}{[}\PYG{p}{]}
+\PYG{k}{for} \PYG{n}{d} \PYG{o+ow}{in} \PYG{n}{hid\PYGZus{}dims}\PYG{p}{:}
+	\PYG{n}{relu\PYGZus{}model} \PYG{o}{=} \PYG{n}{Autoencoder}\PYG{p}{(}\PYG{n}{input\PYGZus{}dims}\PYG{p}{,} \PYG{n}{d}\PYG{p}{,} \PYG{n}{activation}\PYG{o}{=}\PYG{n}{nn}\PYG{o}{.}\PYG{n}{ReLU}\PYG{p}{(}\PYG{p}{)}\PYG{p}{)}\PYG{o}{.}\PYG{n}{to}\PYG{p}{(}\PYG{n}{device}\PYG{p}{)}
+	\PYG{n}{relu\PYGZus{}model}\PYG{p}{,} \PYG{n}{mse} \PYG{o}{=} \PYG{n}{train\PYGZus{}autoencoder}\PYG{p}{(}\PYG{n}{relu\PYGZus{}model}\PYG{p}{,} \PYG{n}{X}\PYG{p}{)}
+	\PYG{n}{reconstructed} \PYG{o}{=} \PYG{n}{relu\PYGZus{}model}\PYG{p}{(}\PYG{n}{X}\PYG{p}{)}
+	\PYG{n}{mse} \PYG{o}{=} \PYG{n}{torch}\PYG{o}{.}\PYG{n}{mean}\PYG{p}{(}\PYG{p}{(}\PYG{n}{X} \PYG{o}{\PYGZhy{}} \PYG{n}{reconstructed}\PYG{p}{)} \PYG{o}{*}\PYG{o}{*} \PYG{l+m+mi}{2}\PYG{p}{)}\PYG{o}{.}\PYG{n}{item}\PYG{p}{(}\PYG{p}{)}
+	\PYG{n}{relu\PYGZus{}mse}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{mse}\PYG{p}{)}
+	
+\PYG{c+c1}{\PYGZsh{} Result}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{n}{relu\PYGZus{}mse}\PYG{p}{)}
+\end{MintedVerbatim}

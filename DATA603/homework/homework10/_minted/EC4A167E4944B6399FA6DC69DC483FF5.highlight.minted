@@ -1,0 +1,5 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{n}{W}\PYG{p}{,} \PYG{n}{V} \PYG{o}{=} \PYG{n}{trained\PYGZus{}model}\PYG{o}{.}\PYG{n}{encoder}\PYG{o}{.}\PYG{n}{weight}\PYG{o}{.}\PYG{n}{data}\PYG{p}{,} \PYG{n}{trained\PYGZus{}model}\PYG{o}{.}\PYG{n}{decoder}\PYG{o}{.}\PYG{n}{weight}\PYG{o}{.}\PYG{n}{data}
+\PYG{n}{Wb}\PYG{p}{,} \PYG{n}{Vb} \PYG{o}{=} \PYG{n}{trained\PYGZus{}model}\PYG{o}{.}\PYG{n}{encoder}\PYG{o}{.}\PYG{n}{bias}\PYG{p}{,} \PYG{n}{trained\PYGZus{}model}\PYG{o}{.}\PYG{n}{decoder}\PYG{o}{.}\PYG{n}{bias}
+\PYG{n}{W}\PYG{p}{,} \PYG{n}{V}\PYG{p}{,} \PYG{n}{Wb}\PYG{p}{,} \PYG{n}{Vb}
+\end{MintedVerbatim}
