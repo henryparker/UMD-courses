@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.11.9)  1 DEC 2024 18:10
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.11.9)  2 DEC 2024 00:09
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -393,12 +393,12 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 \pydata@fh@_746A06DA93F55B4041D149F74D3C3390.data.minted=\write5
 \openout5 = `_746A06DA93F55B4041D149F74D3C3390.data.minted'.
 
-runsystem(latexminted config  --timestamp 20241201181053 746A06DA93F55B4041D149
+runsystem(latexminted config  --timestamp 20241202000911 746A06DA93F55B4041D149
 F74D3C3390)...executed safely (allowed).
 
 
 (./_746A06DA93F55B4041D149F74D3C3390.config.minted)
-runsystem(latexminted cleanconfig  --timestamp 20241201181053 746A06DA93F55B404
+runsystem(latexminted cleanconfig  --timestamp 20241202000911 746A06DA93F55B404
 1D149F74D3C3390)...executed safely (allowed).
 
 
@@ -482,11 +482,13 @@ fb><d:/Software/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pf
 b><d:/Software/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb
 ><d:/Software/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb>
 <d:/Software/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb><d
-:/Software/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on homework10.pdf (4 pages, 266522 bytes).
+:/Software/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb><d:/
+Software/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><d:/
+Software/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
+Output written on homework10.pdf (4 pages, 283114 bytes).
 PDF statistics:
- 62 PDF objects out of 1000 (max. 8388607)
- 35 compressed objects within 1 object stream
+ 72 PDF objects out of 1000 (max. 8388607)
+ 41 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  11 words of extra memory for PDF output out of 10000 (max. 10000000)
 

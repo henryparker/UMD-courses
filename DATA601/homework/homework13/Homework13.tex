@@ -1,0 +1,196 @@
+
+\documentclass[12pt]{article}
+%\documentstyle[12pt]{article}
+%\documentclass{amsart}
+%\usepackage[dvips]{graphicx}
+
+
+\usepackage{amssymb,amsmath,amscd,amsthm}
+%\usepackage{graphicx,psfrag,epsfig,multirow} LINEA ORIGINAL
+\usepackage{graphicx,psfrag,epsfig}
+
+
+\usepackage{graphicx}
+\usepackage[active]{srcltx}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{lemma}[theorem]{Lemma}
+%\newtheorem{remark}[theorem]{Remark}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{axiom}{Axiom}
+\newtheorem{remark}{Remark}
+\newtheorem{exercise}{Exercise}[section]
+
+\newcommand{\thmref}[1]{Theorem~\ref{#1}}
+\newcommand{\propref}[1]{Proposition~\ref{#1}}
+\newcommand{\secref}[1]{\S\ref{#1}}
+\newcommand{\lemref}[1]{Lemma~\ref{#1}}
+\newcommand{\corref}[1]{Corollary~\ref{#1}}
+\newcommand{\remref}[1]{Remark~\ref{#1}}
+
+
+
+\setlength{\topmargin}{0mm}
+\setlength{\oddsidemargin}{0mm}
+\setlength{\textwidth}{160mm}
+\setlength{\textheight}{215mm}
+\font\bbc=msbm10 scaled 1200
+\newcommand{\E}{\mathbf{E}}
+\newcommand{\R}{\mbox {\bbc R}}
+\newcommand{\T}{\mbox {\bbc T}}
+\newcommand{\Z}{\mbox {\bbc Z}}
+\def\stackunder#1#2{\mathrel{\mathop{#2}\limits_{#1}}}
+
+\def\Area{{\rm Area}}
+\def\Const{{\rm Const}}
+\def\Int{{\rm Int}}
+
+\def\eps{{\varepsilon}}
+
+\def\EXP{\mathbb{E}}
+\def\GR{\mathbb{G}}
+\def\PROB{\mathbb{P}}
+\def\TOR{\mathbb{T}}
+
+\def\naturals{\mathbb{N}}
+
+\def\brGamma{{\bar\Gamma}}
+\def\brgamma{{\bar\gamma}}
+\def\brtau{{\bar\tau}}
+\def\brtheta{{\bar\theta}}
+\def\brchi{{\bar\chi}}
+
+\def\bI{{\bf I}}
+
+\def\cE{\mathcal{E}}
+\def\cG{\mathcal{C}}
+\def\cL{\mathcal{L}}
+\def\cU{\mathcal{U}}
+\def\cZ{\mathcal{Z}}
+
+\def\hN{{\hat N}}
+\def\hn{{\hat n}}
+\def\hy{{\hat y}}
+\def\hGamma{{\hat\Gamma}}
+\def\hdelta{{\hat\delta}}
+\def\hsigma{{\hat\sigma}}
+\def\htau{{\hat\tau}}
+\def\heta{{\hat\eta}}
+\def\htheta{{\hat\theta}}
+
+\def\tW{{\tilde W}}
+\def\tM{{\tilde M}}
+\def\tX{{\tilde X}}
+\def\tc{{\tilde c}}
+\def\tp{{\tilde p}}
+\def\tq{{\tilde q}}
+\def\tdelta{{\tilde\delta}}
+\def\teta{{\tilde\eta}}
+\def\txi{{\tilde\xi}}
+\def\tsigma{{\tilde\sigma}}
+\def\ttheta{{\tilde\theta}}
+
+\title{Probability and Statistics Homework 13}
+\author{Hairui Yin}
+\date{}
+
+\begin{document}
+\maketitle
+\noindent{\bf 1.} Let $X_1,...,X_n$ be a random sample from a distribution $X$ with the density function
+\begin{equation*}
+	f(x;\theta)=\left\{
+	\begin{aligned}
+		&\frac{1}{2}(1+\theta x), && x\in [-1, 1]\\
+		&0, && x\notin [-1,1]
+	\end{aligned}
+	\right.
+\end{equation*}
+that depends on the parameter $\theta$. Find $k$ such that $k\bar{X}_n$ is an unbiased estimator for $\theta$, where
+\begin{equation*}
+	\bar{X}_n=\frac{X_1+...+X_n}{n}
+\end{equation*}
+\\
+{\bf Answer:}\\ Since $k\bar{X}_n$ is an unbiased estimator for $\theta$, we have
+\begin{align*}
+	E[k\bar{X}_n]-\theta=0
+\end{align*}
+\begin{align*}
+	E[k\bar{X}_n]-\theta&=kE[\frac{X_1+...+X_n}{n}]-\theta\\
+	&=\frac{k}{n}\times nE[X_1]-\theta\quad (i.i.d.)\\
+	&=k\int^1_{-1}\frac{1}{2}x(1+\theta x)\ dx-\theta\\
+	&=\frac{\theta}{3}k-\theta=0 \Rightarrow k=3
+\end{align*}
+Therefore, $k=3$ if $k\bar{X}_n$ is an unbiased estimator for $\theta$.
+\newpage
+\noindent{\bf 2.} Let $X_1,...,X_n$ be a random sample from a distribution $X$ with the density function (that depends on ($\lambda, \theta$))
+\begin{equation*}
+	f(x;\theta)=\left\{
+	\begin{aligned}
+		&\lambda e^{-\lambda(x-\theta)}, && x>\theta\\
+		&0, && x\leq\theta
+	\end{aligned}
+	\right.
+\end{equation*}
+with $\lambda>0$ and $\theta\in \mathcal{R}$.\\
+\indent 1. Find the methods of maximum likelihood estimator for $(\lambda, \theta)$.\\
+\indent 2. Find the corresponding estimate of $(\lambda, \theta)$ when $n=10$ and $x_1=3,x_2=0.5,x_3=2.5,x_4=2,x_5=5,x_6=3.5,x_7=10,x_8=9,x_9=18,x_{10}=1.5$.
+\\
+{\bf Answer:}\\
+{\bf 1.} Given the random sample $X_1,...,X_n$, the likelihood function is
+$$L(\lambda,\theta)=\prod_{i=1}^{n}f(X_i;\lambda,\theta)$$
+Since $f(x;\lambda,\theta)=0$ for $x\leq \theta$, we require $\theta\leq min(X_i)$. For $x_i>\theta$, we have
+\begin{align*}
+	L(\lambda,\theta)&=\prod_{i=1}^{n}f(X_i;\lambda,\theta)\\
+	&=\lambda^ne^{-\lambda\sum_{i=1}^{n}(X_i-\theta)}
+\end{align*}
+Taking the log:
+\begin{align*}
+	l(\lambda,\theta)&=n\ln{\lambda}-\lambda\sum_{i=1}^{n}(X_i-\theta)\\
+	&=n\ln{\lambda}+\lambda n\theta -\lambda\sum_{i=1}^{n}X_i
+\end{align*}
+Since $\lambda>0$ and $n>0$, increase $\theta$ will increase the above formula. For that we have the constrain of the max value of $\theta$, thus $\theta^*=min(X_i)$.\\
+Then we maximize the likelihood with respect to $\lambda$ given $\theta^*=min(X_i)$. Consider the derivative of $\lambda$ and set it to zero
+\begin{align*}
+	\frac{\partial l}{\partial \lambda}=\frac{n}{\lambda}+n\theta^* -\sum_{i=1}^{n}X_i=0\\
+	\Rightarrow\lambda^*=\frac{n}{\sum_{i=1}^{n}(X_i-\theta^*)}
+\end{align*}
+Therefore, the maximum likelihood estimator for $(\lambda, \theta)$ is $\theta^*=min(X_1,...,X_n), \lambda^*=\frac{n}{\sum_{i=1}^{n}(X_i-\theta^*)}$.\\
+\newpage
+\noindent {\bf 2.} First, for $\theta$, with the answer of part 1, we have
+$$\theta^*=min(X_i)=0.5$$
+Then we can find $\lambda^*$ as
+\begin{align*}
+	\lambda^*&=\frac{n}{\sum_{i=1}^{n}(X_i-\theta^*)}\\
+	&=\frac{10}{\sum_{i=1}^{10}X_i-5}\\
+	&=\frac{10}{55-5}\\
+	&=0.2
+\end{align*}
+Therefore, the MLE for $(\lambda,\theta)$ given samples is $\theta^*=0.5,\lambda^*=0.2$.
+\newpage
+\noindent{\bf 3.} Let $x_1,x_2,...,x_n$ be independent and identically disputed samples from uniform distribution on the set $[0,\theta]$. (These values might look like $x_1=2.325,x_2=1.1242,x_3=9.262$,etc...) What is the MLE of $\theta$?
+\\
+{\bf Answer:}\\ The uniform distribution on $[0,\theta]$ has PDF
+$$
+f(x;\theta)=\left\{
+\begin{aligned}
+	&\frac{1}{\theta},&&0\leq x\leq \theta\\
+	&0,&&otherwise
+\end{aligned}
+\right.
+$$
+where $\theta>0$.
+Given $x_1,...,x_n$ i.i.d. samples, the likelihood function is
+\begin{align*}
+	L(\theta)&=\prod_{i=1}^{n}f(x_i;\theta)\\
+	&=\prod_{i=1}^{n}\frac{1}{\theta}\times \mathbf{1}(0\leq x_i\leq \theta)\\
+	&=\frac{1}{\theta^n} \mathbf{1}(\theta\geq max(x_1,...,x_n))
+\end{align*}
+To let $L(\theta)>0$, $\theta$ must be large or equal than $max(x_1,...,x_n)$. So that the formula turns to
+$$L(\theta)=\frac{1}{\theta^n}$$
+The formula increase with a decreasing $\theta$, since we have a constrain of $\theta\geq max(x_1,...,x_n)$, $\theta^*=max(x_1,...,x_n)$.\\
+Therefore, the MLE of $\theta$ is $\theta^*=max(x_1,...,x_n)$
+\end{document}

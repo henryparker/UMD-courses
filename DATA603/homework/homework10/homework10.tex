@@ -239,7 +239,7 @@ And output is:
 	\includegraphics[scale=0.6] {q2.png}
 \end{figure}
 Consider shape of W is $[6,7]$, shape of Wb is $[6]$, shape of V is $[7, 6]$, shape of $V_b$ is $[7]$, and singular values of $X$ has shape $[7]$. The MSE value given input $x$ is calculated through:
-$$MSE=V(Wx+W_b)+V_b$$
+$$MSE=||V(Wx+W_b)+V_b-x||_F^2$$
 %\\
 
 \end{document}
