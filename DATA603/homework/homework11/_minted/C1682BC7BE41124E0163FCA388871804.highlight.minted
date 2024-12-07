@@ -1,0 +1,26 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{k}{def} \PYG{n+nf}{EuclideanDistance}\PYG{p}{(}\PYG{n}{v}\PYG{p}{,} \PYG{n}{axis}\PYG{p}{)}\PYG{p}{:}
+	\PYG{k}{return} \PYG{n}{np}\PYG{o}{.}\PYG{n}{linalg}\PYG{o}{.}\PYG{n}{norm}\PYG{p}{(}\PYG{n}{v}\PYG{p}{,} \PYG{n}{axis}\PYG{o}{=}\PYG{n}{axis}\PYG{p}{)}
+\PYG{k}{def} \PYG{n+nf}{ManhattanDistance}\PYG{p}{(}\PYG{n}{v}\PYG{p}{,} \PYG{n}{axis}\PYG{p}{)}\PYG{p}{:}
+	\PYG{k}{return} \PYG{n}{np}\PYG{o}{.}\PYG{n}{sum}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{abs}\PYG{p}{(}\PYG{n}{v}\PYG{p}{)}\PYG{p}{,} \PYG{n}{axis}\PYG{o}{=}\PYG{n}{axis}\PYG{p}{)}
+\PYG{k}{def} \PYG{n+nf}{AvgSilhouetteScore}\PYG{p}{(}\PYG{n}{data}\PYG{p}{,} \PYG{n}{labels}\PYG{p}{,} \PYG{n}{distance}\PYG{p}{)}\PYG{p}{:}
+	\PYG{n}{AvgS} \PYG{o}{=} \PYG{l+m+mi}{0}
+	\PYG{n}{unique\PYGZus{}labels} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{unique}\PYG{p}{(}\PYG{n}{labels}\PYG{p}{)}
+	\PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{labels}\PYG{p}{)}\PYG{p}{)}\PYG{p}{:}
+		\PYG{n}{cur\PYGZus{}sample} \PYG{o}{=} \PYG{n}{data}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}
+		\PYG{n}{cur\PYGZus{}label} \PYG{o}{=} \PYG{n}{labels}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}
+		
+		\PYG{n}{same\PYGZus{}cluster} \PYG{o}{=} \PYG{n}{data}\PYG{p}{[}\PYG{n}{labels} \PYG{o}{==} \PYG{n}{cur\PYGZus{}label}\PYG{p}{]}
+		\PYG{n}{a} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{mean}\PYG{p}{(}\PYG{p}{[}\PYG{n}{distance}\PYG{p}{(}\PYG{n}{cur\PYGZus{}sample} \PYG{o}{\PYGZhy{}} \PYG{n}{sample}\PYG{p}{,} \PYG{n}{axis}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{)}\PYGZbs{}
+		 \PYG{k}{for} \PYG{n}{sample} \PYG{o+ow}{in} \PYG{n}{same\PYGZus{}cluster} \PYG{k}{if} \PYG{o+ow}{not} \PYG{n}{np}\PYG{o}{.}\PYG{n}{array\PYGZus{}equal}\PYG{p}{(}\PYG{n}{cur\PYGZus{}sample}\PYG{p}{,} \PYG{n}{sample}\PYG{p}{)}\PYG{p}{]}\PYG{p}{)}
+		
+		\PYG{n}{b} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{inf}
+		\PYG{k}{for} \PYG{n}{label} \PYG{o+ow}{in} \PYG{n}{unique\PYGZus{}labels}\PYG{p}{:}
+			\PYG{k}{if} \PYG{n}{label} \PYG{o}{!=} \PYG{n}{cur\PYGZus{}label}\PYG{p}{:}
+				\PYG{n}{other\PYGZus{}cluster} \PYG{o}{=} \PYG{n}{data}\PYG{p}{[}\PYG{n}{labels} \PYG{o}{==} \PYG{n}{label}\PYG{p}{]}
+				\PYG{n}{b} \PYG{o}{=} \PYG{n+nb}{min}\PYG{p}{(}\PYG{n}{b}\PYG{p}{,} \PYG{n}{np}\PYG{o}{.}\PYG{n}{mean}\PYG{p}{(}\PYG{p}{[}\PYG{n}{distance}\PYG{p}{(}\PYG{n}{cur\PYGZus{}sample} \PYG{o}{\PYGZhy{}} \PYG{n}{sample}\PYG{p}{,} \PYG{n}{axis}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{)}\PYGZbs{}
+				 \PYG{k}{for} \PYG{n}{sample} \PYG{o+ow}{in} \PYG{n}{other\PYGZus{}cluster}\PYG{p}{]}\PYG{p}{)}\PYG{p}{)}
+		
+		\PYG{n}{AvgS} \PYG{o}{+}\PYG{o}{=} \PYG{p}{(}\PYG{n}{b} \PYG{o}{\PYGZhy{}} \PYG{n}{a}\PYG{p}{)} \PYG{o}{/} \PYG{n+nb}{max}\PYG{p}{(}\PYG{n}{a}\PYG{p}{,} \PYG{n}{b}\PYG{p}{)}
+	\PYG{k}{return} \PYG{n}{AvgS} \PYG{o}{/} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{labels}\PYG{p}{)}
+\end{MintedVerbatim}

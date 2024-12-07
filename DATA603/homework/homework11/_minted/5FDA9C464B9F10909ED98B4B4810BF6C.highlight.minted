@@ -1,0 +1,32 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{k}{class} \PYG{n+nc}{Kmeans}\PYG{p}{:}
+\PYG{k}{def} \PYG{n+nf+fm}{\PYGZus{}\PYGZus{}init\PYGZus{}\PYGZus{}}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{k}\PYG{p}{,} \PYG{n}{distance}\PYG{p}{,} \PYG{n}{max\PYGZus{}iters}\PYG{o}{=}\PYG{l+m+mi}{10000}\PYG{p}{,} \PYG{n}{tol}\PYG{o}{=}\PYG{l+m+mf}{1e\PYGZhy{}4}\PYG{p}{)}\PYG{p}{:}
+	\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{k} \PYG{o}{=} \PYG{n}{k}
+	\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{distance} \PYG{o}{=} \PYG{n}{distance}
+	\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{max\PYGZus{}iters} \PYG{o}{=} \PYG{n}{max\PYGZus{}iters}
+	\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{tol} \PYG{o}{=} \PYG{n}{tol}
+	\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{centroids} \PYG{o}{=} \PYG{k+kc}{None}
+	
+	\PYG{k}{def} \PYG{n+nf}{\PYGZus{}init\PYGZus{}centroids}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{data}\PYG{p}{)}\PYG{p}{:}
+		\PYG{n}{indices} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{random}\PYG{o}{.}\PYG{n}{choice}\PYG{p}{(}\PYG{n}{data}\PYG{o}{.}\PYG{n}{shape}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}\PYG{p}{,} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{k}\PYG{p}{,} \PYG{n}{replace}\PYG{o}{=}\PYG{k+kc}{False}\PYG{p}{)}
+		\PYG{k}{return} \PYG{n}{data}\PYG{p}{[}\PYG{n}{indices}\PYG{p}{]}
+		
+	\PYG{k}{def} \PYG{n+nf}{\PYGZus{}assign\PYGZus{}clusters}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{data}\PYG{p}{)}\PYG{p}{:}
+		\PYG{n}{distances} \PYG{o}{=} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{distance}\PYG{p}{(}\PYG{n}{data}\PYG{p}{[}\PYG{p}{:}\PYG{p}{,} \PYG{n}{np}\PYG{o}{.}\PYG{n}{newaxis}\PYG{p}{]} \PYG{o}{\PYGZhy{}} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{centroids}\PYG{p}{,} \PYG{n}{axis}\PYG{o}{=}\PYG{l+m+mi}{2}\PYG{p}{)}
+		\PYG{k}{return} \PYG{n}{np}\PYG{o}{.}\PYG{n}{argmin}\PYG{p}{(}\PYG{n}{distances}\PYG{p}{,} \PYG{n}{axis}\PYG{o}{=}\PYG{l+m+mi}{1}\PYG{p}{)}
+	
+	\PYG{k}{def} \PYG{n+nf}{\PYGZus{}updata\PYGZus{}centroids}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{data}\PYG{p}{,} \PYG{n}{labels}\PYG{p}{)}\PYG{p}{:}
+		\PYG{k}{return} \PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{(}\PYG{p}{[}\PYG{n}{data}\PYG{p}{[}\PYG{n}{labels} \PYG{o}{==} \PYG{n}{i}\PYG{p}{]}\PYG{o}{.}\PYG{n}{mean}\PYG{p}{(}\PYG{n}{axis}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{)} \PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{k}\PYG{p}{)}\PYG{p}{]}\PYG{p}{)}
+	
+	\PYG{k}{def} \PYG{n+nf}{fit}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{data}\PYG{p}{)}\PYG{p}{:}
+		\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{centroids} \PYG{o}{=} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}init\PYGZus{}centroids}\PYG{p}{(}\PYG{n}{data}\PYG{p}{)}
+		\PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{max\PYGZus{}iters}\PYG{p}{)}\PYG{p}{:}
+			\PYG{n}{labels} \PYG{o}{=} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}assign\PYGZus{}clusters}\PYG{p}{(}\PYG{n}{data}\PYG{p}{)}
+			\PYG{n}{new\PYGZus{}centroids} \PYG{o}{=} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}updata\PYGZus{}centroids}\PYG{p}{(}\PYG{n}{data}\PYG{p}{,} \PYG{n}{labels}\PYG{p}{)}
+			\PYG{k}{if} \PYG{n}{np}\PYG{o}{.}\PYG{n}{all}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{distance}\PYG{p}{(}\PYG{n}{new\PYGZus{}centroids} \PYG{o}{\PYGZhy{}} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{centroids}\PYG{p}{,} \PYG{n}{axis}\PYG{o}{=}\PYG{l+m+mi}{1}\PYG{p}{)} \PYG{o}{\PYGZlt{}} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{tol}\PYG{p}{)}\PYG{p}{:}
+				\PYG{k}{break}
+			\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{centroids} \PYG{o}{=} \PYG{n}{new\PYGZus{}centroids}
+		
+	\PYG{k}{def} \PYG{n+nf}{predict}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{data}\PYG{p}{)}\PYG{p}{:}
+		\PYG{k}{return} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}assign\PYGZus{}clusters}\PYG{p}{(}\PYG{n}{data}\PYG{p}{)}
+\end{MintedVerbatim}

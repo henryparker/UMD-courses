@@ -1,0 +1,16 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{n}{AvgSScore\PYGZus{}Man} \PYG{o}{=} \PYG{p}{[}\PYG{p}{]}
+\PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n}{K}\PYG{p}{:}
+	\PYG{n}{model} \PYG{o}{=} \PYG{n}{Kmeans}\PYG{p}{(}\PYG{n}{i}\PYG{p}{,} \PYG{n}{EuclideanDistance}\PYG{p}{)}
+	\PYG{n}{model}\PYG{o}{.}\PYG{n}{fit}\PYG{p}{(}\PYG{n}{data}\PYG{p}{)}
+	\PYG{n}{labels} \PYG{o}{=} \PYG{n}{model}\PYG{o}{.}\PYG{n}{predict}\PYG{p}{(}\PYG{n}{data}\PYG{p}{)}
+	\PYG{n}{AvgSScore\PYGZus{}Man}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n+nb}{float}\PYG{p}{(}\PYG{n}{AvgSilhouetteScore}\PYG{p}{(}\PYG{n}{data}\PYG{p}{,} \PYG{n}{labels}\PYG{p}{,} \PYG{n}{ManhattanDistance}\PYG{p}{)}\PYG{p}{)}\PYG{p}{)}
+
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{figure}\PYG{p}{(}\PYG{n}{figsize}\PYG{o}{=}\PYG{p}{(}\PYG{l+m+mi}{8}\PYG{p}{,} \PYG{l+m+mi}{6}\PYG{p}{)}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{bar}\PYG{p}{(}\PYG{n}{K}\PYG{p}{,} \PYG{n}{AvgSScore\PYGZus{}Man}\PYG{p}{,} \PYG{n}{width}\PYG{o}{=}\PYG{l+m+mf}{0.5}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{title}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{Average Silhouette Score given number of clusters (Manhattan Distance)}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{xlabel}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{number of clusters}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{ylabel}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{Average Silhouette Score}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{ylim}\PYG{p}{(}\PYG{l+m+mf}{0.3}\PYG{p}{,} \PYG{l+m+mf}{0.55}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{show}\PYG{p}{(}\PYG{p}{)}
+\end{MintedVerbatim}

@@ -1,0 +1,343 @@
+
+\documentclass[12pt]{article}
+%\documentstyle[12pt]{article}
+%\documentclass{amsart}
+%\usepackage[dvips]{graphicx}
+
+
+\usepackage{amssymb,amsmath,amscd,amsthm}
+%\usepackage{graphicx,psfrag,epsfig,multirow} LINEA ORIGINAL
+\usepackage{graphicx,psfrag,epsfig}
+
+
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage[active]{srcltx}
+
+\usepackage{minted}
+\usepackage{xcolor}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{lemma}[theorem]{Lemma}
+%\newtheorem{remark}[theorem]{Remark}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{axiom}{Axiom}
+\newtheorem{remark}{Remark}
+\newtheorem{exercise}{Exercise}[section]
+
+\newcommand{\thmref}[1]{Theorem~\ref{#1}}
+\newcommand{\propref}[1]{Proposition~\ref{#1}}
+\newcommand{\secref}[1]{\S\ref{#1}}
+\newcommand{\lemref}[1]{Lemma~\ref{#1}}
+\newcommand{\corref}[1]{Corollary~\ref{#1}}
+\newcommand{\remref}[1]{Remark~\ref{#1}}
+
+
+
+\setlength{\topmargin}{0mm}
+\setlength{\oddsidemargin}{0mm}
+\setlength{\textwidth}{160mm}
+\setlength{\textheight}{215mm}
+\font\bbc=msbm10 scaled 1200
+\newcommand{\E}{\mathbf{E}}
+\newcommand{\R}{\mbox {\bbc R}}
+\newcommand{\T}{\mbox {\bbc T}}
+\newcommand{\Z}{\mbox {\bbc Z}}
+\def\stackunder#1#2{\mathrel{\mathop{#2}\limits_{#1}}}
+
+\def\Area{{\rm Area}}
+\def\Const{{\rm Const}}
+\def\Int{{\rm Int}}
+
+\def\eps{{\varepsilon}}
+
+\def\EXP{\mathbb{E}}
+\def\GR{\mathbb{G}}
+\def\PROB{\mathbb{P}}
+\def\TOR{\mathbb{T}}
+
+\def\naturals{\mathbb{N}}
+
+\def\brGamma{{\bar\Gamma}}
+\def\brgamma{{\bar\gamma}}
+\def\brtau{{\bar\tau}}
+\def\brtheta{{\bar\theta}}
+\def\brchi{{\bar\chi}}
+
+\def\bI{{\bf I}}
+
+\def\cE{\mathcal{E}}
+\def\cG{\mathcal{C}}
+\def\cL{\mathcal{L}}
+\def\cU{\mathcal{U}}
+\def\cZ{\mathcal{Z}}
+
+\def\hN{{\hat N}}
+\def\hn{{\hat n}}
+\def\hy{{\hat y}}
+\def\hGamma{{\hat\Gamma}}
+\def\hdelta{{\hat\delta}}
+\def\hsigma{{\hat\sigma}}
+\def\htau{{\hat\tau}}
+\def\heta{{\hat\eta}}
+\def\htheta{{\hat\theta}}
+
+\def\tW{{\tilde W}}
+\def\tM{{\tilde M}}
+\def\tX{{\tilde X}}
+\def\tc{{\tilde c}}
+\def\tp{{\tilde p}}
+\def\tq{{\tilde q}}
+\def\tdelta{{\tilde\delta}}
+\def\teta{{\tilde\eta}}
+\def\txi{{\tilde\xi}}
+\def\tsigma{{\tilde\sigma}}
+\def\ttheta{{\tilde\theta}}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\newminted{python}{
+	linenos=true,
+	bgcolor=backcolour,
+	fontsize=\footnotesize,
+	numbersep=5pt,
+	frame=single,
+	framesep=2mm,
+	tabsize=4,
+	xleftmargin=10pt
+}
+
+\title{Machine Learning Homework 11}
+\author{Hairui Yin}
+\date{}
+
+\begin{document}
+\maketitle
+For the whole problem, code is uploaded in file code.ipynb.\\
+\noindent {\bf 1.}\\
+\\
+\textbf{(a)} We load the data and plot data points using different colors for each label with the following code:
+\begin{pythoncode}
+import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
+
+df = pd.read_csv('HW11-ClusteringData.csv', header=None, names=['x1', 'x2', 'label'])
+plt.figure(figsize=(8, 6))
+for label in df['label'].unique():
+	subset = df[df['label'] == label]
+	plt.scatter(subset['x1'], subset['x2'], label=f"Label {label}", alpha=0.6)
+plt.title("Data Points with Labels")
+plt.xlabel("x1")
+plt.ylabel("x2")
+plt.legend(title="Labels")
+plt.grid(True)
+# plt.show()
+plt.savefig('q1a.png', dpi=600)
+\end{pythoncode}
+The result is shown in the figure:
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.8] {q1a.png}
+\end{figure}
+\noindent \textbf{(b)} In this problem, we set $k\in\{2,3,...,7\}$ and perform KMeans to the data using two distance measurement, Euclidean Distance and Manhattan Distance. And then plot average silhouette coefficient of the data points. After experiment, the optimal value of $k$ is $k=4$, the same as number of data labels. The code is followed the above one. For Euclidean Distance, 
+\begin{pythoncode}
+def EuclideanDistance(v, axis):
+	return np.linalg.norm(v, axis=axis)
+def ManhattanDistance(v, axis):
+	return np.sum(np.abs(v), axis=axis)
+def AvgSilhouetteScore(data, labels, distance):
+	AvgS = 0
+	unique_labels = np.unique(labels)
+	for i in range(len(labels)):
+		cur_sample = data[i]
+		cur_label = labels[i]
+		
+		same_cluster = data[labels == cur_label]
+		a = np.mean([distance(cur_sample - sample, axis=0)\
+		 for sample in same_cluster if not np.array_equal(cur_sample, sample)])
+		
+		b = np.inf
+		for label in unique_labels:
+			if label != cur_label:
+				other_cluster = data[labels == label]
+				b = min(b, np.mean([distance(cur_sample - sample, axis=0)\
+				 for sample in other_cluster]))
+		
+		AvgS += (b - a) / max(a, b)
+	return AvgS / len(labels)
+\end{pythoncode}
+\begin{pythoncode}
+class Kmeans:
+def __init__(self, k, distance, max_iters=10000, tol=1e-4):
+	self.k = k
+	self.distance = distance
+	self.max_iters = max_iters
+	self.tol = tol
+	self.centroids = None
+	
+	def _init_centroids(self, data):
+		indices = np.random.choice(data.shape[0], self.k, replace=False)
+		return data[indices]
+		
+	def _assign_clusters(self, data):
+		distances = self.distance(data[:, np.newaxis] - self.centroids, axis=2)
+		return np.argmin(distances, axis=1)
+	
+	def _updata_centroids(self, data, labels):
+		return np.array([data[labels == i].mean(axis=0) for i in range(self.k)])
+	
+	def fit(self, data):
+		self.centroids = self._init_centroids(data)
+		for i in range(self.max_iters):
+			labels = self._assign_clusters(data)
+			new_centroids = self._updata_centroids(data, labels)
+			if np.all(self.distance(new_centroids - self.centroids, axis=1) < self.tol):
+				break
+			self.centroids = new_centroids
+		
+	def predict(self, data):
+		return self._assign_clusters(data)
+\end{pythoncode}
+\newpage
+\begin{pythoncode}
+np.random.seed(42)
+data = df.iloc[:, :2].to_numpy()
+K = [i for i in range(2, 8, 1)]
+AvgSScore_Euc = []
+for i in K:
+	model = Kmeans(i, EuclideanDistance)
+	model.fit(data)
+	labels = model.predict(data)
+	AvgSScore_Euc.append(float(AvgSilhouetteScore(data, labels, EuclideanDistance)))
+
+plt.figure(figsize=(8, 6))
+plt.bar(K, AvgSScore_Euc, width=0.5)
+plt.title('Average Silhouette Score given number of clusters (Euclidean Distance)')
+plt.xlabel('number of clusters')
+plt.ylabel('Average Silhouette Score')
+plt.ylim(0.3, 0.55)
+plt.show()
+\end{pythoncode}
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.8] {q1b.png}
+\end{figure}
+\newpage
+For Manhattan Distance,
+\begin{pythoncode}
+AvgSScore_Man = []
+for i in K:
+	model = Kmeans(i, EuclideanDistance)
+	model.fit(data)
+	labels = model.predict(data)
+	AvgSScore_Man.append(float(AvgSilhouetteScore(data, labels, ManhattanDistance)))
+
+plt.figure(figsize=(8, 6))
+plt.bar(K, AvgSScore_Man, width=0.5)
+plt.title('Average Silhouette Score given number of clusters (Manhattan Distance)')
+plt.xlabel('number of clusters')
+plt.ylabel('Average Silhouette Score')
+plt.ylim(0.3, 0.55)
+plt.show()
+\end{pythoncode}
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.8] {q1c.png}
+\end{figure}
+\newpage
+\noindent \textbf{(c)}
+In this problem, we set $k\in\{1,2,3,4\}$ and do EM algorithm. We firstly initialize weight, mean and covariance matrix, then repeat e-step, m-step until either reach max iteration or converge. The code is as follows (follow the above):
+\begin{pythoncode}
+from scipy.stats import multivariate_normal
+class EM:
+	def __init__(self, k, max_iter=1000, tol=1e-3):
+		self.k = k
+		self.max_iter=max_iter
+		self.tol = tol
+		self.weight = None
+		self.mean = None
+		self.covariances = None
+	
+	def _init_parameters(self, data):
+		self.weight = np.ones(self.k) / self.k
+		indices = np.random.choice(data.shape[0], self.k, replace=False)
+		self.mean = data[indices]
+		self.covariances = [np.eye(data.shape[1]) for _ in range(self.k)]
+		# print(self.weight, self.mean, self.covariances)
+	
+	def fit(self, data):
+		self._init_parameters(data) 
+		for _ in range(self.max_iter):
+			pre_likelihood = self.log_Marginallikelihood(data)
+			post_prob = self.e_step(data)
+			self.m_step(data, post_prob)
+			log_likelihood = self.log_Marginallikelihood(data)
+			if np.abs(log_likelihood - pre_likelihood) < self.tol:
+				break
+	
+	
+	def log_Marginallikelihood(self, data):
+		log_marginallikelihood = 0 
+		for k in range(self.k):
+			log_marginallikelihood += np.log(self.weight[k] *\
+			  multivariate_normal(self.mean[k], self.covariances[k]).pdf(data).sum())
+		return log_marginallikelihood
+	
+	def e_step(self, data):
+		post_prob = np.zeros((data.shape[0], self.k))
+		for k in range(self.k):
+			post_prob[:, k] = self.weight[k] *\
+			  multivariate_normal(self.mean[k], self.covariances[k]).pdf(data)
+		post_prob /= post_prob.sum(axis=1, keepdims=True)
+		return post_prob
+	
+	def m_step(self, data, post_prob):
+		self.weight = post_prob.sum(axis=0) / data.shape[0]
+		self.mean = np.dot(post_prob.T, data) / post_prob.sum(axis=0)[:, np.newaxis]
+		data_centered = data[:, np.newaxis, :] - self.mean
+		post_prob_extended = post_prob[:, :, np.newaxis]  # Shape: (n_samples, n_components, 1)
+		self.covariances = np.einsum(
+		'ijk,ijl->jkl', data_centered * post_prob_extended, data_centered
+		) / post_prob.sum(axis=0)[:, np.newaxis, np.newaxis]
+
+k = [1, 2, 3, 4]
+for i in k:
+	np.random.seed(42)
+	model = EM(i)
+	model.fit(data)
+	print(f'{i} Gaussian has weight {model.weight}, mean {model.mean}')
+	print('-------------------------------------------------------------')
+\end{pythoncode}
+The result of weight and mean is as follows:
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.8] {q3.png}
+\end{figure}
+We can see with the increasing of $k$, the estimated values are approaching the true values. The contour of density function is shown below:
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.6] {qc1.png}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.6] {qc2.png}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.6] {qc3.png}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.6] {qc4.png}
+\end{figure}
+%\\
+
+\end{document}

@@ -1,0 +1,61 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{from} \PYG{n+nn}{scipy}\PYG{n+nn}{.}\PYG{n+nn}{stats} \PYG{k+kn}{import} \PYG{n}{multivariate\PYGZus{}normal}
+\PYG{k}{class} \PYG{n+nc}{EM}\PYG{p}{:}
+	\PYG{k}{def} \PYG{n+nf+fm}{\PYGZus{}\PYGZus{}init\PYGZus{}\PYGZus{}}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{k}\PYG{p}{,} \PYG{n}{max\PYGZus{}iter}\PYG{o}{=}\PYG{l+m+mi}{1000}\PYG{p}{,} \PYG{n}{tol}\PYG{o}{=}\PYG{l+m+mf}{1e\PYGZhy{}3}\PYG{p}{)}\PYG{p}{:}
+		\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{k} \PYG{o}{=} \PYG{n}{k}
+		\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{max\PYGZus{}iter}\PYG{o}{=}\PYG{n}{max\PYGZus{}iter}
+		\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{tol} \PYG{o}{=} \PYG{n}{tol}
+		\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{weight} \PYG{o}{=} \PYG{k+kc}{None}
+		\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{mean} \PYG{o}{=} \PYG{k+kc}{None}
+		\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{covariances} \PYG{o}{=} \PYG{k+kc}{None}
+	
+	\PYG{k}{def} \PYG{n+nf}{\PYGZus{}init\PYGZus{}parameters}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{data}\PYG{p}{)}\PYG{p}{:}
+		\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{weight} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{ones}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{k}\PYG{p}{)} \PYG{o}{/} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{k}
+		\PYG{n}{indices} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{random}\PYG{o}{.}\PYG{n}{choice}\PYG{p}{(}\PYG{n}{data}\PYG{o}{.}\PYG{n}{shape}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}\PYG{p}{,} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{k}\PYG{p}{,} \PYG{n}{replace}\PYG{o}{=}\PYG{k+kc}{False}\PYG{p}{)}
+		\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{mean} \PYG{o}{=} \PYG{n}{data}\PYG{p}{[}\PYG{n}{indices}\PYG{p}{]}
+		\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{covariances} \PYG{o}{=} \PYG{p}{[}\PYG{n}{np}\PYG{o}{.}\PYG{n}{eye}\PYG{p}{(}\PYG{n}{data}\PYG{o}{.}\PYG{n}{shape}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{]}\PYG{p}{)} \PYG{k}{for} \PYG{n}{\PYGZus{}} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{k}\PYG{p}{)}\PYG{p}{]}
+		\PYG{c+c1}{\PYGZsh{} print(self.weight, self.mean, self.covariances)}
+	
+	\PYG{k}{def} \PYG{n+nf}{fit}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{data}\PYG{p}{)}\PYG{p}{:}
+		\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}init\PYGZus{}parameters}\PYG{p}{(}\PYG{n}{data}\PYG{p}{)}
+		\PYG{k}{for} \PYG{n}{\PYGZus{}} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{max\PYGZus{}iter}\PYG{p}{)}\PYG{p}{:}
+			\PYG{n}{pre\PYGZus{}likelihood} \PYG{o}{=} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{log\PYGZus{}Marginallikelihood}\PYG{p}{(}\PYG{n}{data}\PYG{p}{)}
+			\PYG{n}{post\PYGZus{}prob} \PYG{o}{=} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{e\PYGZus{}step}\PYG{p}{(}\PYG{n}{data}\PYG{p}{)}
+			\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{m\PYGZus{}step}\PYG{p}{(}\PYG{n}{data}\PYG{p}{,} \PYG{n}{post\PYGZus{}prob}\PYG{p}{)}
+			\PYG{n}{log\PYGZus{}likelihood} \PYG{o}{=} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{log\PYGZus{}Marginallikelihood}\PYG{p}{(}\PYG{n}{data}\PYG{p}{)}
+			\PYG{k}{if} \PYG{n}{np}\PYG{o}{.}\PYG{n}{abs}\PYG{p}{(}\PYG{n}{log\PYGZus{}likelihood} \PYG{o}{\PYGZhy{}} \PYG{n}{pre\PYGZus{}likelihood}\PYG{p}{)} \PYG{o}{\PYGZlt{}} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{tol}\PYG{p}{:}
+				\PYG{k}{break}
+	
+	
+	\PYG{k}{def} \PYG{n+nf}{log\PYGZus{}Marginallikelihood}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{data}\PYG{p}{)}\PYG{p}{:}
+		\PYG{n}{log\PYGZus{}marginallikelihood} \PYG{o}{=} \PYG{l+m+mi}{0}
+		\PYG{k}{for} \PYG{n}{k} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{k}\PYG{p}{)}\PYG{p}{:}
+			\PYG{n}{log\PYGZus{}marginallikelihood} \PYG{o}{+}\PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{log}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{weight}\PYG{p}{[}\PYG{n}{k}\PYG{p}{]} \PYG{o}{*}\PYGZbs{}
+			  \PYG{n}{multivariate\PYGZus{}normal}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{mean}\PYG{p}{[}\PYG{n}{k}\PYG{p}{]}\PYG{p}{,} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{covariances}\PYG{p}{[}\PYG{n}{k}\PYG{p}{]}\PYG{p}{)}\PYG{o}{.}\PYG{n}{pdf}\PYG{p}{(}\PYG{n}{data}\PYG{p}{)}\PYG{o}{.}\PYG{n}{sum}\PYG{p}{(}\PYG{p}{)}\PYG{p}{)}
+		\PYG{k}{return} \PYG{n}{log\PYGZus{}marginallikelihood}
+	
+	\PYG{k}{def} \PYG{n+nf}{e\PYGZus{}step}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{data}\PYG{p}{)}\PYG{p}{:}
+		\PYG{n}{post\PYGZus{}prob} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{zeros}\PYG{p}{(}\PYG{p}{(}\PYG{n}{data}\PYG{o}{.}\PYG{n}{shape}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}\PYG{p}{,} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{k}\PYG{p}{)}\PYG{p}{)}
+		\PYG{k}{for} \PYG{n}{k} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{k}\PYG{p}{)}\PYG{p}{:}
+			\PYG{n}{post\PYGZus{}prob}\PYG{p}{[}\PYG{p}{:}\PYG{p}{,} \PYG{n}{k}\PYG{p}{]} \PYG{o}{=} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{weight}\PYG{p}{[}\PYG{n}{k}\PYG{p}{]} \PYG{o}{*}\PYGZbs{}
+			  \PYG{n}{multivariate\PYGZus{}normal}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{mean}\PYG{p}{[}\PYG{n}{k}\PYG{p}{]}\PYG{p}{,} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{covariances}\PYG{p}{[}\PYG{n}{k}\PYG{p}{]}\PYG{p}{)}\PYG{o}{.}\PYG{n}{pdf}\PYG{p}{(}\PYG{n}{data}\PYG{p}{)}
+		\PYG{n}{post\PYGZus{}prob} \PYG{o}{/}\PYG{o}{=} \PYG{n}{post\PYGZus{}prob}\PYG{o}{.}\PYG{n}{sum}\PYG{p}{(}\PYG{n}{axis}\PYG{o}{=}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n}{keepdims}\PYG{o}{=}\PYG{k+kc}{True}\PYG{p}{)}
+		\PYG{k}{return} \PYG{n}{post\PYGZus{}prob}
+	
+	\PYG{k}{def} \PYG{n+nf}{m\PYGZus{}step}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{data}\PYG{p}{,} \PYG{n}{post\PYGZus{}prob}\PYG{p}{)}\PYG{p}{:}
+		\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{weight} \PYG{o}{=} \PYG{n}{post\PYGZus{}prob}\PYG{o}{.}\PYG{n}{sum}\PYG{p}{(}\PYG{n}{axis}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{)} \PYG{o}{/} \PYG{n}{data}\PYG{o}{.}\PYG{n}{shape}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}
+		\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{mean} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{dot}\PYG{p}{(}\PYG{n}{post\PYGZus{}prob}\PYG{o}{.}\PYG{n}{T}\PYG{p}{,} \PYG{n}{data}\PYG{p}{)} \PYG{o}{/} \PYG{n}{post\PYGZus{}prob}\PYG{o}{.}\PYG{n}{sum}\PYG{p}{(}\PYG{n}{axis}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{)}\PYG{p}{[}\PYG{p}{:}\PYG{p}{,} \PYG{n}{np}\PYG{o}{.}\PYG{n}{newaxis}\PYG{p}{]}
+		\PYG{n}{data\PYGZus{}centered} \PYG{o}{=} \PYG{n}{data}\PYG{p}{[}\PYG{p}{:}\PYG{p}{,} \PYG{n}{np}\PYG{o}{.}\PYG{n}{newaxis}\PYG{p}{,} \PYG{p}{:}\PYG{p}{]} \PYG{o}{\PYGZhy{}} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{mean}
+		\PYG{n}{post\PYGZus{}prob\PYGZus{}extended} \PYG{o}{=} \PYG{n}{post\PYGZus{}prob}\PYG{p}{[}\PYG{p}{:}\PYG{p}{,} \PYG{p}{:}\PYG{p}{,} \PYG{n}{np}\PYG{o}{.}\PYG{n}{newaxis}\PYG{p}{]}  \PYG{c+c1}{\PYGZsh{} Shape: (n\PYGZus{}samples, n\PYGZus{}components, 1)}
+		\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{covariances} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{einsum}\PYG{p}{(}
+		\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{ijk,ijl\PYGZhy{}\PYGZgt{}jkl}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{n}{data\PYGZus{}centered} \PYG{o}{*} \PYG{n}{post\PYGZus{}prob\PYGZus{}extended}\PYG{p}{,} \PYG{n}{data\PYGZus{}centered}
+		\PYG{p}{)} \PYG{o}{/} \PYG{n}{post\PYGZus{}prob}\PYG{o}{.}\PYG{n}{sum}\PYG{p}{(}\PYG{n}{axis}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{)}\PYG{p}{[}\PYG{p}{:}\PYG{p}{,} \PYG{n}{np}\PYG{o}{.}\PYG{n}{newaxis}\PYG{p}{,} \PYG{n}{np}\PYG{o}{.}\PYG{n}{newaxis}\PYG{p}{]}
+
+\PYG{n}{k} \PYG{o}{=} \PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{2}\PYG{p}{,} \PYG{l+m+mi}{3}\PYG{p}{,} \PYG{l+m+mi}{4}\PYG{p}{]}
+\PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n}{k}\PYG{p}{:}
+	\PYG{n}{np}\PYG{o}{.}\PYG{n}{random}\PYG{o}{.}\PYG{n}{seed}\PYG{p}{(}\PYG{l+m+mi}{42}\PYG{p}{)}
+	\PYG{n}{model} \PYG{o}{=} \PYG{n}{EM}\PYG{p}{(}\PYG{n}{i}\PYG{p}{)}
+	\PYG{n}{model}\PYG{o}{.}\PYG{n}{fit}\PYG{p}{(}\PYG{n}{data}\PYG{p}{)}
+	\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+si}{\PYGZob{}}\PYG{n}{i}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s1}{ Gaussian has weight }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{model}\PYG{o}{.}\PYG{n}{weight}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s1}{, mean }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{model}\PYG{o}{.}\PYG{n}{mean}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+	\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+\end{MintedVerbatim}
